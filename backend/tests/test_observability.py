@@ -330,16 +330,86 @@ def test_logging_sink_failure_preserves_business_result(monkeypatch):
     assert obs.CONTEXT.get() == {}
 
 
-def test_cli_uncaught_exception_has_no_traceback_or_path(tmp_path):
+def test_cli_uncaught_exception_has_no_traceback_or_path(monkeypatch):
+    monkeypatch.setenv(
+        "DATABASE_URL", "postgresql+psycopg://antecipe:secret-password@127.0.0.1:1/antecipe_test"
+    )
     result = subprocess.run(
-        [sys.executable, "-m", "antecipe.cli", "import-rules", str(tmp_path / SECRET)],
+        [sys.executable, "-m", "antecipe.cli", "worker", "--once"],
         capture_output=True,
         text=True,
     )
     assert result.returncode == 1
     stream = io.StringIO(result.stderr)
     entries = records(stream, "process.failed")
-    assert entries[0]["error"]["error_kind"] == "FileNotFoundError"
+    assert entries[0]["error"]["error_kind"] == "OperationalError"
+    assert_private(stream)
+
+
+def test_bulk_import_logs_each_fund_after_commit_and_replay(db, tmp_path):
+    from antecipe.adapters.admin import PgAdmin
+    from test_input_configurations import configuration, write_config
+
+    obs.configure_logging("antecipe-cli")
+    path = write_config(tmp_path, [configuration(), configuration("01392689000100")])
+    admin = PgAdmin(db)
+    with captured() as stream:
+        imported = admin.import_rules(path)
+        assert admin.import_rules(path) == imported
+    published = records(stream, "rules.publish.finished")
+    reused = records(stream, "rules.reused")
+    for entries in (published, reused):
+        assert len(entries) == 2
+        assert {(r["correlation"]["fund_id"], r["versions"]["rule_version"]) for r in entries} == set(
+            imported
+        )
+    assert all(r["decision"]["replayed"] is False for r in published)
+    assert all(r["decision"]["replayed"] is True for r in reused)
+    assert "92234400000180" not in stream.getvalue()
+    assert "01392689000100" not in stream.getvalue()
+
+
+def test_bulk_rollback_never_logs_partial_publication(db, tmp_path, monkeypatch):
+    from antecipe.adapters import admin
+    from test_input_configurations import configuration, write_config
+
+    obs.configure_logging("antecipe-cli")
+    path = write_config(tmp_path, [configuration(), configuration("01392689000100")])
+    publish = admin.publish
+    calls = []
+
+    def fail_second(*args):
+        calls.append(args[1])
+        if len(calls) == 2:
+            raise RuntimeError(SECRET)
+        return publish(*args)
+
+    monkeypatch.setattr(admin, "publish", fail_second)
+    with captured() as stream, pytest.raises(RuntimeError):
+        admin.PgAdmin(db).import_rules(path)
+    assert records(stream, "rules.import.failed")
+    assert not records(stream, "rules.publish.finished")
+    assert not records(stream, "rules.import.finished")
+    assert_private(stream)
+
+
+@pytest.mark.parametrize("missing", [False, True])
+def test_cli_validation_preserves_exit_code_and_safe_json(tmp_path, missing):
+    from test_input_configurations import configuration, write_config
+
+    payload = configuration()
+    payload["precificacao"]["metodo"] = SECRET
+    path = tmp_path / SECRET if missing else write_config(tmp_path, [payload])
+    result = subprocess.run(
+        [sys.executable, "-m", "antecipe.cli", "import-rules", str(path)], capture_output=True, text=True
+    )
+    assert result.returncode == 2
+    stream = io.StringIO(result.stderr)
+    [failure] = records(stream, "cli.command.failed")
+    assert failure["error"]["error_code"] == (
+        "INFRAESTRUTURA_INDISPONIVEL" if missing else "CONFIGURACAO_INVALIDA"
+    )
+    assert not records(stream, "process.failed")
     assert_private(stream)
 
 

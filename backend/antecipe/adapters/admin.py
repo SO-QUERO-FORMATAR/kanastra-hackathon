@@ -8,7 +8,7 @@ from sqlalchemy import select, insert, update, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from antecipe.adapters.schema import funds, rules, registry, loads, lots
-from antecipe.adapters.config_import import load_rules
+from antecipe.adapters.config_import import load_configurations
 from antecipe.application.errors import AppError
 from antecipe.domain.config import Configuration
 from antecipe.domain.entities import normalize_document, document_root
@@ -82,18 +82,33 @@ class PgAdmin:
             )
             return dict(row) if row else None
 
-    @observed("rules.import", summarize=lambda result: {"fund_id": result[0], "rule_version": result[1]})
-    def import_rules(self, path: Path):
-        fund, configuration = load_rules(path)
+    @observed("rules.import")
+    def import_rules(self, path: Path) -> list[tuple[str, str]]:
+        configurations = load_configurations(path)
+        imported = {}
+        notifications = []
         with self.engine.begin() as c:
-            fid = discover(c, fund["cnpj"], fund["nome"])
-            base = c.scalar(select(funds.c.active_rule).where(funds.c.id == fid).with_for_update())
-            if base:
-                current = c.scalar(select(rules.c.configuration).where(rules.c.id == base))
-                if current == configuration.to_dict():
-                    event("rules.reused", fund_id=fid, rule_version=base, replayed=True)
-                    return fid, base
-            return fid, publish(c, fid, configuration.to_dict(), base)
+            # Deterministic order prevents competing multi-fund imports from locking in reverse order.
+            for fund, configuration in sorted(configurations, key=lambda item: item[0]["cnpj"]):
+                fid = discover(c, fund["cnpj"], fund["nome"])
+                base = c.scalar(select(funds.c.active_rule).where(funds.c.id == fid).with_for_update())
+                current = c.scalar(select(rules.c.configuration).where(rules.c.id == base)) if base else None
+                version = (
+                    base
+                    if current == configuration.to_dict()
+                    else publish(c, fid, configuration.to_dict(), base)
+                )
+                imported[fund["cnpj"]] = (fid, version)
+                notifications.append((fid, version, current == configuration.to_dict()))
+        # Confirm each fund only after the entire batch has committed.
+        for fid, version, replayed in notifications:
+            event(
+                "rules.reused" if replayed else "rules.publish.finished",
+                fund_id=fid,
+                rule_version=version,
+                replayed=replayed,
+            )
+        return [imported[fund["cnpj"]] for fund, _ in configurations]
 
     @observed("registry.import", summarize=lambda version: {"registry_version": version})
     def import_registry(self, path: Path):

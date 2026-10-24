@@ -39,7 +39,7 @@ def test_conflict_rollback_and_active_job_protection(db, tmp_path):
 
 def test_fund_rules_versions_and_no_inheritance(db):
     admin = Admin(PgAdmin(db))
-    fid, version = admin.import_rules(Path("../files/validadores_antecipe.json"))
+    [(fid, version)] = admin.import_rules(Path("../files/validadores_antecipe.json"))
     other = admin.discover_fund("01392689000100", "Other")
     assert admin.get_rules(other) is None
     newer = admin.publish_rules(fid, config_dict(), version)

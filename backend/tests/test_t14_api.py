@@ -41,7 +41,7 @@ def checked(client, method, path, operation_path, **kwargs):
 def test_all_infrastructure_operations_contract(client, db):
     for path in ["/health/live", "/health/ready", "/capacidades", "/cadastro/status", "/fundos", "/lotes"]:
         assert checked(client, "GET", path, path).status_code == 200
-    fid, version = PgAdmin(db).import_rules(Path("../files/validadores_antecipe.json"))
+    [(fid, version)] = PgAdmin(db).import_rules(Path("../files/validadores_antecipe.json"))
     checked(client, "GET", f"/fundos/{fid}/regras", "/fundos/{fundo_id}/regras")
     updated = checked(
         client,

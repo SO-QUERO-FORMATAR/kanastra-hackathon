@@ -153,7 +153,9 @@ def test_cli_invalid_array_has_actionable_error(db, tmp_path, monkeypatch, capsy
     with pytest.raises(SystemExit) as error:
         main(["import-rules", str(write_config(tmp_path, []))])
     assert error.value.code == 2
-    assert "pelo menos um item" in capsys.readouterr().err
+    events = [json.loads(line) for line in capsys.readouterr().err.splitlines()]
+    failure = next(event for event in events if event["event"]["name"] == "cli.command.failed")
+    assert failure["error"]["error_code"] == "CONFIGURACAO_INVALIDA"
 
 
 @pytest.mark.parametrize("name", ["notas.csv", "Notas Outubro 2026.CSV", "operações (2).csv", "outro.XLSX"])

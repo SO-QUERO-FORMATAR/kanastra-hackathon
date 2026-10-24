@@ -1,0 +1,567 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Antecipe diagnostic log event v1",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "severity_text": {
+      "type": "string",
+      "enum": [
+        "CRITICAL",
+        "DEBUG",
+        "ERROR",
+        "INFO",
+        "WARNING"
+      ]
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": [
+            "antecipe",
+            "antecipe-api",
+            "antecipe-cli",
+            "antecipe-worker"
+          ]
+        },
+        "version": {
+          "const": "1.0.0"
+        },
+        "environment": {
+          "type": "string",
+          "enum": [
+            "local",
+            "production",
+            "staging",
+            "test"
+          ]
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "environment"
+      ],
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": [
+            "cli.command.failed",
+            "cli.command.finished",
+            "cli.command.started",
+            "http.failed",
+            "http.finished",
+            "idempotency.busy",
+            "idempotency.conflict",
+            "idempotency.replayed",
+            "lot.create.failed",
+            "lot.create.finished",
+            "lot.create.started",
+            "lot.enqueue.failed",
+            "lot.enqueue.finished",
+            "lot.enqueue.started",
+            "lot.upload.failed",
+            "lot.upload.finished",
+            "lot.upload.started",
+            "process.failed",
+            "registry.busy",
+            "registry.import.failed",
+            "registry.import.finished",
+            "registry.import.started",
+            "registry.reactivation_selected",
+            "registry.reused",
+            "rules.conflict",
+            "rules.import.failed",
+            "rules.import.finished",
+            "rules.import.started",
+            "rules.publish.failed",
+            "rules.publish.finished",
+            "rules.publish.started",
+            "rules.reused",
+            "runtime.log",
+            "service.started",
+            "service.stopped",
+            "worker.blocking",
+            "worker.checkpoint",
+            "worker.chunk_committed",
+            "worker.claimed",
+            "worker.completed",
+            "worker.failed",
+            "worker.file_failed",
+            "worker.file_finished",
+            "worker.file_indexed",
+            "worker.file_started",
+            "worker.freeze.failed",
+            "worker.freeze.finished",
+            "worker.freeze.started",
+            "worker.index.failed",
+            "worker.index.finished",
+            "worker.index.started",
+            "worker.limit_exceeded",
+            "worker.lock_busy",
+            "worker.lot.failed",
+            "worker.lot.finished",
+            "worker.lot.started",
+            "worker.no_valid_files",
+            "worker.rules_frozen",
+            "worker.snapshot_reused",
+            "worker.stage_committed"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "cli",
+            "cli",
+            "cli",
+            "http",
+            "http",
+            "idempotency",
+            "idempotency",
+            "idempotency",
+            "lot",
+            "lot",
+            "lot",
+            "lot",
+            "lot",
+            "lot",
+            "lot",
+            "lot",
+            "lot",
+            "process",
+            "registry",
+            "registry",
+            "registry",
+            "registry",
+            "registry",
+            "registry",
+            "rules",
+            "rules",
+            "rules",
+            "rules",
+            "rules",
+            "rules",
+            "rules",
+            "rules",
+            "runtime",
+            "service",
+            "service",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker",
+            "worker"
+          ]
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "blocked",
+            "failure",
+            "observed",
+            "partial",
+            "rejected",
+            "started",
+            "success"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "category",
+        "outcome"
+      ],
+      "additionalProperties": false
+    },
+    "correlation": {
+      "type": "object",
+      "properties": {
+        "execution_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "file_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fund_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "lot_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "request_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "versions": {
+      "type": "object",
+      "properties": {
+        "rule_version": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "registry_version": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "counts": {
+      "type": "object",
+      "properties": {
+        "approved_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "byte_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checkpoint": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "error_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "file_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pending_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rejected_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "replayed": {
+          "type": "boolean"
+        },
+        "recovered": {
+          "type": "boolean"
+        },
+        "reason_counts": {
+          "type": "object",
+          "properties": {
+            "ARQUIVO_CORROMPIDO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ARQUIVO_FORA_MANIFESTO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ARQUIVO_JA_RECEBIDO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "BASE_CADASTRAL_AUSENTE": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "BASE_CADASTRAL_INDISPONIVEL": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "CNPJ_SACADO_VALIDO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "CONCENTRACAO_MAXIMA_CEDENTE": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "CONCENTRACAO_MAXIMA_SACADO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "CONFIGURACAO_INVALIDA": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "CURSOR_INVALIDO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "DADOS_IMPEDEM_PL": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ERRO_INTERNO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ESTADO_INVALIDO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ESTRUTURA_ARQUIVO_INVALIDA": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "FUNDOS_SEM_REGRAS": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "FUNDO_SEM_REGRAS": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "IDEMPOTENCIA_CONFLITANTE": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "INFRAESTRUTURA_INDISPONIVEL": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "INTEGRIDADE_ARQUIVO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "LIMITE_LOTE_EXCEDIDO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "LIMITE_UPLOAD_EXCEDIDO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "NAO_VENCIDA": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "NOTA_DUPLICADA": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "PRAZO_MAXIMO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "PRAZO_MINIMO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "RECURSO_NAO_ENCONTRADO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "REQUISICAO_EM_ANDAMENTO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "SITUACAO_CADASTRAL_SACADO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "TIPO_ARQUIVO_NAO_SUPORTADO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "TIPO_RECEBIVEL": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "UPLOAD_INCOMPLETO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "VALIDACAO_REQUISICAO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "VALOR_MINIMO": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "VERSAO_REGRAS_CONFLITANTE": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "error_kind": {
+          "type": "string",
+          "enum": [
+            "AppError",
+            "DBAPIError",
+            "FileError",
+            "FileNotFoundError",
+            "IntegrityError",
+            "KeyError",
+            "OSError",
+            "OperationalError",
+            "PermissionError",
+            "RuntimeError",
+            "SQLAlchemyError",
+            "TimeoutError",
+            "TypeError",
+            "UnexpectedError",
+            "ValueError"
+          ]
+        },
+        "error_code": {
+          "type": "string",
+          "enum": [
+            "ARQUIVO_CORROMPIDO",
+            "ARQUIVO_FORA_MANIFESTO",
+            "ARQUIVO_JA_RECEBIDO",
+            "BASE_CADASTRAL_AUSENTE",
+            "BASE_CADASTRAL_INDISPONIVEL",
+            "CONFIGURACAO_INVALIDA",
+            "CURSOR_INVALIDO",
+            "DADOS_IMPEDEM_PL",
+            "ERRO_INTERNO",
+            "ESTADO_INVALIDO",
+            "ESTRUTURA_ARQUIVO_INVALIDA",
+            "FUNDOS_SEM_REGRAS",
+            "FUNDO_SEM_REGRAS",
+            "IDEMPOTENCIA_CONFLITANTE",
+            "INFRAESTRUTURA_INDISPONIVEL",
+            "INTEGRIDADE_ARQUIVO",
+            "LIMITE_LOTE_EXCEDIDO",
+            "LIMITE_UPLOAD_EXCEDIDO",
+            "RECURSO_NAO_ENCONTRADO",
+            "REQUISICAO_EM_ANDAMENTO",
+            "TIPO_ARQUIVO_NAO_SUPORTADO",
+            "UPLOAD_INCOMPLETO",
+            "VALIDACAO_REQUISICAO",
+            "VERSAO_REGRAS_CONFLITANTE"
+          ]
+        },
+        "retry": {
+          "type": "boolean"
+        },
+        "locations": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z_/]+\\.py:[0-9]+$"
+          }
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "http": {
+      "type": "object",
+      "properties": {
+        "status_code": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "operation": {
+      "type": "string",
+      "enum": [
+        "atualizarRegrasFundo",
+        "consultarArquivo",
+        "consultarLote",
+        "consultarRegrasFundo",
+        "criarLote",
+        "enviarBatch",
+        "import-registry",
+        "import-rules",
+        "listarArquivosLote",
+        "listarFundos",
+        "listarLotes",
+        "listarPendenciasLote",
+        "listarResultados",
+        "listarResumosFundos",
+        "migrate",
+        "obterCapacidades",
+        "obterStatusCadastro",
+        "solicitarProcessamento",
+        "verificarProntidao",
+        "verificarVida",
+        "worker"
+      ]
+    },
+    "duration_ms": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "schema_version",
+    "timestamp",
+    "severity_text",
+    "service",
+    "event"
+  ],
+  "additionalProperties": false
+}

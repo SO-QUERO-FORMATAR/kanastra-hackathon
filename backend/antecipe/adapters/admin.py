@@ -1,5 +1,6 @@
 import csv
 import hashlib
+import logging
 from pathlib import Path
 from uuid import uuid4
 
@@ -11,6 +12,7 @@ from antecipe.adapters.config_import import load_configurations
 from antecipe.application.errors import AppError
 from antecipe.domain.config import Configuration
 from antecipe.domain.entities import normalize_document, document_root
+from antecipe.observability import event, observed
 
 REGISTRY_LOCK = 601001
 
@@ -33,6 +35,13 @@ def publish(c, fund_id: str, data: dict, base: str | None) -> str:
     if not fund:
         raise AppError("RECURSO_NAO_ENCONTRADO", "Fundo não encontrado", 404)
     if fund["active_rule"] != base:
+        event(
+            "rules.conflict",
+            level=logging.WARNING,
+            fund_id=fund_id,
+            rule_version=fund["active_rule"],
+            error_code="VERSAO_REGRAS_CONFLITANTE",
+        )
         raise AppError(
             "VERSAO_REGRAS_CONFLITANTE",
             "Regras alteradas por outra operação",
@@ -53,6 +62,11 @@ class PgAdmin:
         with self.engine.begin() as c:
             return discover(c, cnpj, name)
 
+    @observed(
+        "rules.publish",
+        identifiers={"fund_id": "fund_id"},
+        summarize=lambda version: {"rule_version": version},
+    )
     def publish_rules(self, fund_id, data, base):
         with self.engine.begin() as c:
             return publish(c, fund_id, data, base)
@@ -68,9 +82,11 @@ class PgAdmin:
             )
             return dict(row) if row else None
 
+    @observed("rules.import")
     def import_rules(self, path: Path) -> list[tuple[str, str]]:
         configurations = load_configurations(path)
         imported = {}
+        notifications = []
         with self.engine.begin() as c:
             # Deterministic order prevents competing multi-fund imports from locking in reverse order.
             for fund, configuration in sorted(configurations, key=lambda item: item[0]["cnpj"]):
@@ -83,8 +99,18 @@ class PgAdmin:
                     else publish(c, fid, configuration.to_dict(), base)
                 )
                 imported[fund["cnpj"]] = (fid, version)
+                notifications.append((fid, version, current == configuration.to_dict()))
+        # Confirm each fund only after the entire batch has committed.
+        for fid, version, replayed in notifications:
+            event(
+                "rules.reused" if replayed else "rules.publish.finished",
+                fund_id=fid,
+                rule_version=version,
+                replayed=replayed,
+            )
         return [imported[fund["cnpj"]] for fund, _ in configurations]
 
+    @observed("registry.import", summarize=lambda version: {"registry_version": version})
     def import_registry(self, path: Path):
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         documents: dict[str, str] = {}
@@ -103,6 +129,7 @@ class PgAdmin:
             c.execute(text("select pg_advisory_xact_lock(:key)"), {"key": REGISTRY_LOCK})
             existing = c.scalar(select(loads.c.id).where(loads.c.sha256 == digest, loads.c.active))
             if existing:
+                event("registry.reused", registry_version=existing, row_count=len(documents), replayed=True)
                 return existing
             busy = c.scalar(
                 select(lots.c.id)
@@ -112,12 +139,14 @@ class PgAdmin:
                 .limit(1)
             )
             if busy:
+                event("registry.busy", level=logging.WARNING, lot_id=busy, error_code="ESTADO_INVALIDO")
                 raise AppError(
                     "ESTADO_INVALIDO", "Há lotes vinculados à base atual; recupere-os antes da carga", 409
                 )
             c.execute(update(loads).values(active=False))
             existing = c.scalar(select(loads.c.id).where(loads.c.sha256 == digest))
             if existing:
+                event("registry.reactivation_selected", registry_version=existing, row_count=len(documents))
                 c.execute(update(loads).where(loads.c.id == existing).values(active=True))
                 return existing
             version = str(uuid4())

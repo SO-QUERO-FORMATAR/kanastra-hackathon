@@ -43,6 +43,9 @@ ordem das configurações. CNPJs repetidos no mesmo array são rejeitados.
 Todos os itens são validados antes da gravação e publicados na mesma transação.
 Array vazio ou item inválido rejeita a importação inteira; o erro indica o índice
 (a partir de zero) e o campo. Falha de persistência também desfaz toda a importação.
+Na CLI, stderr segue o contrato de logs JSON: entradas inválidas retornam código
+de saída 2 e `CONFIGURACAO_INVALIDA`, sem reproduzir a mensagem bruta ou o conteúdo
+do arquivo. O carregador Python conserva os detalhes de índice/campo na exceção.
 Reimportar regras idênticas preserva suas versões; regras alteradas criam uma nova
 versão apenas para o fundo correspondente. Não há alteração dos lotes já analisados.
 
@@ -222,6 +225,13 @@ usam o prefixo `/api/v1`; DTOs completos estão no contrato e no Swagger.
   500.000 linhas não vazias por lote, conforme capacidades publicadas.
 
 ## Operação e aceitação
+
+API, worker e CLI emitem logs JSON estruturados em stderr, com schema versionado,
+correlação por IDs internos, decisões e checkpoints, sem conteúdo das notas ou
+mensagens de exceção. Consulte o [contrato de logs e guia de investigação](../docs/observability/README.md)
+para catálogo de eventos, níveis, rotação, retenção e limites de privacidade.
+`LOG_LEVEL`, `APP_ENV` e `APP_REVISION` configuram a observabilidade sem alterar o
+contrato HTTP ou as regras de processamento.
 
 `/health/live` verifica o processo; `/health/ready` verifica PostgreSQL e escrita
 no storage. Base/regras ausentes são informadas por cadastro/pendências, sem fazer

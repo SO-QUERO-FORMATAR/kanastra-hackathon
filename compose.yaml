@@ -1,3 +1,9 @@
+x-app-logging: &app-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   db:
     image: postgres:16.15
@@ -14,17 +20,22 @@ services:
       interval: 2s
       retries: 30
   migrate:
+    logging: *app-logging
     profiles: [app]
     build:
       context: .
       dockerfile: backend/Dockerfile
     environment:
       DATABASE_URL: postgresql+psycopg://antecipe:antecipe@db:5432/antecipe
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      APP_ENV: ${APP_ENV:-local}
+      APP_REVISION: ${APP_REVISION:-}
     command: [python, -m, antecipe.cli, migrate]
     depends_on:
       db:
         condition: service_healthy
   api:
+    logging: *app-logging
     profiles: [app]
     build:
       context: .
@@ -35,6 +46,9 @@ services:
       STORAGE_PATH: /data
       CURSOR_SECRET: local-demo-change-me
       CORS_ORIGINS: http://localhost:5173
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      APP_ENV: ${APP_ENV:-local}
+      APP_REVISION: ${APP_REVISION:-}
     volumes: ["storage:/data", "./files:/inputs:ro"]
     depends_on:
       migrate:
@@ -44,6 +58,7 @@ services:
       interval: 5s
       retries: 20
   worker:
+    logging: *app-logging
     profiles: [app]
     build:
       context: .
@@ -51,6 +66,9 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://antecipe:antecipe@db:5432/antecipe
       STORAGE_PATH: /data
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      APP_ENV: ${APP_ENV:-local}
+      APP_REVISION: ${APP_REVISION:-}
     volumes: ["storage:/data"]
     command: [python, -m, antecipe.cli, worker]
     restart: on-failure

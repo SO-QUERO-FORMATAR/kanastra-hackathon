@@ -1,18 +1,67 @@
-# Antecipe — instalação e primeiros passos
+# Antecipe
 
-O Antecipe recebe arquivos de recebíveis, aplica as regras de cada FIDC e apresenta aprovações, recusas, motivos e valores líquidos. Este tutorial mostra como executar o sistema localmente e fazer a primeira importação.
+O Antecipe recebe arquivos de recebíveis, aplica as regras de cada FIDC e apresenta aprovações, recusas, motivos e valores líquidos. Este README reúne o relatório curto do projeto e o guia de instalação local.
+
+## Relatório curto
+
+### O que o time construiu
+
+Um MVP integrado de gestão e análise de recebíveis: importação de CSV/XLSX, processamento assíncrono, acompanhamento de lotes, histórico e consulta de resultados com motivos por nota. A tela **Fundos e regras** permite editar em modal os nove validadores e a precificação, além de importar configurações JSON de um ou vários fundos. As configurações, versões e decisões ficam persistidas no PostgreSQL.
+
+Fundos configurados são analisados mesmo quando outros ainda não têm regras. As notas pendentes exibem **“Regras de fundo não configuradas”** em vermelho; após a configuração, a retomada processa essas notas preservando as decisões anteriores.
+
+### Tecnologias utilizadas
+
+**Frontend**
+
+![Vue.js 3](https://img.shields.io/badge/Vue.js-3-4FC08D?style=plastic&logo=vuedotjs&logoColor=white)
+![Quasar 2](https://img.shields.io/badge/Quasar-2-1976D2?style=plastic&logo=quasar&logoColor=white)
+![TypeScript 5.9](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=plastic&logo=typescript&logoColor=white)
+![Vite 7](https://img.shields.io/badge/Vite-7-646CFF?style=plastic&logo=vite&logoColor=white)
+
+**Backend e infraestrutura**
+
+![Python 3.13](https://img.shields.io/badge/Python-3.13-3776AB?style=plastic&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=plastic&logo=fastapi&logoColor=white)
+![SQLAlchemy 2](https://img.shields.io/badge/SQLAlchemy-2-D71F00?style=plastic&logo=sqlalchemy&logoColor=white)
+![Alembic](https://img.shields.io/badge/Alembic-migra%C3%A7%C3%B5es-555555?style=plastic)
+![PostgreSQL 16](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=plastic&logo=postgresql&logoColor=white)
+![Docker Compose](https://img.shields.io/badge/Docker-Compose-2496ED?style=plastic&logo=docker&logoColor=white)
+
+**Testes e qualidade**
+
+![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=plastic&logo=pytest&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=plastic&logo=vitest&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=plastic)
+![Ruff](https://img.shields.io/badge/Ruff-D7FF64?style=plastic&logo=ruff&logoColor=black)
+![mypy](https://img.shields.io/badge/mypy-tipos-3776AB?style=plastic)
+
+### Principais decisões
+
+- **API e worker separados:** o upload não executa a análise dentro da requisição. O worker primeiro calcula o PL por fundo sobre o lote e depois aplica as regras, com checkpoints para recuperação.
+- **Regras explícitas e versionadas por fundo:** não há herança automática entre CNPJs. Regras já usadas permanecem congeladas; um fundo antes sem configuração recebe sua versão ao retomar. Parâmetros desativados não são validados, e situações cadastrais e tipos de recebível usam listas fechadas.
+- **Cálculo financeiro no backend:** valores usam `Decimal` e `NUMERIC` no banco, com strings monetárias no contrato. O frontend exibe as decisões da API, sem recalculá-las.
+- **Contrato e rastreabilidade:** OpenAPI gera os tipos do frontend; arquivos originais, versões e resultados permitem auditar a análise. Transações, idempotência e controle de duplicidade protegem importações e retomadas.
+
+### O que ficou de fora
+
+Autenticação e perfis de acesso, integração com uma fonte cadastral externa em tempo real, importação cadastral pelo navegador, exportação de resultados, cancelamento de lotes e edição de decisões. O cadastro deste MVP é carregado por CLI a partir do CSV fornecido; a entrega está preparada para demonstração local com Docker.
+
+A aceitação integral do dataset oficial permanece pendente: faltam configurações de 17 fundos, há inconsistências no gabarito e não foi informado o estado inicial de exposições/aprovações. Os testes automatizados cobrem os fluxos implementados, incluindo persistência e processamento com PostgreSQL; essa cobertura não substitui a aceitação dos insumos oficiais. Veja [operação e aceitação](backend/README.md#operação-e-aceitação).
+
+## Organização e guias
 
 O projeto é dividido em:
 
-- **Frontend:** Vue 3, Quasar, Vite e TypeScript, em `frontend/`.
-- **Backend:** Python, FastAPI, PostgreSQL e worker de processamento, em `backend/`.
+- **Frontend:** interface e testes de navegador; [guia de desenvolvimento](frontend/README.md).
+- **Backend:** API, motor de regras, persistência e worker; [guia de desenvolvimento e operação](backend/README.md).
 - **Arquivos compartilhados:** contratos em `docs/`, insumos em `files/` e ferramentas em `scripts/`.
 
 O MVP local não exige login. A instalação abaixo usa a API real; o modo visual com dados simulados é opcional e está descrito ao final.
 
 ## Início rápido — frontend + backend local
 
-Com Git instalado, Docker em execução e o repositório clonado, abra o terminal **na raiz do projeto** (a pasta que contém `compose.yaml` e `compose.frontend.yaml`). Use uma branch com as pastas `frontend/` e `backend/`; para testar este PR antes do merge, use `work`.
+Com Git instalado, Docker em execução e o repositório clonado, abra o terminal **na raiz do projeto** (a pasta que contém `compose.yaml` e `compose.frontend.yaml`).
 
 ```sh
 # Subir frontend, API, worker, PostgreSQL e executar as migrações
@@ -76,7 +125,7 @@ git clone https://github.com/SO-QUERO-FORMATAR/kanastra-hackathon.git
 cd kanastra-hackathon
 ```
 
-Se já tiver o repositório, abra um terminal dentro dele. Use a branch que contém a integração do frontend e do backend. Antes de prosseguir, confira esta estrutura:
+Se já tiver o repositório, abra um terminal dentro dele. Antes de prosseguir, confira esta estrutura:
 
 ```text
 kanastra-hackathon/

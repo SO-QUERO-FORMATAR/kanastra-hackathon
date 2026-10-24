@@ -2,7 +2,11 @@
 
 Python 3.13.5, FastAPI, SQLAlchemy Core 2.0, Alembic e PostgreSQL 16.15.
 Dependências diretas e transitivas fixadas em `uv.lock`. Contrato HTTP v1.0.0
-em `../docs/contratos/openapi.json`, sem alteração dos artefatos de integração.
+em `../docs/contratos/openapi.json`, com artefatos gerados e sincronizados com o frontend.
+
+O [relatório curto na raiz](../README.md#relatório-curto) reúne a entrega, tecnologias,
+decisões e itens fora do escopo. Este guia detalha API, processamento e operação;
+o [guia do frontend](../frontend/README.md) cobre a interface.
 
 ## Iniciar com Docker
 
@@ -54,6 +58,18 @@ A CLI mantém o retorno `{"fundo_id": "…", "versao": "…"}` para uma configur
 "…", "versao": "…"}, ...]}`, na ordem da entrada. No serviço Python,
 `Admin.import_rules`/`PgAdmin.import_rules` agora sempre retorna uma lista de pares
 `(fundo_id, versao)`. A edição HTTP `PUT /fundos/{id}/regras` permanece individual.
+
+Pela interface **Fundos e regras**, o arquivo é enviado como JSON para
+`POST /api/v1/fundos/regras/importacao`, com `Content-Type: application/json` e
+`Idempotency-Key` UUID. O endpoint aceita o mesmo objeto ou array, com até 100
+fundos e corpo de até 1 MiB. A importação HTTP também é atômica e preserva a
+versão das configurações idênticas.
+
+Nas regras ativas, `situacoes_aceitas` admite apenas `ATIVA`, `SUSPENSA`, `INAPTA`
+e `BAIXADA`; `tipos_aceitos` admite `Duplicata`, `Duplicata de Serviço`, `Cheque`,
+`CCB` e `Nota Comercial`. Valores fora desses catálogos são rejeitados pela API
+e pelo domínio, inclusive na importação JSON. Parâmetros de regras desativadas
+não são validados nem aplicados pelo motor; a precificação continua obrigatória.
 
 ## Desenvolvimento local
 
@@ -109,6 +125,11 @@ do banco `antecipe_test`. Não executar simultaneamente contra esse banco.**
 PostgreSQL real é obrigatório; não existem skips por ausência de banco. Pytest
 falha se não coletar testes. CI roda contrato, TypeScript, lint, tipos e suíte;
 `workflow_dispatch` também executa volumes completos.
+
+`tests/test_rule_options.py` verifica publicação e leitura pela API, persistência
+das configurações e resultados no PostgreSQL e processamento pelo worker. Cobre
+as 20 combinações de quatro situações cadastrais e cinco tipos de recebível,
+com seleção restrita e ampliada via JSON, preservando a versão usada no lote anterior.
 
 Com a instalação Docker já iniciada e as duas cargas administrativas realizadas,
 `uv run --directory backend python -m antecipe.acceptance.smoke` verifica o fluxo
@@ -166,7 +187,10 @@ versionamento e associação das regras de cada fundo pelo CNPJ.
    remove a contribuição inteira daquele arquivo. Erros de data preservam nominal
    no PL; nominal/fundo ilegíveis bloqueiam com `DADOS_IMPEDEM_PL`.
 3. Sob lock compartilhado entre o caso de publicação cadastral e a preparação,
-   conferir pendências e congelar versões de cadastro/regras na primeira análise.
+   conferir pendências e congelar versões de cadastro e das regras disponíveis.
+   Fundo sem configuração gera `FUNDO_SEM_REGRAS` nas suas notas, sem impedir
+   a análise dos demais. Pendências que impedem calcular o PL ou usar o cadastro
+   continuam bloqueando a análise do lote.
 4. Segunda passagem lê staging na ordem do manifesto/linha. Aprovação, resultado,
    chave global, ambas as exposições e checkpoint são confirmados na mesma transação.
    A consulta cadastral usa documentos distintos do chunk, uma consulta por batch.
@@ -188,7 +212,10 @@ entre lotes concorrentes, vence quem adquirir os locks primeiro.
 Uma nova base cadastral é recusada enquanto houver lote ativo ou recuperável
 vinculado à base atual. Reimportar os mesmos bytes é idempotente. Resolver o job
 pela retomada antes de trocar a base; não apagar histórico para contornar a proteção.
-Regras publicadas após o congelamento afetam somente lotes ainda não analisados.
+Regras publicadas após o congelamento não alteram decisões nem versões já usadas
+por um fundo no lote. Ao retomar, fundos anteriormente sem configuração recebem
+sua versão de regras; somente as notas pendentes por `FUNDO_SEM_REGRAS` são
+reprocessadas, preservando os resultados dos fundos já analisados.
 
 Para resolver um lote `BLOQUEADO`, consultar `GET /lotes/{id}/pendencias` e publicar
 uma configuração explícita para cada fundo indicado em `PUT /fundos/{id}/regras`.

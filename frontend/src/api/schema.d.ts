@@ -89,6 +89,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/fundos/regras/importacao": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Importar JSON de regras de um ou mais fundos */
+        post: operations["importarRegrasFundos"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/fundos/{fundo_id}/regras": {
         parameters: {
             query?: never;
@@ -380,86 +397,131 @@ export interface components {
             agrupamento: "RAIZ_CNPJ";
         };
         ValidadorCnpjSacadoValidoDTO: {
+            /** @enum {string} */
+            codigo: "CNPJ_SACADO_VALIDO";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "CNPJ_SACADO_VALIDO";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosVaziosDTO"];
-        };
+        });
         ValidadorSituacaoCadastralSacadoDTO: {
+            /** @enum {string} */
+            codigo: "SITUACAO_CADASTRAL_SACADO";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "SITUACAO_CADASTRAL_SACADO";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosSituacaoDTO"];
-        };
+        });
         ValidadorTipoRecebivelDTO: {
+            /** @enum {string} */
+            codigo: "TIPO_RECEBIVEL";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "TIPO_RECEBIVEL";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosTipoDTO"];
-        };
+        });
         ValidadorValorMinimoDTO: {
+            /** @enum {string} */
+            codigo: "VALOR_MINIMO";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "VALOR_MINIMO";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosValorMinimoDTO"];
-        };
+        });
         ValidadorNaoVencidaDTO: {
+            /** @enum {string} */
+            codigo: "NAO_VENCIDA";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "NAO_VENCIDA";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosVaziosDTO"];
-        };
+        });
         ValidadorPrazoMinimoDTO: {
+            /** @enum {string} */
+            codigo: "PRAZO_MINIMO";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "PRAZO_MINIMO";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosPrazoMinimoDTO"];
-        };
+        });
         ValidadorPrazoMaximoDTO: {
+            /** @enum {string} */
+            codigo: "PRAZO_MAXIMO";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "PRAZO_MAXIMO";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosPrazoMaximoDTO"];
-        };
+        });
         ValidadorConcentracaoMaximaSacadoDTO: {
+            /** @enum {string} */
+            codigo: "CONCENTRACAO_MAXIMA_SACADO";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "CONCENTRACAO_MAXIMA_SACADO";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosConcentracaoDTO"];
-        };
+        });
         ValidadorConcentracaoMaximaCedenteDTO: {
+            /** @enum {string} */
+            codigo: "CONCENTRACAO_MAXIMA_CEDENTE";
+            ativo: boolean;
+            parametros: {
+                [key: string]: unknown;
+            };
+        } & (unknown & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
              */
             codigo: "CONCENTRACAO_MAXIMA_CEDENTE";
-            ativo: boolean;
-            parametros: components["schemas"]["ParametrosConcentracaoDTO"];
-        };
+        });
         ValidadorDTO: components["schemas"]["ValidadorCnpjSacadoValidoDTO"] | components["schemas"]["ValidadorSituacaoCadastralSacadoDTO"] | components["schemas"]["ValidadorTipoRecebivelDTO"] | components["schemas"]["ValidadorValorMinimoDTO"] | components["schemas"]["ValidadorNaoVencidaDTO"] | components["schemas"]["ValidadorPrazoMinimoDTO"] | components["schemas"]["ValidadorPrazoMaximoDTO"] | components["schemas"]["ValidadorConcentracaoMaximaSacadoDTO"] | components["schemas"]["ValidadorConcentracaoMaximaCedenteDTO"];
         PrecificacaoDTO: {
             /** @enum {string} */
@@ -467,7 +529,7 @@ export interface components {
             taxa_mensal_percentual: components["schemas"]["DecimalNaoNegativo"];
             base_dias: number;
         };
-        /** @description Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Parâmetros inativos também devem ser válidos. */
+        /** @description Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Somente parâmetros de validadores ativos são validados. */
         ConfiguracaoRegrasDTO: {
             validadores: components["schemas"]["ValidadorDTO"][] & (unknown & unknown & unknown & unknown & unknown & unknown & unknown & unknown & unknown);
             precificacao: components["schemas"]["PrecificacaoDTO"];
@@ -484,6 +546,15 @@ export interface components {
             /** Format: date-time */
             criada_em: string;
             configuracao: components["schemas"]["ConfiguracaoRegrasDTO"];
+        };
+        /** @description Conteúdo do JSON de inputs: objeto com fundo, validadores e precificacao, ou array de até 100 objetos. Aceita decimais numéricos do formato de inputs. Validação semântica integral antes de publicar; importação atômica. */
+        ImportarRegrasRequest: {
+            [key: string]: unknown;
+        } | {
+            [key: string]: unknown;
+        }[];
+        ImportarRegrasResponse: {
+            fundos: components["schemas"]["FundoDTO"][];
         };
         /** @description client_id gerado pelo front e único no lote. ordem deve ser contígua de 0 a N-1. aba=null para CSV; XLSX null seleciona primeira aba com dados. */
         ArquivoManifestoRequest: {
@@ -662,7 +733,7 @@ export interface components {
         ErroDadoDTO: {
             campo: string;
             /** @enum {string} */
-            codigo: "OBRIGATORIO" | "FORMATO_INVALIDO" | "DATA_INVALIDA" | "DECIMAL_INVALIDO" | "FORMULA_SEM_VALOR" | "DOCUMENTO_SEM_RAIZ";
+            codigo: "OBRIGATORIO" | "FORMATO_INVALIDO" | "DATA_INVALIDA" | "DECIMAL_INVALIDO" | "FORMULA_SEM_VALOR" | "DOCUMENTO_SEM_RAIZ" | "FUNDO_SEM_REGRAS";
             mensagem: string;
         };
         DadosOriginaisTituloDTO: {
@@ -1036,6 +1107,109 @@ export interface operations {
             };
             /** @description Requisição ou cursor inválido. */
             400: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Falha de validação do contrato. */
+            422: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Erro inesperado. */
+            500: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Infraestrutura indisponível; observar Retry-After quando presente. */
+            503: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+        };
+    };
+    importarRegrasFundos: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description UUID por operação lógica; repetir em retry do mesmo conteúdo. Escopo método + caminho + chave; retenção durante toda a vida do lote (regras: mínima de 24h). */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ImportarRegrasRequest"];
+            };
+        };
+        responses: {
+            /** @description Sucesso. */
+            200: {
+                headers: {
+                    /** @description Identificador de correlação da requisição atual. */
+                    "X-Request-Id"?: string;
+                    /** @description true quando devolve o corpo/status originalmente persistidos. */
+                    "Idempotency-Replayed"?: boolean;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportarRegrasResponse"];
+                };
+            };
+            /** @description Conflito de estado, idempotência ou versão. */
+            409: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Limite de upload excedido. */
+            413: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Tipo de mídia não suportado. */
+            415: {
                 headers: {
                     "X-Request-Id"?: string;
                     /** @description Segundos; somente quando retry automático for apropriado. */

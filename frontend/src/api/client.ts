@@ -86,6 +86,13 @@ export const api = {
     ),
   salvarRegras: (id: string, b: DTO<"AtualizarRegrasRequest">, key: string) =>
     mutate<DTO<"RegrasFundoResponse">>(`/fundos/${id}/regras`, "PUT", key, b),
+  importarRegras: (body: DTO<"ImportarRegrasRequest">, key: string) =>
+    mutate<DTO<"ImportarRegrasResponse">>(
+      "/fundos/regras/importacao",
+      "POST",
+      key,
+      body,
+    ),
   lotes: (q: DTO<"ListarLotesQuery"> = {}) =>
     request<DTO<"LotesPageResponse">>("/lotes" + query(q)),
   lote: (id: string, signal?: AbortSignal) =>

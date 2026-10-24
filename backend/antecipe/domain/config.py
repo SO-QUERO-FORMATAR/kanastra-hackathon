@@ -50,9 +50,11 @@ class Configuration:
                 if set(item) != {"codigo", "ativo", "parametros"} or type(item["ativo"]) is not bool:
                     raise ValueError("Validador inválido")
                 code, params = item["codigo"], item["parametros"]
-                if code not in PARAMETERS or set(params) != set(PARAMETERS[code]):
+                if code not in PARAMETERS or not isinstance(params, dict):
                     raise ValueError("Código/parâmetros inválidos")
-                for key, typ in PARAMETERS[code].items():
+                if item["ativo"] and set(params) != set(PARAMETERS[code]):
+                    raise ValueError("Código/parâmetros inválidos")
+                for key, typ in PARAMETERS[code].items() if item["ativo"] else []:
                     val: Any = params[key]
                     if type(val) is not typ:
                         raise ValueError("Tipo de parâmetro inválido")
@@ -88,7 +90,9 @@ class Configuration:
                 raise ValueError("Base deve estar entre 1 e 366")
             result = cls(tuple(rules), exact_decimal(pricing["taxa_mensal_percentual"]), pricing["base_dias"])
             if (
-                result.rule("PRAZO_MINIMO").parameters["prazo_minimo_dias"]
+                result.rule("PRAZO_MINIMO").active
+                and result.rule("PRAZO_MAXIMO").active
+                and result.rule("PRAZO_MINIMO").parameters["prazo_minimo_dias"]
                 > result.rule("PRAZO_MAXIMO").parameters["prazo_maximo_dias"]
             ):
                 raise ValueError("Prazo mínimo maior que máximo")

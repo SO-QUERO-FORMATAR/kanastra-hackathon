@@ -174,7 +174,7 @@ string
 |---|---|---|---|
 | `codigo` | `"CNPJ_SACADO_VALIDO"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosVaziosDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorSituacaoCadastralSacadoDTO
 
@@ -182,7 +182,7 @@ string
 |---|---|---|---|
 | `codigo` | `"SITUACAO_CADASTRAL_SACADO"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosSituacaoDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorTipoRecebivelDTO
 
@@ -190,7 +190,7 @@ string
 |---|---|---|---|
 | `codigo` | `"TIPO_RECEBIVEL"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosTipoDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorValorMinimoDTO
 
@@ -198,7 +198,7 @@ string
 |---|---|---|---|
 | `codigo` | `"VALOR_MINIMO"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosValorMinimoDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorNaoVencidaDTO
 
@@ -206,7 +206,7 @@ string
 |---|---|---|---|
 | `codigo` | `"NAO_VENCIDA"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosVaziosDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorPrazoMinimoDTO
 
@@ -214,7 +214,7 @@ string
 |---|---|---|---|
 | `codigo` | `"PRAZO_MINIMO"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosPrazoMinimoDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorPrazoMaximoDTO
 
@@ -222,7 +222,7 @@ string
 |---|---|---|---|
 | `codigo` | `"PRAZO_MAXIMO"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosPrazoMaximoDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorConcentracaoMaximaSacadoDTO
 
@@ -230,7 +230,7 @@ string
 |---|---|---|---|
 | `codigo` | `"CONCENTRACAO_MAXIMA_SACADO"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosConcentracaoDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorConcentracaoMaximaCedenteDTO
 
@@ -238,7 +238,7 @@ string
 |---|---|---|---|
 | `codigo` | `"CONCENTRACAO_MAXIMA_CEDENTE"` | sim | — |
 | `ativo` | `boolean` | sim | — |
-| `parametros` | `ParametrosConcentracaoDTO` | sim | — |
+| `parametros` | `Record<string, unknown>` | sim | — |
 
 ## ValidadorDTO
 
@@ -256,7 +256,7 @@ ValidadorCnpjSacadoValidoDTO | ValidadorSituacaoCadastralSacadoDTO | ValidadorTi
 
 ## ConfiguracaoRegrasDTO
 
-Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Parâmetros inativos também devem ser válidos.
+Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Somente parâmetros de validadores ativos são validados.
 
 | Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
@@ -280,6 +280,20 @@ versao_base=null somente para primeira configuração; para edição, versão ob
 | `versao` | `string` | sim | — |
 | `criada_em` | `string` | sim | — |
 | `configuracao` | `ConfiguracaoRegrasDTO` | sim | — |
+
+## ImportarRegrasRequest
+
+Conteúdo do JSON de inputs: objeto com fundo, validadores e precificacao, ou array de até 100 objetos. Aceita decimais numéricos do formato de inputs. Validação semântica integral antes de publicar; importação atômica.
+
+```typescript
+Record<string, unknown> | Array<Record<string, unknown>>
+```
+
+## ImportarRegrasResponse
+
+| Campo | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `fundos` | `Array<FundoDTO>` | sim | — |
 
 ## ArquivoManifestoRequest
 
@@ -492,7 +506,7 @@ Explicação para exibição; frontend não recalcula a regra nem interpreta os 
 | Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
 | `campo` | `string` | sim | — |
-| `codigo` | `"OBRIGATORIO" \| "FORMATO_INVALIDO" \| "DATA_INVALIDA" \| "DECIMAL_INVALIDO" \| "FORMULA_SEM_VALOR" \| "DOCUMENTO_SEM_RAIZ"` | sim | — |
+| `codigo` | `"OBRIGATORIO" \| "FORMATO_INVALIDO" \| "DATA_INVALIDA" \| "DECIMAL_INVALIDO" \| "FORMULA_SEM_VALOR" \| "DOCUMENTO_SEM_RAIZ" \| "FUNDO_SEM_REGRAS"` | sim | — |
 | `mensagem` | `string` | sim | — |
 
 ## DadosOriginaisTituloDTO

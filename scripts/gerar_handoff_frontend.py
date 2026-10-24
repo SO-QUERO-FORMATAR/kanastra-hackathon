@@ -19,6 +19,7 @@ def gerar_handoff():
         "PrecificacaoDTO": named["configurar_fundo"]["configuracao"]["precificacao"],
         "ErroDTO": named["erro_versao"]["erro"],
         "PendenciaDTO": named["pendencias"]["itens"][0],
+        "ImportarRegrasRequest": {"fundo": {"nome": named["regras_publicadas"]["fundo"]["nome"], "cnpj": named["regras_publicadas"]["fundo"]["cnpj"]}, **named["configurar_fundo"]["configuracao"]},
         "EnviarBatchRequest": {"metadados": json.dumps(named["metadados_batch"], separators=(",", ":")), "arquivos": ["<bytes do arquivo; parte binaria multipart>"]},
     })
     for name, item in zip(["ResultadoAprovadoDTO", "ResultadoBarradoDTO", "ResultadoErroDadosDTO"], named["resultados"]["itens"]):
@@ -30,7 +31,7 @@ def gerar_handoff():
     for rule in seeds["ConfiguracaoRegrasDTO"]["validadores"]:
         name = schemas["ValidadorDTO"]["discriminator"]["mapping"][rule["codigo"]].split("/")[-1]
         seeds[name] = rule
-        params_name = schemas[name]["properties"]["parametros"]["$ref"].split("/")[-1]
+        params_name = schemas[name]["allOf"][0]["then"]["properties"]["parametros"]["$ref"].split("/")[-1]
         seeds.setdefault(params_name, rule["parametros"])
 
     counter = 100
@@ -50,7 +51,7 @@ def gerar_handoff():
             return sample(schema.get("oneOf", schema.get("anyOf"))[0])
         kind = schema.get("type")
         if kind == "object":
-            return {key: sample(value) for key, value in schema["properties"].items()
+            return {key: sample(value) for key, value in schema.get("properties", {}).items()
                     if key in schema.get("required", []) or "default" in value}
         if kind == "array":
             count = schema.get("minItems", 0 if schema.get("maxItems") == 0 else 1)

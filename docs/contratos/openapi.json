@@ -488,6 +488,215 @@
         }
       }
     },
+    "/fundos/regras/importacao": {
+      "post": {
+        "operationId": "importarRegrasFundos",
+        "summary": "Importar JSON de regras de um ou mais fundos",
+        "description": "",
+        "tags": [
+          "fundos"
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID por operação lógica; repetir em retry do mesmo conteúdo. Escopo método + caminho + chave; retenção durante toda a vida do lote (regras: mínima de 24h)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              },
+              "Idempotency-Replayed": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "description": "true quando devolve o corpo/status originalmente persistidos."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportarRegrasResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de estado, idempotência ou versão.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Limite de upload excedido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Tipo de mídia não suportado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportarRegrasRequest"
+              }
+            }
+          }
+        }
+      }
+    },
     "/fundos/{fundo_id}/regras": {
       "get": {
         "operationId": "consultarRegrasFundo",
@@ -3219,13 +3428,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosVaziosDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosVaziosDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorSituacaoCadastralSacadoDTO": {
@@ -3242,13 +3470,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosSituacaoDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosSituacaoDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorTipoRecebivelDTO": {
@@ -3265,13 +3512,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosTipoDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosTipoDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorValorMinimoDTO": {
@@ -3288,13 +3554,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosValorMinimoDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosValorMinimoDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorNaoVencidaDTO": {
@@ -3311,13 +3596,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosVaziosDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosVaziosDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorPrazoMinimoDTO": {
@@ -3334,13 +3638,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosPrazoMinimoDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosPrazoMinimoDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorPrazoMaximoDTO": {
@@ -3357,13 +3680,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosPrazoMaximoDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosPrazoMaximoDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorConcentracaoMaximaSacadoDTO": {
@@ -3380,13 +3722,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosConcentracaoDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosConcentracaoDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorConcentracaoMaximaCedenteDTO": {
@@ -3403,13 +3764,32 @@
             "type": "boolean"
           },
           "parametros": {
-            "$ref": "#/components/schemas/ParametrosConcentracaoDTO"
+            "type": "object",
+            "additionalProperties": true
           }
         },
         "required": [
           "codigo",
           "ativo",
           "parametros"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ativo": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parametros": {
+                  "$ref": "#/components/schemas/ParametrosConcentracaoDTO"
+                }
+              }
+            }
+          }
         ]
       },
       "ValidadorDTO": {
@@ -3639,7 +4019,7 @@
           "validadores",
           "precificacao"
         ],
-        "description": "Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Parâmetros inativos também devem ser válidos."
+        "description": "Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Somente parâmetros de validadores ativos são validados."
       },
       "AtualizarRegrasRequest": {
         "type": "object",
@@ -3690,6 +4070,41 @@
           "versao",
           "criada_em",
           "configuracao"
+        ]
+      },
+      "ImportarRegrasRequest": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": true
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "minItems": 1,
+            "maxItems": 100
+          }
+        ],
+        "description": "Conteúdo do JSON de inputs: objeto com fundo, validadores e precificacao, ou array de até 100 objetos. Aceita decimais numéricos do formato de inputs. Validação semântica integral antes de publicar; importação atômica."
+      },
+      "ImportarRegrasResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fundos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FundoDTO"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "fundos"
         ]
       },
       "ArquivoManifestoRequest": {
@@ -4539,7 +4954,8 @@
               "DATA_INVALIDA",
               "DECIMAL_INVALIDO",
               "FORMULA_SEM_VALOR",
-              "DOCUMENTO_SEM_RAIZ"
+              "DOCUMENTO_SEM_RAIZ",
+              "FUNDO_SEM_REGRAS"
             ]
           },
           "mensagem": {

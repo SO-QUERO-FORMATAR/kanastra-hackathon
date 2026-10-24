@@ -97,7 +97,8 @@ O limite de 67.108.864 bytes considera a soma dos conteúdos binários. Configur
 
 ```text
 RECEBENDO -- POST processamento --> NA_FILA --> INDEXANDO
-INDEXANDO --> BLOQUEADO     (fundo sem regras, base ausente ou dado que impede PL)
+INDEXANDO --> BLOQUEADO     (base ausente ou dado que impede PL)
+ANALISANDO --> BLOQUEADO    (resultados disponíveis; restam notas de fundos sem regras)
 INDEXANDO --> ANALISANDO    (estrutura, PL, cadastro e regras prontos)
 BLOQUEADO -- POST processamento --> NA_FILA  (após correção recuperável)
 ANALISANDO --> CONCLUIDO | CONCLUIDO_COM_ERROS | FALHOU
@@ -111,7 +112,7 @@ FALHOU -- POST processamento --> NA_FILA     (somente acoes.pode_retomar=true)
 - **FALHOU:** falha técnica ou nenhum arquivo utilizável. `erro.retry_permitido` e `acoes.pode_retomar` orientam recuperação.
 - **BLOQUEADO:** worker terminou a preparação e precisa de ação. Parar polling contínuo, buscar pendências e exibir ações. O usuário retoma explicitamente.
 
-O worker descobre os fundos pelos documentos dos arquivos, cadastra identidades sem copiar regras e verifica todos antes da primeira aprovação. **Decisão confirmada pelo usuário: cada um dos 18 fundos exige configuração própria.** `PendenciaDTO` contém fundo/id/CNPJ e `acao=CONFIGURAR_FUNDO`. Nenhuma nota é aprovada antes de resolver as configurações de todos os fundos dos arquivos utilizáveis do lote.
+O worker descobre os fundos pelos documentos dos arquivos e cadastra identidades sem copiar regras. Cada fundo exige configuração própria. Fundos configurados são analisados mesmo quando outros estão pendentes. Para os fundos sem regras, `PendenciaDTO` contém fundo/id/CNPJ e `acao=CONFIGURAR_FUNDO`; cada nota recebe um diagnóstico `ERRO_DADOS` com código `FUNDO_SEM_REGRAS` e mensagem “Regras de fundo não configuradas”. Ao terminar os demais resultados, o lote fica `BLOQUEADO`, permitindo retomada. Na retomada, somente esses diagnósticos dos fundos recém-configurados são substituídos por análises; decisões e versões já utilizadas são preservadas. A base cadastral congelada também é preservada.
 
 Para resolver: `GET /fundos` ou usar o fundo da pendência → `PUT /fundos/{id}/regras` → repetir para os pendentes → `POST /lotes/{id}/processamento` com **nova chave**. O backend revalida os pré-requisitos; não confiar apenas no estado da tela.
 
@@ -133,7 +134,9 @@ Nenhum retry de worker transforma uma aprovação já persistida pelo próprio j
 
 `AtualizarRegrasRequest` contém `versao_base` e a configuração completa. Usar `versao_base=null` apenas na primeira configuração; depois, enviar a versão lida no GET. Se outra edição venceu, servidor retorna 409 `VERSAO_REGRAS_CONFLITANTE` com `versao_atual`; recarregar e pedir ao usuário que revise o formulário, sem sobrescrever automaticamente.
 
-Os nove validadores são uma union discriminada por `codigo`; `parametros` não é um dicionário livre. Todos os nove devem aparecer exatamente uma vez, inclusive inativos. `NOTA_DUPLICADA` não tem toggle. Campos e estados do formulário vêm dos tipos do contrato, não dos nomes internos do Python.
+Os nove validadores são uma union discriminada por `codigo`. Todos devem aparecer exatamente uma vez, inclusive inativos. Os parâmetros são validados somente quando `ativo=true`; regras inativas podem ter parâmetros vazios. A relação entre prazo mínimo e máximo só é validada quando ambos estão ativos. `NOTA_DUPLICADA` não tem toggle. A precificação é sempre validada.
+
+`POST /fundos/regras/importacao`, com `Idempotency-Key`, recebe o conteúdo do JSON de inputs: um objeto ou uma lista de até 100 objetos com `fundo`, `validadores` e `precificacao` (máximo 1 MiB). Normaliza os CNPJs e decimais do formato de inputs, rejeita CNPJs repetidos e configurações inválidas, e publica todas as configurações em uma transação. A resposta `ImportarRegrasResponse` informa os fundos importados. Configurações idênticas reutilizam a versão existente.
 
 | Código | Parâmetros HTTP | Valores iniciais do arquivo entregue |
 |---|---|---|
@@ -172,7 +175,7 @@ Cada resultado contém `id` UUID, `arquivo_id`, `lote_id`, `sequencia`, `linha` 
 - Ordenar resultados por sequência persistida que respeite a ordem das linhas de origem. Na primeira página, capturar o maior valor disponível em `snapshot_ate_sequencia`.
 - Cursor opaco, autenticado pelo servidor, contém arquivo, filtros, limit, último item e teto do snapshot. Nas próximas páginas, front repete os mesmos filtros/limit e envia o cursor.
 - O teto não muda durante essa navegação. Novos resultados aparecem quando o usuário atualiza a primeira página. Nenhum resultado confirmado é editado durante a navegação.
-- Diagnósticos descobertos na primeira passagem ficam em staging e, quando houver análise, são publicados junto aos resultados na ordem de origem. Não publicar uma linha alta antes de inserir linhas anteriores dentro do teto já exposto. Em lote bloqueado, detalhes impeditivos são expostos por pendências, sem decisões financeiras parciais.
+- Diagnósticos descobertos na primeira passagem ficam em staging e, quando houver análise, são publicados junto aos resultados na ordem de origem. Em bloqueio por fundos sem regras, decisões financeiras parciais ficam disponíveis. Reiniciar a consulta de resultados após retomar para obter as notas antes pendentes, inclusive as de sequências anteriores ao cursor.
 - `proximo_cursor=null` indica fim do snapshot; `arquivo_finalizado=false` indica que poderão surgir resultados posteriormente.
 - Trocar filtro ou page size limpa a pilha de cursores. Para voltar, o front guarda cursores das páginas anteriores. Não há offset, salto arbitrário para página N ou total de páginas conhecido.
 - QTable deve usar controles anterior/próxima e carregamento remoto; não inventar `rowsNumber` como total filtrado. Contagens de cards vêm do resumo, não da quantidade da página.
@@ -211,7 +214,7 @@ Erros do worker são persistidos em `LoteDTO.erro`/`ArquivoDTO.erro`, sem mudar 
 ## Testes compartilhados obrigatórios
 
 1. Validar OpenAPI, resolver todas as referências e validar exemplos contra os schemas antes de implementar.
-2. Backend: DTOs não aceitam propriedades desconhecidas; tipos, nulos, limites, unions, decimais e códigos HTTP respeitam o contrato. Parametrizar os 17 operationIds.
+2. Backend: tipos, nulos, limites, unions, decimais e códigos HTTP respeitam o contrato; parâmetros inativos não são validados. Parametrizar os 18 operationIds.
 3. Frontend: mocks usam os tipos e fixtures fornecidos; testar upload multipart com arquivos de mesmo nome, retry, bloqueio por fundos sem regras, edição concorrente, estados vazios/erro e tabela por cursor.
 4. Integração real: manifesto → upload → indexação → bloqueio por 17 configurações ausentes → configuração explícita → retomada → polling → filtros/resultados. Rodar em banco limpo; nunca obter resultados esperados do gabarito dentro do motor.
 5. Regressão: round-trip Decimal/string; CNPJ e documento com zeros; mudança de regras após snapshot; retry após commit; navegação durante processamento; todos os erros de validação no mesmo envelope.

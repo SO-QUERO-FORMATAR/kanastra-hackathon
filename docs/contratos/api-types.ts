@@ -106,55 +106,55 @@ export type ParametrosConcentracaoDTO = {
 export type ValidadorCnpjSacadoValidoDTO = {
   "codigo": "CNPJ_SACADO_VALIDO";
   "ativo": boolean;
-  "parametros": ParametrosVaziosDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorSituacaoCadastralSacadoDTO = {
   "codigo": "SITUACAO_CADASTRAL_SACADO";
   "ativo": boolean;
-  "parametros": ParametrosSituacaoDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorTipoRecebivelDTO = {
   "codigo": "TIPO_RECEBIVEL";
   "ativo": boolean;
-  "parametros": ParametrosTipoDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorValorMinimoDTO = {
   "codigo": "VALOR_MINIMO";
   "ativo": boolean;
-  "parametros": ParametrosValorMinimoDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorNaoVencidaDTO = {
   "codigo": "NAO_VENCIDA";
   "ativo": boolean;
-  "parametros": ParametrosVaziosDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorPrazoMinimoDTO = {
   "codigo": "PRAZO_MINIMO";
   "ativo": boolean;
-  "parametros": ParametrosPrazoMinimoDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorPrazoMaximoDTO = {
   "codigo": "PRAZO_MAXIMO";
   "ativo": boolean;
-  "parametros": ParametrosPrazoMaximoDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorConcentracaoMaximaSacadoDTO = {
   "codigo": "CONCENTRACAO_MAXIMA_SACADO";
   "ativo": boolean;
-  "parametros": ParametrosConcentracaoDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorConcentracaoMaximaCedenteDTO = {
   "codigo": "CONCENTRACAO_MAXIMA_CEDENTE";
   "ativo": boolean;
-  "parametros": ParametrosConcentracaoDTO;
+  "parametros": Record<string, unknown>;
 };
 
 export type ValidadorDTO = ValidadorCnpjSacadoValidoDTO | ValidadorSituacaoCadastralSacadoDTO | ValidadorTipoRecebivelDTO | ValidadorValorMinimoDTO | ValidadorNaoVencidaDTO | ValidadorPrazoMinimoDTO | ValidadorPrazoMaximoDTO | ValidadorConcentracaoMaximaSacadoDTO | ValidadorConcentracaoMaximaCedenteDTO;
@@ -165,7 +165,7 @@ export type PrecificacaoDTO = {
   "base_dias": number;
 };
 
-/** Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Parâmetros inativos também devem ser válidos. */
+/** Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Somente parâmetros de validadores ativos são validados. */
 export type ConfiguracaoRegrasDTO = {
   "validadores": Array<ValidadorDTO>;
   "precificacao": PrecificacaoDTO;
@@ -182,6 +182,13 @@ export type RegrasFundoResponse = {
   "versao": string;
   "criada_em": string;
   "configuracao": ConfiguracaoRegrasDTO;
+};
+
+/** Conteúdo do JSON de inputs: objeto com fundo, validadores e precificacao, ou array de até 100 objetos. Aceita decimais numéricos do formato de inputs. Validação semântica integral antes de publicar; importação atômica. */
+export type ImportarRegrasRequest = Record<string, unknown> | Array<Record<string, unknown>>;
+
+export type ImportarRegrasResponse = {
+  "fundos": Array<FundoDTO>;
 };
 
 /** client_id gerado pelo front e único no lote. ordem deve ser contígua de 0 a N-1. aba=null para CSV; XLSX null seleciona primeira aba com dados. */
@@ -352,7 +359,7 @@ export type MotivoDTO = {
 
 export type ErroDadoDTO = {
   "campo": string;
-  "codigo": "OBRIGATORIO" | "FORMATO_INVALIDO" | "DATA_INVALIDA" | "DECIMAL_INVALIDO" | "FORMULA_SEM_VALOR" | "DOCUMENTO_SEM_RAIZ";
+  "codigo": "OBRIGATORIO" | "FORMATO_INVALIDO" | "DATA_INVALIDA" | "DECIMAL_INVALIDO" | "FORMULA_SEM_VALOR" | "DOCUMENTO_SEM_RAIZ" | "FUNDO_SEM_REGRAS";
   "mensagem": string;
 };
 

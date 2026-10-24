@@ -55,6 +55,10 @@ def load_configurations(path: Path) -> list[tuple[dict, Configuration]]:
         raw = json.loads(path.read_text(encoding="utf-8-sig"), parse_float=Decimal)
     except (ValueError, UnicodeError) as exc:
         raise ValueError("configuracoes: JSON inválido") from exc
+    return parse_configurations(raw)
+
+
+def parse_configurations(raw) -> list[tuple[dict, Configuration]]:
     items = raw if isinstance(raw, list) else [raw]
     if not items:
         raise ValueError("configuracoes: esperado pelo menos um item")

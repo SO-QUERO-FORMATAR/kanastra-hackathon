@@ -45,9 +45,26 @@ def test_invalid_configuration(case):
     if case == "base":
         raw["precificacao"]["base_dias"] = 0
     if case == "range":
+        raw["validadores"][7]["ativo"] = True
         raw["validadores"][7]["parametros"]["prazo_minimo_dias"] = 181
     if case == "percentage":
         raw["validadores"][6]["parametros"]["percentual_maximo"] = "100.01"
+    with pytest.raises(ValueError):
+        Configuration.from_dict(raw)
+
+
+def test_inactive_parameters_are_not_validated():
+    raw = config_dict()
+    for rule in raw["validadores"]:
+        rule["ativo"] = False
+        rule["parametros"] = {}
+    assert not any(rule.active for rule in Configuration.from_dict(raw).rules)
+    minimum = next(r for r in raw["validadores"] if r["codigo"] == "PRAZO_MINIMO")
+    maximum = next(r for r in raw["validadores"] if r["codigo"] == "PRAZO_MAXIMO")
+    minimum.update(ativo=True, parametros={"prazo_minimo_dias": 200})
+    maximum["parametros"] = {"prazo_maximo_dias": -1}
+    Configuration.from_dict(raw)
+    maximum["ativo"] = True
     with pytest.raises(ValueError):
         Configuration.from_dict(raw)
 

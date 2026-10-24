@@ -248,5 +248,6 @@ destrutivo automático. Testar restauração antes de substituir uma instalaçã
 A aceitação oficial continua **PENDENTE**: faltam 17 configurações, há 712
 aprovações do ANTECIPE sem cadastro e 4.941 aprovações repetidas no gabarito, e
 não foi informado o estado inicial de exposições/aprovações. O processamento
-oficial indexa 100.554 linhas e bloqueia antes da primeira decisão. O comparador
+oficial indexa 100.554 linhas, analisa fundos configurados e registra `FUNDO_SEM_REGRAS`
+nas notas dos demais. A retomada após configurar esses fundos preserva as decisões anteriores. O comparador
 e a auditoria detalham ausências/contradições sem alimentar o motor com o gabarito.

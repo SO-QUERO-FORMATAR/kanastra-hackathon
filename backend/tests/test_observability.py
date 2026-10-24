@@ -238,8 +238,9 @@ def test_blocked_worker_has_reason_counts(db, tmp_path):
         Worker(db).run_once()
     [blocked] = records(stream, "worker.blocking")
     assert blocked["decision"]["reason_counts"] == {"FUNDO_SEM_REGRAS": 1}
-    assert records(stream, "worker.freeze.finished")[0]["event"]["outcome"] == "blocked"
-    assert not records(stream, "worker.completed")
+    assert records(stream, "worker.freeze.finished")[0]["event"]["outcome"] == "success"
+    assert records(stream, "worker.chunk_committed")
+    assert records(stream, "worker.completed")[0]["event"]["outcome"] == "blocked"
 
 
 def test_failed_chunk_has_no_confirmation_and_safe_error(db, tmp_path):

@@ -287,7 +287,7 @@ onUnmounted(() => {
           {{ lot.resumo.barradas }} recusados
           <br />
           {{ lot.resumo.erros_dados }}
-          linhas com dados inválidos
+          linhas com erros ou regras pendentes
         </div>
       </div>
     </div>

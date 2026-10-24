@@ -60,13 +60,6 @@ a {
   font-size: 11px;
   color: #d6e2d7;
 }
-.avatar {
-  margin-left: 24px;
-  border: 1px solid #688275;
-  border-radius: 50%;
-  padding: 10px;
-  font-size: 12px;
-}
 .app-sidebar {
   background: #fcf9f0;
   border-right: 1px solid #e5e3d7;
@@ -230,14 +223,6 @@ h3 {
 }
 .hero .eyebrow {
   color: #b7cc93;
-}
-.hero-mark {
-  font-family: Syne;
-  font-size: 110px;
-  line-height: 1;
-  color: #afc68e;
-  transform: rotate(-30deg);
-  padding-right: 24px;
 }
 .metrics {
   display: grid;
@@ -472,8 +457,7 @@ a:focus-visible {
     display: block;
   }
   .header-caption,
-  .header-divider,
-  .avatar {
+  .header-divider {
     display: none;
   }
   .q-toolbar {
@@ -504,9 +488,6 @@ a:focus-visible {
   }
   .hero {
     padding: 24px;
-  }
-  .hero-mark {
-    display: none;
   }
   .hero h2 {
     font-size: 23px;

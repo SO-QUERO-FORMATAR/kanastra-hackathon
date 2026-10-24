@@ -54,6 +54,22 @@ def publish(c, fund_id: str, data: dict, base: str | None) -> str:
     return version
 
 
+def import_configurations(c, configurations, notifications=None):
+    imported = {}
+    # Lock funds in the same order for every multi-fund import.
+    for fund, configuration in sorted(configurations, key=lambda item: item[0]["cnpj"]):
+        fid = discover(c, fund["cnpj"], fund["nome"])
+        base = c.scalar(select(funds.c.active_rule).where(funds.c.id == fid).with_for_update())
+        current = c.scalar(select(rules.c.configuration).where(rules.c.id == base)) if base else None
+        version = (
+            base if current == configuration.to_dict() else publish(c, fid, configuration.to_dict(), base)
+        )
+        imported[fund["cnpj"]] = (fid, version)
+        if notifications is not None:
+            notifications.append((fid, version, current == configuration.to_dict()))
+    return [imported[fund["cnpj"]] for fund, _ in configurations]
+
+
 class PgAdmin:
     def __init__(self, engine):
         self.engine = engine
@@ -85,21 +101,9 @@ class PgAdmin:
     @observed("rules.import")
     def import_rules(self, path: Path) -> list[tuple[str, str]]:
         configurations = load_configurations(path)
-        imported = {}
-        notifications = []
+        notifications: list[tuple[str, str, bool]] = []
         with self.engine.begin() as c:
-            # Deterministic order prevents competing multi-fund imports from locking in reverse order.
-            for fund, configuration in sorted(configurations, key=lambda item: item[0]["cnpj"]):
-                fid = discover(c, fund["cnpj"], fund["nome"])
-                base = c.scalar(select(funds.c.active_rule).where(funds.c.id == fid).with_for_update())
-                current = c.scalar(select(rules.c.configuration).where(rules.c.id == base)) if base else None
-                version = (
-                    base
-                    if current == configuration.to_dict()
-                    else publish(c, fid, configuration.to_dict(), base)
-                )
-                imported[fund["cnpj"]] = (fid, version)
-                notifications.append((fid, version, current == configuration.to_dict()))
+            imported = import_configurations(c, configurations, notifications)
         # Confirm each fund only after the entire batch has committed.
         for fid, version, replayed in notifications:
             event(
@@ -108,7 +112,7 @@ class PgAdmin:
                 rule_version=version,
                 replayed=replayed,
             )
-        return [imported[fund["cnpj"]] for fund, _ in configurations]
+        return imported
 
     @observed("registry.import", summarize=lambda version: {"registry_version": version})
     def import_registry(self, path: Path):

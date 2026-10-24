@@ -82,6 +82,8 @@ watch(filter, () => {
 });
 const hasFilters = computed(() => filter.value !== "TODOS" || !!motivo.value);
 const statusMessage = computed(() => {
+  if (props.lotStatus === "BLOQUEADO")
+    return "Os resultados disponíveis são parciais. Configure os fundos pendentes e retome a análise das notas restantes.";
   if (props.fileStatus === "FALHOU")
     return "O processamento deste arquivo foi interrompido. Consulte o erro acima; os resultados podem estar incompletos.";
   if (props.fileStatus === "CONCLUIDO_COM_ERROS")
@@ -92,8 +94,6 @@ const statusMessage = computed(() => {
     return "O processamento do lote foi interrompido. Os resultados disponíveis podem estar incompletos.";
   if (finished.value)
     return "Processamento deste arquivo encerrado. Consulte as decisões e os diagnósticos disponíveis.";
-  if (props.lotStatus === "BLOQUEADO")
-    return "A análise aguarda a correção das pendências do lote. Os resultados disponíveis são parciais.";
   if (props.lotStatus === "RECEBENDO")
     return "Os resultados aparecerão após o envio dos arquivos e o início da análise.";
   if (props.lotStatus === "NA_FILA")
@@ -138,6 +138,9 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
   label: refusalLabels[value as DTO<"CodigoRecusa">],
   value,
 }));
+function missingRules(result: DTO<"ResultadoDTO">) {
+  return result.erros_dados.some((e) => e.codigo === "FUNDO_SEM_REGRAS");
+}
 </script>
 <template>
   <div class="surface section-space">
@@ -163,7 +166,7 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
           { label: 'Todos os resultados', value: 'TODOS' },
           { label: 'Aprovados', value: 'APROVADO' },
           { label: 'Recusados', value: 'BARRADO' },
-          { label: 'Dados inválidos', value: 'ERRO_DADOS' },
+          { label: 'Erros / regras pendentes', value: 'ERRO_DADOS' },
         ]"
         emit-value
         map-options
@@ -232,7 +235,13 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
       </template>
       <template #body-cell-status="p">
         <q-td :props="p">
-          <StatusBadge :status="p.row.status ?? 'ERRO_DADOS'" />
+          <StatusBadge
+            :status="
+              missingRules(p.row)
+                ? 'FUNDO_SEM_REGRAS'
+                : (p.row.status ?? 'ERRO_DADOS')
+            "
+          />
         </q-td>
       </template>
       <template #body-cell-nominal="p">
@@ -247,7 +256,7 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
       </template>
       <template #body-cell-motivos="p">
         <q-td :props="p">
-          <span>
+          <span :class="{ 'text-negative': missingRules(p.row) }">
             {{ resultMessage(p.row) }}
           </span>
         </q-td>
@@ -296,7 +305,13 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
         />
       </q-card-section>
       <q-card-section>
-        <StatusBadge :status="selected.status ?? 'ERRO_DADOS'" />
+        <StatusBadge
+          :status="
+            missingRules(selected)
+              ? 'FUNDO_SEM_REGRAS'
+              : (selected.status ?? 'ERRO_DADOS')
+          "
+        />
         <p class="q-mt-md">
           Linha {{ selected.linha }} · sequência {{ selected.sequencia }}
         </p>
@@ -308,7 +323,11 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
             {{ m.limite_aplicado ?? "—" }}
           </small>
         </div>
-        <p v-for="(e, i) in selected.erros_dados" :key="i">
+        <p
+          v-for="(e, i) in selected.erros_dados"
+          :key="i"
+          :class="{ 'text-negative': e.codigo === 'FUNDO_SEM_REGRAS' }"
+        >
           {{ e.campo }}: {{ e.mensagem }}
         </p>
         <div class="detail-grid">

@@ -17,6 +17,7 @@ const labels: Record<string, string> = {
   APROVADO: "Aprovado",
   BARRADO: "Recusado",
   ERRO_DADOS: "Dados inválidos",
+  FUNDO_SEM_REGRAS: "Regras pendentes",
   AGUARDANDO: "Aguardando início",
   INDEXACAO: "Preparação dos dados",
   ANALISE: "Análise dos recebíveis",
@@ -28,7 +29,8 @@ export const isTerminal = (status?: string) =>
 export function statusTone(status: string) {
   if (["CONCLUIDO", "APROVADO", "RECEBIDO", "ENVIO_CONCLUIDO"].includes(status))
     return "positive";
-  if (["FALHOU", "BARRADO", "ERRO_DADOS"].includes(status)) return "negative";
+  if (["FALHOU", "BARRADO", "ERRO_DADOS", "FUNDO_SEM_REGRAS"].includes(status))
+    return "negative";
   return "pending";
 }
 export function lotMessage(lot: DTO<"LoteDTO">) {
@@ -45,7 +47,7 @@ export function lotMessage(lot: DTO<"LoteDTO">) {
       return "Análise em andamento. Os resultados parciais são atualizados automaticamente.";
     case "BLOQUEADO":
       return lot.acoes.pode_retomar
-        ? "A análise aguarda a correção das pendências abaixo. Depois, clique em Retomar análise."
+        ? "Consulte os resultados disponíveis. Corrija as pendências abaixo e clique em Retomar análise para processar as notas restantes."
         : "A análise está bloqueada. Consulte as pendências e as ações disponíveis abaixo para continuar.";
     case "CONCLUIDO":
       return "Análise concluída. Consulte os recebíveis aprovados e recusados na tabela.";

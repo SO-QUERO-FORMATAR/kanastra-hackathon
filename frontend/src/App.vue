@@ -29,7 +29,6 @@ const menu = ref(false);
             demo ? "Demonstração · dados de exemplo" : "Ambiente de integração"
           }}
         </span>
-        <div class="avatar">AC</div>
       </q-toolbar>
     </q-header>
     <q-drawer v-model="menu" show-if-above :width="240" class="app-sidebar">

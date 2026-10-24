@@ -58,6 +58,7 @@ export function ruleFieldErrors(form: DTO<"AtualizarRegrasRequest">) {
     }
   }
   form.configuracao.validadores.forEach((v, i) => {
+    if (!v.ativo) return;
     const validate = validators[v.codigo];
     if (validate && !validate(v)) collect(`/validadores/${i}`, validate.errors);
   });

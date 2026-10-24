@@ -98,7 +98,9 @@ def run(count, format, reuse_input=False):
         PYTHONUTF8="1",
     )
     log = (directory / "api.log").open("w", encoding="utf8")
-    options: dict[str, Any] = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
+    options: dict[str, Any] = {}
+    if sys.platform == "win32":
+        options["creationflags"] = subprocess.CREATE_NO_WINDOW
     api = subprocess.Popen(
         [
             sys.executable,

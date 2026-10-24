@@ -1,0 +1,27 @@
+C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Scripts\python.exe -m pytest -q --junitxml=..\docs\execucao/csv-lines-red.xml tests/test_t11_readers.py -k quoted_newline
+F                                                                        [100%]
+================================== FAILURES ===================================
+__________ test_csv_quoted_newline_preserves_starting_physical_line ___________
+
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-26/test_csv_quoted_newline_preser0')
+
+    def test_csv_quoted_newline_preserves_starting_physical_line(tmp_path):
+        import csv
+    
+        path = tmp_path / "multiline.csv"
+        first = values()
+        first[2] = "Cedente\nFilial"
+        with path.open("w", newline="", encoding="utf8") as stream:
+            writer = csv.writer(stream, delimiter=";")
+            writer.writerows([COLUMNS, first, values()])
+        rows = list(read_rows(path, "CSV"))
+>       assert [line for line, _ in rows] == [2, 4]
+E       assert [3, 4] == [2, 4]
+E         
+E         At index 0 diff: 3 != 2
+E         Use -v to get more diff
+
+tests\test_t11_readers.py:118: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_t11_readers.py::test_csv_quoted_newline_preserves_starting_physical_line
+1 failed, 5 deselected in 0.94s

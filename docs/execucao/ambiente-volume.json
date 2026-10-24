@@ -1,0 +1,24 @@
+{
+  "cpu": "11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz",
+  "docker_cpus": 8,
+  "docker_memory_bytes": 16634208256,
+  "postgres_image": "postgres:16.15",
+  "migration": "0002",
+  "api_concurrency": 1,
+  "benchmark_workers": 1,
+  "batch_size": 2000,
+  "page_size": 100,
+  "completed_warmups": 5,
+  "completed_samples": 100,
+  "during_processing_poll_seconds": 0.1,
+  "filters": [
+    "sem filtro",
+    "status APROVADO",
+    "status BARRADO",
+    "motivo TIPO_RECEBIVEL",
+    "tipo ERRO_DADOS"
+  ],
+  "sample_rule": "Amostras durante análise quando snapshot > 0, mais amostras após conclusão; p95 por filtro",
+  "database_isolation": "antecipe_test, schema recriado a cada execução",
+  "companion_services": "API/worker Compose ociosos durante segunda medição XLSX"
+}

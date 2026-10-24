@@ -1,0 +1,23 @@
+[project]
+name = "antecipe-backend"
+version = "1.0.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "fastapi==0.135.1", "uvicorn==0.41.0", "sqlalchemy==2.0.48",
+  "psycopg[binary]==3.3.3", "alembic==1.18.4", "python-multipart==0.0.22",
+  "jsonschema==4.26.0", "openpyxl==3.1.5", "python-calamine==0.6.2",
+]
+[dependency-groups]
+dev = ["pytest==9.0.2", "pytest-cov==7.0.0", "httpx==0.28.1", "ruff==0.15.6", "mypy==1.19.1", "openapi-spec-validator==0.9.0", "psutil==7.2.2", "types-jsonschema==4.26.0.20260202"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+check_untyped_defs = true
+

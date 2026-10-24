@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.236" timestamp="2026-10-24T16:58:24.403800-03:00" hostname="MATEUS"><testcase classname="tests.test_pending_cursor" name="test_pending_cursor_invalidates_after_resolution" time="1.565"><failure message="assert 200 == 400&#10; +  where 200 = &lt;Response [200 OK]&gt;.status_code">db = Engine(postgresql+psycopg://antecipe:***@127.0.0.1:55432/antecipe_test)
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-23/test_pending_cursor_invalidate0')
+client = &lt;starlette.testclient.TestClient object at 0x000002D0B1FE96A0&gt;
+
+    def test_pending_cursor_invalidates_after_resolution(db, tmp_path, client):
+        rows = [values(), values()]
+        for i, row in enumerate(rows):
+            row[1] = f"{i + 1:08d}000100"
+            row[0] = f"Fundo sintético {i}"
+        store, lid, _ = prepare(db, tmp_path, rows, rules=False)
+        Worker(db).run_once()
+        url = f"/api/v1/lotes/{lid}/pendencias"
+        page = client.get(url, params={"limit": 1}).json()
+        assert page["proximo_cursor"]
+        all_pending = client.get(url).json()["itens"]
+        for i, pending in enumerate(all_pending):
+            config = config_dict()
+            config["precificacao"]["taxa_mensal_percentual"] = str(i + 1)
+            PgAdmin(db).publish_rules(pending["fundo"]["id"], config, None)
+        store.enqueue(lid, str(uuid4()))
+        Worker(db).run_once()
+        response = client.get(url, params={"limit": 1, "cursor": page["proximo_cursor"]})
+&gt;       assert response.status_code == 400
+E       assert 200 == 400
+E        +  where 200 = &lt;Response [200 OK]&gt;.status_code
+
+tests\test_pending_cursor.py:28: AssertionError</failure></testcase></testsuite></testsuites>

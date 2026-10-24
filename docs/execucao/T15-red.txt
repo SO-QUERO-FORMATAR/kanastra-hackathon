@@ -1,0 +1,55 @@
+C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Scripts\python.exe -m pytest -q --junitxml=..\docs\execucao/T15-red.xml
+........................................................................ [ 97%]
+FF                                                                       [100%]
+================================== FAILURES ===================================
+____________________ test_results_contract_filters_cursor _____________________
+
+db = Engine(postgresql+psycopg://antecipe:***@127.0.0.1:55432/antecipe_test)
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-8/test_results_contract_filters_0')
+client = <starlette.testclient.TestClient object at 0x000001EDC5213680>
+
+    def test_results_contract_filters_cursor(db, tmp_path, client):
+        rows = [values() for _ in range(12)]
+        for i, r in enumerate(rows): r[6] = str(i)
+        rows[-1][10] = '31/02/2026'
+        _, lid, aid = prepare(db, tmp_path, rows)
+        Worker(db).run_once()
+        path = '/api/v1/arquivos/'+aid+'/resultados'
+        response = client.get(path, params={'limit': 3})
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests\test_t15_pagination.py:22: AssertionError
+___________________ test_live_snapshot_excludes_future_rows ___________________
+
+db = Engine(postgresql+psycopg://antecipe:***@127.0.0.1:55432/antecipe_test)
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-8/test_live_snapshot_excludes_fu0')
+client = <starlette.testclient.TestClient object at 0x000001EDC5213F00>
+
+    def test_live_snapshot_excludes_future_rows(db, tmp_path, client):
+        rows = [values() for _ in range(12)]
+        for i, r in enumerate(rows): r[6] = str(i)
+        _, _, aid = prepare(db, tmp_path, rows)
+        class Stop(BaseException): pass
+        def hook(phase):
+            if phase == 'after_commit': raise Stop()
+        try: Worker(db, batch_size=3, hook=hook).run_once()
+        except Stop: pass
+        path = '/api/v1/arquivos/'+aid+'/resultados'
+        first = client.get(path, params={'limit': 2}).json()
+>       assert first['snapshot_ate_sequencia'] == 3 and not first['arquivo_finalizado']
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'snapshot_ate_sequencia'
+
+tests\test_t15_pagination.py:53: KeyError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_t15_pagination.py::test_results_contract_filters_cursor - a...
+FAILED tests/test_t15_pagination.py::test_live_snapshot_excludes_future_rows
+2 failed, 72 passed, 1 warning in 7.56s

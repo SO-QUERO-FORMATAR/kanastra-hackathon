@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgres:16.15
+    environment:
+      POSTGRES_USER: antecipe
+      POSTGRES_PASSWORD: antecipe
+      POSTGRES_DB: antecipe
+    ports: ["127.0.0.1:55432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/init-test.sql:/docker-entrypoint-initdb.d/test.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U antecipe"]
+      interval: 2s
+      retries: 30
+  migrate:
+    profiles: [app]
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://antecipe:antecipe@db:5432/antecipe
+    command: [python, -m, antecipe.cli, migrate]
+    depends_on:
+      db:
+        condition: service_healthy
+  api:
+    profiles: [app]
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://antecipe:antecipe@db:5432/antecipe
+      STORAGE_PATH: /data
+      CURSOR_SECRET: local-demo-change-me
+      CORS_ORIGINS: http://localhost:5173
+    volumes: ["storage:/data", "./files:/inputs:ro"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/ready')"]
+      interval: 5s
+      retries: 20
+  worker:
+    profiles: [app]
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://antecipe:antecipe@db:5432/antecipe
+      STORAGE_PATH: /data
+    volumes: ["storage:/data"]
+    command: [python, -m, antecipe.cli, worker]
+    restart: on-failure
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+volumes:
+  pgdata:
+  storage:

@@ -1,0 +1,5 @@
+NAME                           IMAGE                        COMMAND                  SERVICE   CREATED          STATUS                      PORTS
+kanastra-hackathon-api-1       kanastra-hackathon-api       "uvicorn antecipe.ad…"   api       47 seconds ago   Up 41 seconds (healthy)     127.0.0.1:8000->8000/tcp
+kanastra-hackathon-db-1        postgres:16.15               "docker-entrypoint.s…"   db        48 seconds ago   Up 46 seconds (healthy)     127.0.0.1:55432->5432/tcp
+kanastra-hackathon-migrate-1   kanastra-hackathon-migrate   "python -m antecipe.…"   migrate   47 seconds ago   Exited (0) 41 seconds ago   
+kanastra-hackathon-worker-1    kanastra-hackathon-worker    "python -m antecipe.…"   worker    47 seconds ago   Up 41 seconds               

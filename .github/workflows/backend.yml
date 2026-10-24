@@ -1,0 +1,52 @@
+name: backend
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16.15
+        env:
+          POSTGRES_USER: antecipe
+          POSTGRES_PASSWORD: antecipe
+          POSTGRES_DB: antecipe_test
+        ports: ['55432:5432']
+        options: --health-cmd "pg_isready -U antecipe" --health-interval 2s --health-retries 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project backend --frozen --python 3.13.5
+      - run: uv run --directory backend python ../scripts/verificar_regeneracao.py
+      - run: npm exec --package=typescript@5.9.3 -- tsc docs/contratos/api-types.ts --noEmit --strict --lib ES2020,DOM
+      - run: uv run --directory backend ruff check antecipe tests
+      - run: uv run --directory backend mypy antecipe
+      - run: uv run --directory backend pytest --junitxml=../docs/execucao/ci.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results
+          path: docs/execucao/ci.xml
+  volume:
+    if: github.event_name == 'workflow_dispatch'
+    needs: test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16.15
+        env:
+          POSTGRES_USER: antecipe
+          POSTGRES_PASSWORD: antecipe
+          POSTGRES_DB: antecipe_test
+        ports: ['55432:5432']
+        options: --health-cmd "pg_isready -U antecipe" --health-interval 2s --health-retries 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project backend --frozen --python 3.13.5
+      - run: uv run --directory backend python -m antecipe.performance.benchmark --count 100000 --format CSV
+      - run: uv run --directory backend python -m antecipe.performance.benchmark --count 500000 --format XLSX
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: volume-results
+          path: docs/execucao/volume-*.json

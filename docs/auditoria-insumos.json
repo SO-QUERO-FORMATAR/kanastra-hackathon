@@ -1,0 +1,238 @@
+{
+  "escopo": "Leitura integral, correlação e invariantes dos arquivos. Sem execução do motor de regras.",
+  "sha256": {
+    "cnpj_situacao_mock.csv": "522ba08c9685a48d2c2a5b20bfde0773f58bb15b095e03cf605b44c224ca6916",
+    "estoque_antecipe_100k.zip": "71adc1fc3a622d14e548e366677122927f0a95ce3810e9aa223a7a26c58e3182",
+    "resultado_esperado_100k.json": "a5e0de969c0cf9d1f37aeea0100d7a4a2ba663da24c1641977f7a68934bc1ae8",
+    "validadores_antecipe.json": "508aa6e12cefd8d7d4933b11e3d57358bf3d1b7f4b6b6b88ad32afb286316fd8"
+  },
+  "colunas_estoque": [
+    "NOME_FUNDO",
+    "DOC_FUNDO",
+    "NOME_CEDENTE",
+    "DOC_CEDENTE",
+    "NOME_SACADO",
+    "DOC_SACADO",
+    "NU_DOCUMENTO",
+    "TIPO_RECEBIVEL",
+    "VALOR_NOMINAL",
+    "DATA_VENCIMENTO_ORIGINAL",
+    "DATA_AQUISICAO"
+  ],
+  "linhas_estoque": 100554,
+  "linhas_referencia": 100554,
+  "linhas_referencia_repetidas": 0,
+  "linhas_referencia_ausentes": [],
+  "linhas_referencia_extras": [],
+  "linhas_com_id_divergente": [],
+  "fundos": {
+    "01392689000100": {
+      "nome": "JEQUITIBÁ INDÚSTRIA FIDC",
+      "linhas": 5161,
+      "pl": "26099049.48",
+      "configurado_no_json": false
+    },
+    "07511678000188": {
+      "nome": "VENTOS DO SUL FIDC NP",
+      "linhas": 6784,
+      "pl": "20906255.88",
+      "configurado_no_json": false
+    },
+    "08931059000105": {
+      "nome": "GAIVOTA MULTICEDENTE FIDC",
+      "linhas": 7149,
+      "pl": "37507624.64",
+      "configurado_no_json": false
+    },
+    "18672454000174": {
+      "nome": "LÓTUS AGROINDUSTRIAL FIDC",
+      "linhas": 5342,
+      "pl": "29072528.23",
+      "configurado_no_json": false
+    },
+    "24159112000158": {
+      "nome": "PINHEIRAL SERVIÇOS FIDC",
+      "linhas": 3310,
+      "pl": "14911685.06",
+      "configurado_no_json": false
+    },
+    "26958028000120": {
+      "nome": "FIDC ACÁCIA SAÚDE",
+      "linhas": 4569,
+      "pl": "20710336.52",
+      "configurado_no_json": false
+    },
+    "27689445000187": {
+      "nome": "TUCANO FIDC NP",
+      "linhas": 5163,
+      "pl": "27685568.77",
+      "configurado_no_json": false
+    },
+    "31930102000130": {
+      "nome": "CORDILHEIRA CRÉDITO ESTRUTURADO FIDC",
+      "linhas": 2644,
+      "pl": "60143416.53",
+      "configurado_no_json": false
+    },
+    "32482084000133": {
+      "nome": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SAFIRA VAREJO RESPONSABILIDADE LIMITADA",
+      "linhas": 10229,
+      "pl": "52217253.51",
+      "configurado_no_json": false
+    },
+    "33424444000103": {
+      "nome": "QUARTZO CAPITAL DE GIRO FIDC",
+      "linhas": 613,
+      "pl": "3440526.92",
+      "configurado_no_json": false
+    },
+    "38977622000147": {
+      "nome": "MARÉ ALTA DUPLICATAS FIDC",
+      "linhas": 4349,
+      "pl": "21986674.31",
+      "configurado_no_json": false
+    },
+    "42410761000161": {
+      "nome": "PEROBA CAPITAL FIDC",
+      "linhas": 3995,
+      "pl": "19048590.97",
+      "configurado_no_json": false
+    },
+    "48326714000110": {
+      "nome": "AURORA MULTISSETORIAL FIDC",
+      "linhas": 6045,
+      "pl": "29386316.04",
+      "configurado_no_json": false
+    },
+    "74389073000153": {
+      "nome": "CONDOR RECEBÍVEIS MERCANTIS FIDC",
+      "linhas": 6535,
+      "pl": "35397154.92",
+      "configurado_no_json": false
+    },
+    "78750540000180": {
+      "nome": "BOREAL RECEBÍVEIS COMERCIAIS FIDC",
+      "linhas": 6219,
+      "pl": "32882903.77",
+      "configurado_no_json": false
+    },
+    "86782776000126": {
+      "nome": "MAGNÓLIA CRÉDITO PRIVADO FIDC",
+      "linhas": 2865,
+      "pl": "73320183.09",
+      "configurado_no_json": false
+    },
+    "92234400000180": {
+      "nome": "ANTECIPE FIDC",
+      "linhas": 10621,
+      "pl": "53074028.00",
+      "configurado_no_json": true
+    },
+    "96786159000152": {
+      "nome": "FIDC ÔNIX CRÉDITO EMPRESARIAL NP",
+      "linhas": 8961,
+      "pl": "47141615.05",
+      "configurado_no_json": false
+    }
+  },
+  "pl_total": "604931711.69",
+  "cadastro": {
+    "linhas": 3041,
+    "cnpjs_distintos": 3041,
+    "situacoes": {
+      "ATIVA": 2999,
+      "INAPTA": 22,
+      "SUSPENSA": 12,
+      "BAIXADA": 8
+    }
+  },
+  "sacados_ausentes": {
+    "cnpjs_distintos": 1406,
+    "linhas": 22222,
+    "aprovados_na_referencia": 16593,
+    "aprovados_antecipe": 712,
+    "exemplos": [
+      {
+        "linha": 8,
+        "doc_sacado": "57.018.055/0001-46",
+        "fundo": "92234400000180",
+        "id": "526204"
+      },
+      {
+        "linha": 11,
+        "doc_sacado": "95.107.478/0001-21",
+        "fundo": "92234400000180",
+        "id": "1-618406"
+      },
+      {
+        "linha": 28,
+        "doc_sacado": "56.902.389/0001-15",
+        "fundo": "92234400000180",
+        "id": "1-421571"
+      },
+      {
+        "linha": 71,
+        "doc_sacado": "42.284.422/0001-86",
+        "fundo": "92234400000180",
+        "id": "1-618475"
+      },
+      {
+        "linha": 80,
+        "doc_sacado": "74.432.566/0002-00",
+        "fundo": "92234400000180",
+        "id": "1-618495"
+      }
+    ]
+  },
+  "chaves_repetidas_apos_primeira_ocorrencia": 9657,
+  "aprovacoes_repetidas_na_referencia": {
+    "quantidade": 4941,
+    "exemplos": [
+      {
+        "primeira_linha": 7371,
+        "linha": 7372,
+        "fundo": "92234400000180",
+        "id": "1-767495"
+      },
+      {
+        "primeira_linha": 7371,
+        "linha": 7373,
+        "fundo": "92234400000180",
+        "id": "1-767495"
+      },
+      {
+        "primeira_linha": 7371,
+        "linha": 7374,
+        "fundo": "92234400000180",
+        "id": "1-767495"
+      },
+      {
+        "primeira_linha": 7371,
+        "linha": 7375,
+        "fundo": "92234400000180",
+        "id": "1-767495"
+      },
+      {
+        "primeira_linha": 7385,
+        "linha": 7386,
+        "fundo": "92234400000180",
+        "id": "1-32996"
+      }
+    ]
+  },
+  "status_referencia": {
+    "APROVADO": 85215,
+    "BARRADO": 15339
+  },
+  "motivos_referencia": {
+    "CONCENTRACAO_MAXIMA_SACADO": 3305,
+    "SITUACAO_CADASTRAL_SACADO": 2317,
+    "TIPO_RECEBIVEL": 9842,
+    "VALOR_MINIMO": 34,
+    "PRAZO_MAXIMO": 4671
+  },
+  "regras": {
+    "ativas": 7,
+    "inativas": 2
+  }
+}

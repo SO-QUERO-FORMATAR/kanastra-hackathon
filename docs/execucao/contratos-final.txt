@@ -1,0 +1,5 @@
+Prompt autocontido gerado: 71 schemas e 71 exemplos de DTOs; 140665 caracteres.
+Gerados 71 schemas, 17 opera��es e tipos TypeScript.
+Prompt autocontido gerado: 71 schemas e 71 exemplos de DTOs; 140665 caracteres.
+OK: OpenAPI 3.1, 71 schemas, 17 opera��es, 13 cen�rios, 16 rejei��es esperadas e 71 exemplos de DTOs no prompt autocontido.
+Regenera��o determin�stica: contratos e handoff id�nticos byte a byte.

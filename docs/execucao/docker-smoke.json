@@ -1,0 +1,647 @@
+{
+  "base_url": "http://127.0.0.1:8000/api/v1",
+  "lote": {
+    "id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+    "nome": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558",
+    "status": "CONCLUIDO",
+    "criado_em": "2026-10-24T20:02:48.480651Z",
+    "iniciado_em": "2026-10-24T20:02:48.868029Z",
+    "concluido_em": "2026-10-24T20:02:48.948799Z",
+    "atualizado_em": "2026-10-24T20:02:48.948799Z",
+    "versao_cadastral": "f85f149a-55a8-4be1-9ea5-94ca19834970",
+    "progresso": {
+      "fase": "FINALIZADO",
+      "arquivos_total": 1,
+      "arquivos_recebidos": 1,
+      "arquivos_falhos": 0,
+      "bytes_esperados": 2494,
+      "bytes_recebidos": 2494,
+      "linhas_lidas_primeira_passagem": 12,
+      "linhas_total": 12,
+      "linhas_processadas": 12
+    },
+    "resumo": {
+      "definitivo": true,
+      "total_nominal": "120000.00",
+      "total_nominal_aprovado": "10000.00",
+      "total_nominal_barrado": "110000.00",
+      "total_nominal_erro_dados": "0.00",
+      "total_desconto": "200.00",
+      "total_liquido": "9800.00",
+      "aprovadas": 1,
+      "barradas": 11,
+      "erros_dados": 0
+    },
+    "quantidade_pendencias": 0,
+    "acoes": {
+      "pode_enviar_arquivos": false,
+      "pode_iniciar": false,
+      "pode_retomar": false,
+      "precisa_corrigir_configuracao": false,
+      "precisa_recriar_lote": false
+    },
+    "erro": null
+  },
+  "resultados": {
+    "itens": [
+      {
+        "id": "beaa6810-59d6-43b3-9715-72d4d77d5190",
+        "tipo": "ANALISE",
+        "linha": 2,
+        "status": "APROVADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-000",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [],
+        "desconto": "200.00",
+        "sequencia": 1,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "9800.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-000",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "d419e8fa-50a2-48e9-adba-54eee8d2e966",
+        "tipo": "ANALISE",
+        "linha": 3,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-001",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 2,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-001",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "ff27db36-1d32-48f1-8f9d-810850771a87",
+        "tipo": "ANALISE",
+        "linha": 4,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-002",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 3,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-002",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "0e212206-e99d-4e73-bd3d-268860858c7a",
+        "tipo": "ANALISE",
+        "linha": 5,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-003",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 4,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-003",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "4588d1b0-0dee-4266-9686-ae0488f68bd8",
+        "tipo": "ANALISE",
+        "linha": 6,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-004",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 5,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-004",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "6a23db9a-6903-456b-8eb3-79a0e9eaf5cd",
+        "tipo": "ANALISE",
+        "linha": 7,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-005",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 6,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-005",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "5f614e81-eeea-4d8d-a7e1-1b92e1d078db",
+        "tipo": "ANALISE",
+        "linha": 8,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-006",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 7,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-006",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "38725f4d-65f7-46cd-8c85-09a258a27fb6",
+        "tipo": "ANALISE",
+        "linha": 9,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-007",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 8,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-007",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "f913d178-4523-40d7-924b-bc108de676b0",
+        "tipo": "ANALISE",
+        "linha": 10,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-008",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 9,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-008",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "2875138a-5a69-4bdf-9e62-464cc890edc2",
+        "tipo": "ANALISE",
+        "linha": 11,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-009",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 10,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-009",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "6c2d3897-376b-4fb5-85e2-78d482bb04b5",
+        "tipo": "ANALISE",
+        "linha": 12,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-010",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 11,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-010",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      },
+      {
+        "id": "cdf615df-f54b-4b97-88f8-6e7d829f359f",
+        "tipo": "ANALISE",
+        "linha": 13,
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "b3177aff-348b-456f-94c8-a76697722fb4",
+          "doc_fundo": "92234400000180",
+          "doc_sacado": "22144961000102",
+          "nome_fundo": "ANTECIPE",
+          "prazo_dias": 30,
+          "doc_cedente": "10062050000157",
+          "nome_sacado": "Sacado",
+          "raiz_sacado": "22144961",
+          "nome_cedente": "Cedente",
+          "nu_documento": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-011",
+          "raiz_cedente": "10062050",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "tipo_recebivel": "Duplicata de Serviço",
+          "data_vencimento_original": "2026-10-31"
+        },
+        "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd",
+        "motivos": [
+          {
+            "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+            "mensagem": "Exposição projetada 20000.00 excede limite 12000.000.",
+            "limite_aplicado": "12000.000",
+            "valor_observado": "20000.00"
+          }
+        ],
+        "desconto": "0.00",
+        "sequencia": 12,
+        "arquivo_id": "099d5483-5564-47f3-b28c-d001e9488be7",
+        "erros_dados": [],
+        "valor_liquido": "0.00",
+        "dados_originais": {
+          "DOC_FUNDO": "92234400000180",
+          "DOC_SACADO": "22144961000102",
+          "NOME_FUNDO": "ANTECIPE",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado",
+          "NOME_CEDENTE": "Cedente",
+          "NU_DOCUMENTO": "Verificação Docker sintética 6ec3c45a-16a8-44a0-a982-55095492d558-011",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_AQUISICAO": "01/10/2026",
+          "TIPO_RECEBIVEL": "Duplicata de Serviço",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026"
+        }
+      }
+    ],
+    "limit": 100,
+    "proximo_cursor": null,
+    "snapshot_ate_sequencia": 12,
+    "arquivo_finalizado": true
+  },
+  "observacao": "Configuração fornecida; exposição anterior é preservada. Sem gabarito."
+}

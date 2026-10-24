@@ -1,0 +1,1 @@
+{"status": "CONCLUIDO", "lote_id": "0b979aa3-c71b-4a79-91fd-786465958cbd", "resumo": {"definitivo": true, "total_nominal": "120000.00", "total_nominal_aprovado": "10000.00", "total_nominal_barrado": "110000.00", "total_nominal_erro_dados": "0.00", "total_desconto": "200.00", "total_liquido": "9800.00", "aprovadas": 1, "barradas": 11, "erros_dados": 0}}

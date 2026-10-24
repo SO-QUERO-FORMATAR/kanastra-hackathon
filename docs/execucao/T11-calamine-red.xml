@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.000" timestamp="2026-10-24T16:37:29.460581-03:00" hostname="MATEUS"><testcase classname="tests.test_hardening" name="test_calamine_path_and_numeric_excel_identifier_diagnostic" time="0.022"><failure message="AttributeError: module 'antecipe.adapters.readers' has no attribute 'read_calamine'">tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-13/test_calamine_path_and_numeric0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001A84583C510&gt;
+
+    def test_calamine_path_and_numeric_excel_identifier_diagnostic(tmp_path, monkeypatch):
+        import antecipe.adapters.readers as readers
+        path = tmp_path/'small.xlsx'
+        wb=Workbook(); ws=wb.active; ws.append(COLUMNS); ws.append(values()); ws['G2']=351153; wb.save(path)
+        called=[]
+&gt;       original=readers.read_calamine
+                 ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'antecipe.adapters.readers' has no attribute 'read_calamine'
+
+tests\test_hardening.py:25: AttributeError</failure></testcase></testsuite></testsuites>

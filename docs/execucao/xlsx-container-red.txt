@@ -1,0 +1,33 @@
+C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Scripts\python.exe -m pytest -q --junitxml=..\docs\execucao/xlsx-container-red.xml tests/test_t11_readers.py -k without_workbook
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______________ test_zip_without_workbook_is_structural_failure _______________
+
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-21/test_zip_without_workbook_is_s0')
+
+    def test_zip_without_workbook_is_structural_failure(tmp_path):
+        from zipfile import ZipFile
+        path=tmp_path/'bad.xlsx'
+        with ZipFile(path,'w') as archive:
+            archive.writestr('xl/not-a-workbook.xml','bad')
+        with pytest.raises(FileError):
+>           list(read_rows(path,'XLSX'))
+
+tests\test_t11_readers.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+antecipe\adapters\readers.py:115: in read_rows
+    yield from read_calamine(path, sheet)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-21/test_zip_without_workbook_is_s0/bad.xlsx')
+sheet = None
+
+    def read_calamine(path, sheet):
+>       with CalamineWorkbook.from_path(path) as workbook:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       python_calamine.CalamineError: File not found 'xl/_rels/workbook.xml.rels'
+
+antecipe\adapters\readers.py:59: CalamineError
+=========================== short test summary info ===========================
+FAILED tests/test_t11_readers.py::test_zip_without_workbook_is_structural_failure
+1 failed, 4 deselected in 0.95s

@@ -1,0 +1,21 @@
+C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Scripts\python.exe -m pytest -q --junitxml=..\docs\execucao/T11-calamine-red.xml tests/test_hardening.py -k calamine
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________ test_calamine_path_and_numeric_excel_identifier_diagnostic __________
+
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-13/test_calamine_path_and_numeric0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001A84583C510>
+
+    def test_calamine_path_and_numeric_excel_identifier_diagnostic(tmp_path, monkeypatch):
+        import antecipe.adapters.readers as readers
+        path = tmp_path/'small.xlsx'
+        wb=Workbook(); ws=wb.active; ws.append(COLUMNS); ws.append(values()); ws['G2']=351153; wb.save(path)
+        called=[]
+>       original=readers.read_calamine
+                 ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'antecipe.adapters.readers' has no attribute 'read_calamine'
+
+tests\test_hardening.py:25: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/test_hardening.py::test_calamine_path_and_numeric_excel_identifier_diagnostic
+1 failed, 2 deselected in 1.00s

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="72" time="4.996" timestamp="2026-10-24T16:28:31.634050-03:00" hostname="MATEUS"><testcase classname="tests.test_t01_bootstrap" name="test_application_and_config" time="0.007" /><testcase classname="tests.test_t01_bootstrap" name="test_domain_independent_of_frameworks" time="0.006" /><testcase classname="tests.test_t01_bootstrap" name="test_real_postgresql_isolated" time="0.155" /><testcase classname="tests.test_t01_bootstrap" name="test_reject_non_test_database" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_normalization_and_check_digits[01.000.171/0001-83-01000171000183-True]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_normalization_and_check_digits[01000171000183-01000171000183-True]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_normalization_and_check_digits[01.000.171/0001-84-01000171000184-False]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_normalization_and_check_digits[00000000000000-00000000000000-False]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_normalization_and_check_digits[11111111111111-11111111111111-False]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_normalization_and_check_digits[ABC01000171000183-ABC01000171000183-False]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_normalization_and_check_digits[123-123-False]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_roots_and_operational_identity" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_calendar_days[end0-2]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_calendar_days[end1-0]" time="0.001" /><testcase classname="tests.test_t02_entities" name="test_calendar_days[end2--1]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_delivered_configuration" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[unknown]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[duplicate]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[missing]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[bool]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[rate_float]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[method]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[base]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[range]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_invalid_configuration[percentage]" time="0.001" /><testcase classname="tests.test_t03_config" name="test_exact_rate_and_missing_fund" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[CNPJ_SACADO_VALIDO-bad0-good0]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[SITUACAO_CADASTRAL_SACADO-bad1-good1]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[SITUACAO_CADASTRAL_SACADO-bad2-good2]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[TIPO_RECEBIVEL-bad3-good3]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[VALOR_MINIMO-bad4-good4]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[NAO_VENCIDA-bad5-good5]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[PRAZO_MINIMO-bad6-good6]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[PRAZO_MINIMO-bad7-good7]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[PRAZO_MAXIMO-bad8-good8]" time="0.001" /><testcase classname="tests.test_t04_rules" name="test_rule_boundaries_and_disabled[PRAZO_MAXIMO-bad9-good9]" time="0.001" /><testcase classname="tests.test_t05_concentration" name="test_full_pl_multi_fund_and_files" time="0.001" /><testcase classname="tests.test_t05_concentration" name="test_exact_limit_excess_and_prior_exposure_no_mutation" time="0.001" /><testcase classname="tests.test_t06_pricing" name="test_decimal_pricing[10000.00-2-30-200.00-9800.00]" time="0.001" /><testcase classname="tests.test_t06_pricing" name="test_decimal_pricing[10000.00-0-30-0.00-10000.00]" time="0.001" /><testcase classname="tests.test_t06_pricing" name="test_decimal_pricing[10000.00-2-0-0.00-10000.00]" time="0.001" /><testcase classname="tests.test_t06_pricing" name="test_decimal_pricing[10000.00-2--30--200.00-10200.00]" time="0.001" /><testcase classname="tests.test_t06_pricing" name="test_decimal_pricing[100.00-200-30-200.00--100.00]" time="0.001" /><testcase classname="tests.test_t06_pricing" name="test_decimal_pricing[1.00-0.5-30-0.01-0.99]" time="0.001" /><testcase classname="tests.test_t06_pricing" name="test_decimal_pricing[9999999999999999.99-2-30-200000000000000.00-9799999999999999.99]" time="0.001" /><testcase classname="tests.test_t06_pricing" name="test_barred_zero" time="0.000" /><testcase classname="tests.test_t07_engine" name="test_duplicate_short_circuit_and_barred_does_not_reserve" time="0.002" /><testcase classname="tests.test_t07_engine" name="test_no_partial_exposure_and_multiple_reasons" time="0.001" /><testcase classname="tests.test_t07_engine" name="test_determinism_and_disabled_concentration_still_tracks" time="0.002" /><testcase classname="tests.test_t08_persistence" name="test_migrations_and_exact_numeric" time="0.367" /><testcase classname="tests.test_t08_persistence" name="test_unique_operational_key_origin_and_rollback" time="0.042" /><testcase classname="tests.test_t09_admin" name="test_real_registry_import_idempotence_and_batch_lookup" time="0.275" /><testcase classname="tests.test_t09_admin" name="test_conflict_rollback_and_active_job_protection" time="0.263" /><testcase classname="tests.test_t09_admin" name="test_fund_rules_versions_and_no_inheritance" time="0.055" /><testcase classname="tests.test_t10_transactions" name="test_real_concurrency[True-False]" time="0.051" /><testcase classname="tests.test_t10_transactions" name="test_real_concurrency[True-True]" time="0.048" /><testcase classname="tests.test_t10_transactions" name="test_real_concurrency[False-False]" time="0.044" /><testcase classname="tests.test_t10_transactions" name="test_retry_and_fault_atomicity" time="0.049" /><testcase classname="tests.test_t11_readers" name="test_csv_xlsx_equivalent_physical_rows" time="0.029" /><testcase classname="tests.test_t11_readers" name="test_data_error_pl_preservation_and_unreadable_nominal" time="0.000" /><testcase classname="tests.test_t11_readers" name="test_structural_failure_and_sheet_formula" time="0.028" /><testcase classname="tests.test_t12_uploads" name="test_manifest_upload_replay_order_seal" time="0.144" /><testcase classname="tests.test_t12_uploads" name="test_batch_atomicity_limits_hash_and_disk_error" time="0.055" /><testcase classname="tests.test_t13_worker" name="test_block_then_resume_snapshot_and_full_pl" time="0.552" /><testcase classname="tests.test_t13_worker" name="test_crash_recovery_no_duplicate_effects[before_commit]" time="0.547" /><testcase classname="tests.test_t13_worker" name="test_crash_recovery_no_duplicate_effects[after_commit]" time="0.544" /><testcase classname="tests.test_t13_worker" name="test_date_error_in_pl_unreadable_blocks_and_two_workers" time="0.485" /><testcase classname="tests.test_t14_api" name="test_all_infrastructure_operations_contract" time="0.022"><failure message="KeyError: 'X-Request-Id'">client = &lt;starlette.testclient.TestClient object at 0x000002857DFBB9D0&gt;
+db = Engine(postgresql+psycopg://antecipe:***@127.0.0.1:55432/antecipe_test)
+
+    def test_all_infrastructure_operations_contract(client, db):
+        for path in ['/health/live', '/health/ready', '/capacidades', '/cadastro/status', '/fundos', '/lotes']:
+&gt;           assert checked(client, 'GET', path, path).status_code == 200
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_t14_api.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_t14_api.py:33: in checked
+    assert response.headers['X-Request-Id']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Headers({'content-length': '107', 'content-type': 'application/json'})
+key = 'X-Request-Id'
+
+    def __getitem__(self, key: str) -&gt; str:
+        """
+        Return a single header value.
+    
+        If there are multiple headers with the same key, then we concatenate
+        them with commas. See: https://tools.ietf.org/html/rfc7230#section-3.2.2
+        """
+        normalized_key = key.lower().encode(self.encoding)
+    
+        items = [
+            header_value.decode(self.encoding)
+            for _, header_key, header_value in self._list
+            if header_key == normalized_key
+        ]
+    
+        if items:
+            return ", ".join(items)
+    
+&gt;       raise KeyError(key)
+E       KeyError: 'X-Request-Id'
+
+.venv\Lib\site-packages\httpx\_models.py:302: KeyError</failure></testcase><testcase classname="tests.test_t14_api" name="test_invalid_payload_envelope[body0]" time="0.022"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not Found&quot;}&#10;assert '404' in {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}&#10; +  where '404' = str(404)&#10; +    where 404 = &lt;Response [404 Not Found]&gt;.status_code">client = &lt;starlette.testclient.TestClient object at 0x000002857E055590&gt;
+body = {}
+
+    @pytest.mark.parametrize('body', [{}, {'nome': 'x', 'arquivos': [], 'extra': 1}, None])
+    def test_invalid_payload_envelope(client, body):
+&gt;       assert checked(client, 'POST', '/lotes', '/lotes', headers=headers(), json=body).status_code in [415, 422]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_t14_api.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+client = &lt;starlette.testclient.TestClient object at 0x000002857E055590&gt;
+method = 'POST', path = '/lotes', operation_path = '/lotes'
+kwargs = {'headers': {'Idempotency-Key': '56564b5e-844a-4b36-9cf4-da8c4580df24'}, 'json': {}}
+response = &lt;Response [404 Not Found]&gt;
+op = {'description': '', 'operationId': 'criarLote', 'parameters': [{'description': 'UUID por operação lógica; repetir em r...'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteRequest'}}}, 'required': True}, ...}
+@py_assert2 = 404, @py_assert4 = '404'
+@py_assert7 = {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}
+@py_assert6 = False
+@py_format9 = "'404'\n{'404' = str(404\n{404 = &lt;Response [404 Not Found]&gt;.status_code\n})\n} in {'201': {'content': {'application/js...'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}"
+
+    def checked(client, method, path, operation_path, **kwargs):
+        response = client.request(method, '/api/v1' + path, **kwargs)
+        op = SPEC['paths'][operation_path][method.lower()]
+&gt;       assert str(response.status_code) in op['responses'], response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert '404' in {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}
+E        +  where '404' = str(404)
+E        +    where 404 = &lt;Response [404 Not Found]&gt;.status_code
+
+tests\test_t14_api.py:30: AssertionError</failure></testcase><testcase classname="tests.test_t14_api" name="test_invalid_payload_envelope[body1]" time="0.023"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not Found&quot;}&#10;assert '404' in {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}&#10; +  where '404' = str(404)&#10; +    where 404 = &lt;Response [404 Not Found]&gt;.status_code">client = &lt;starlette.testclient.TestClient object at 0x000002857DF58180&gt;
+body = {'arquivos': [], 'extra': 1, 'nome': 'x'}
+
+    @pytest.mark.parametrize('body', [{}, {'nome': 'x', 'arquivos': [], 'extra': 1}, None])
+    def test_invalid_payload_envelope(client, body):
+&gt;       assert checked(client, 'POST', '/lotes', '/lotes', headers=headers(), json=body).status_code in [415, 422]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_t14_api.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+client = &lt;starlette.testclient.TestClient object at 0x000002857DF58180&gt;
+method = 'POST', path = '/lotes', operation_path = '/lotes'
+kwargs = {'headers': {'Idempotency-Key': 'b019f372-215e-4efb-aa56-0e0d363eefa4'}, 'json': {'arquivos': [], 'extra': 1, 'nome': 'x'}}
+response = &lt;Response [404 Not Found]&gt;
+op = {'description': '', 'operationId': 'criarLote', 'parameters': [{'description': 'UUID por operação lógica; repetir em r...'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteRequest'}}}, 'required': True}, ...}
+@py_assert2 = 404, @py_assert4 = '404'
+@py_assert7 = {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}
+@py_assert6 = False
+@py_format9 = "'404'\n{'404' = str(404\n{404 = &lt;Response [404 Not Found]&gt;.status_code\n})\n} in {'201': {'content': {'application/js...'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}"
+
+    def checked(client, method, path, operation_path, **kwargs):
+        response = client.request(method, '/api/v1' + path, **kwargs)
+        op = SPEC['paths'][operation_path][method.lower()]
+&gt;       assert str(response.status_code) in op['responses'], response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert '404' in {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}
+E        +  where '404' = str(404)
+E        +    where 404 = &lt;Response [404 Not Found]&gt;.status_code
+
+tests\test_t14_api.py:30: AssertionError</failure></testcase><testcase classname="tests.test_t14_api" name="test_invalid_payload_envelope[None]" time="0.026"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not Found&quot;}&#10;assert '404' in {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}&#10; +  where '404' = str(404)&#10; +    where 404 = &lt;Response [404 Not Found]&gt;.status_code">client = &lt;starlette.testclient.TestClient object at 0x000002857DF58B00&gt;
+body = None
+
+    @pytest.mark.parametrize('body', [{}, {'nome': 'x', 'arquivos': [], 'extra': 1}, None])
+    def test_invalid_payload_envelope(client, body):
+&gt;       assert checked(client, 'POST', '/lotes', '/lotes', headers=headers(), json=body).status_code in [415, 422]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_t14_api.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+client = &lt;starlette.testclient.TestClient object at 0x000002857DF58B00&gt;
+method = 'POST', path = '/lotes', operation_path = '/lotes'
+kwargs = {'headers': {'Idempotency-Key': 'b61b4dd5-50c3-436a-972b-84727fafe7af'}, 'json': None}
+response = &lt;Response [404 Not Found]&gt;
+op = {'description': '', 'operationId': 'criarLote', 'parameters': [{'description': 'UUID por operação lógica; repetir em r...'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteRequest'}}}, 'required': True}, ...}
+@py_assert2 = 404, @py_assert4 = '404'
+@py_assert7 = {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}
+@py_assert6 = False
+@py_format9 = "'404'\n{'404' = str(404\n{404 = &lt;Response [404 Not Found]&gt;.status_code\n})\n} in {'201': {'content': {'application/js...'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}"
+
+    def checked(client, method, path, operation_path, **kwargs):
+        response = client.request(method, '/api/v1' + path, **kwargs)
+        op = SPEC['paths'][operation_path][method.lower()]
+&gt;       assert str(response.status_code) in op['responses'], response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert '404' in {'201': {'content': {'application/json': {'schema': {'$ref': '#/components/schemas/CriarLoteResponse'}}}, 'description... 'schema': {'minimum': 0, 'type': 'integer'}}, 'X-Request-Id': {'schema': {'format': 'uuid', 'type': 'string'}}}}, ...}
+E        +  where '404' = str(404)
+E        +    where 404 = &lt;Response [404 Not Found]&gt;.status_code
+
+tests\test_t14_api.py:30: AssertionError</failure></testcase><testcase classname="tests.test_t14_api" name="test_invalid_ids_queries_header_media_and_cors" time="0.030"><failure message="assert 404 == 422&#10; +  where 404 = &lt;Response [404 Not Found]&gt;.status_code">client = &lt;starlette.testclient.TestClient object at 0x000002857DF41370&gt;
+
+    def test_invalid_ids_queries_header_media_and_cors(client):
+        for path in ['/lotes/not-uuid', '/fundos?limit=101', '/fundos?extra=1', '/fundos?configurado=null']:
+            response = client.get('/api/v1' + path)
+&gt;           assert response.status_code == 422
+E           assert 404 == 422
+E            +  where 404 = &lt;Response [404 Not Found]&gt;.status_code
+
+tests\test_t14_api.py:76: AssertionError</failure></testcase></testsuite></testsuites>

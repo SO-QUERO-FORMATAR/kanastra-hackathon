@@ -1,0 +1,20 @@
+                                                                              QUERY PLAN                                                                              
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.84..897.64 rows=101 width=1235) (actual time=0.075..1.155 rows=101 loops=1)
+   Buffers: shared hit=409
+   ->  Nested Loop  (cost=0.84..110645.17 rows=12461 width=1235) (actual time=0.074..1.140 rows=101 loops=1)
+         Buffers: shared hit=409
+         ->  Index Only Scan using reasons_page on reasons m  (cost=0.41..1726.43 rows=25043 width=20) (actual time=0.048..0.078 rows=101 loops=1)
+               Index Cond: ((file_id = 'f0cff56b-8947-4a11-86a8-b17e02a71ad0'::uuid) AND (code = 'TIPO_RECEBIVEL'::text) AND (sequence > 0) AND (sequence <= 500000))
+               Heap Fetches: 0
+               Buffers: shared hit=5
+         ->  Index Scan using results_pkey on results r  (cost=0.42..4.35 rows=1 width=1247) (actual time=0.010..0.010 rows=1 loops=101)
+               Index Cond: (id = m.result_id)
+               Filter: ((sequence > 0) AND (sequence <= 500000) AND (file_id = 'f0cff56b-8947-4a11-86a8-b17e02a71ad0'::uuid))
+               Buffers: shared hit=404
+ Planning:
+   Buffers: shared hit=380 read=4
+ Planning Time: 1.613 ms
+ Execution Time: 1.242 ms
+(16 rows)
+

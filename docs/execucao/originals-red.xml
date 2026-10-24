@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.913" timestamp="2026-10-24T16:42:23.441509-03:00" hostname="MATEUS"><testcase classname="tests.test_final_edges" name="test_original_numeric_excel_value_preserved" time="0.009"><failure message="AssertionError: assert '__ANTECIPE_I...ERICO__351153' == '351153'&#10;  &#10;  - 351153&#10;  + __ANTECIPE_IDENTIFICADOR_NUMERICO__351153">def test_original_numeric_excel_value_preserved():
+        raw = dict(zip(COLUMNS, values()))
+        raw['NU_DOCUMENTO'] = NUMERIC_ID+'351153'
+        parsed = parse_row(raw)
+&gt;       assert parsed['raw']['NU_DOCUMENTO'] == '351153'
+E       AssertionError: assert '__ANTECIPE_I...ERICO__351153' == '351153'
+E         
+E         - 351153
+E         + __ANTECIPE_IDENTIFICADOR_NUMERICO__351153
+
+tests\test_final_edges.py:21: AssertionError</failure></testcase></testsuite></testsuites>

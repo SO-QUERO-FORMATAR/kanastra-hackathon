@@ -1,0 +1,122 @@
+ Image kanastra-hackathon-migrate Building 
+ Image kanastra-hackathon-api Building 
+ Image kanastra-hackathon-worker Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.61kB done
+#1 DONE 0.0s
+
+#2 [worker internal] load build definition from Dockerfile
+#2 transferring dockerfile: 497B 0.0s done
+#2 DONE 0.0s
+
+#3 [api internal] load metadata for docker.io/library/python:3.13.5-slim
+#3 ...
+
+#4 [auth] library/python:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [api internal] load metadata for docker.io/library/python:3.13.5-slim
+#3 DONE 2.2s
+
+#5 [api internal] load .dockerignore
+#5 transferring context: 173B done
+#5 DONE 0.0s
+
+#6 [worker 1/8] FROM docker.io/library/python:3.13.5-slim@sha256:4c2cf9917bd1cbacc5e9b07320025bdb7cdf2df7b0ceaccb55e9dd7e30987419
+#6 resolve docker.io/library/python:3.13.5-slim@sha256:4c2cf9917bd1cbacc5e9b07320025bdb7cdf2df7b0ceaccb55e9dd7e30987419 0.0s done
+#6 DONE 0.0s
+
+#7 [api internal] load build context
+#7 transferring context: 236.94kB 0.0s done
+#7 DONE 0.1s
+
+#8 [worker 2/8] RUN pip install --no-cache-dir uv==0.11.2
+#8 CACHED
+
+#9 [worker 3/8] WORKDIR /app/backend
+#9 CACHED
+
+#10 [worker 4/8] COPY backend/pyproject.toml backend/uv.lock ./
+#10 CACHED
+
+#11 [migrate 5/8] RUN uv sync --frozen --no-dev --no-install-project
+#11 CACHED
+
+#12 [api 6/8] COPY backend/antecipe ./antecipe
+#12 DONE 0.0s
+
+#12 [migrate 6/8] COPY backend/antecipe ./antecipe
+#12 DONE 0.0s
+
+#13 [migrate 7/8] COPY backend/migrations ./migrations
+#13 DONE 0.1s
+
+#14 [migrate 8/8] COPY docs/contratos /app/docs/contratos
+#14 DONE 0.1s
+
+#14 [worker 8/8] COPY docs/contratos /app/docs/contratos
+#14 DONE 0.1s
+
+#15 [worker] exporting to image
+#15 exporting layers
+#15 exporting layers 0.2s done
+#15 exporting manifest sha256:babe2cc3a7e0e7904ab720133d5a36199592a4a977933b0f1659c418d229f8a6 0.0s done
+#15 exporting config sha256:4d3e6f1b1df7c23d958c0076a17394278d8d69952508b0187b1a5a9b9434cf8d
+#15 exporting config sha256:4d3e6f1b1df7c23d958c0076a17394278d8d69952508b0187b1a5a9b9434cf8d 0.1s done
+#15 exporting attestation manifest sha256:f45c47dc252306cd762efcf7f67940cf4f5c57ac661ff4893850064c35083a93
+#15 exporting attestation manifest sha256:f45c47dc252306cd762efcf7f67940cf4f5c57ac661ff4893850064c35083a93 0.1s done
+#15 exporting manifest list sha256:e9b3c9f7023a2a49c2ee7914df4bea6cabcea0daf0db670412fedcc6d0e1fe08 0.1s done
+#15 naming to docker.io/library/kanastra-hackathon-worker:latest done
+#15 unpacking to docker.io/library/kanastra-hackathon-worker:latest 0.1s done
+#15 DONE 0.7s
+
+#16 [migrate] exporting to image
+#16 exporting layers 0.2s done
+#16 exporting manifest sha256:19fdb6c1d463691826c2b14251c86db2c12dfb9cce06ee3e124b2e83e4110aef 0.0s done
+#16 exporting config sha256:a7a3af8a57cf17c81899c43bc3d7d45975d71977eda2c98bc759c986f0696eb3 0.1s done
+#16 exporting attestation manifest sha256:7eb4af5981ebf2f93e7d84d35b7eb02227af5e29991dd21e44ad02929a56f8f3 0.1s done
+#16 exporting manifest list sha256:1dedc8f3bf71089acb7f71eead1ce0ca7ef53a7de5c02635295fc6f0c0f04089 0.1s done
+#16 naming to docker.io/library/kanastra-hackathon-migrate:latest 0.0s done
+#16 unpacking to docker.io/library/kanastra-hackathon-migrate:latest 0.1s done
+#16 DONE 0.7s
+
+#17 [api] exporting to image
+#17 exporting layers 0.2s done
+#17 exporting manifest sha256:5f90bf277652f4b8c55a1a0f360eeff0093bcee5d0ab83a2977a1512f582f584 0.0s done
+#17 exporting config sha256:2031232694394e5859158da3669706402aa6f610d652679609e3fb68574ad067 0.1s done
+#17 exporting attestation manifest sha256:3f612c6a72cbe94e5a9d4ba47b411b387e99dbd477a9e20f97d497d5737a7f37 0.1s done
+#17 exporting manifest list sha256:f0796f5a3b0bc9cfab25ded1f3d1bec90f54331a30136ea19afbda149d9bc962 0.1s done
+#17 naming to docker.io/library/kanastra-hackathon-api:latest done
+#17 unpacking to docker.io/library/kanastra-hackathon-api:latest 0.1s done
+#17 DONE 0.8s
+
+#18 [worker] resolving provenance for metadata file
+#18 DONE 0.1s
+
+#19 [api] resolving provenance for metadata file
+#19 DONE 0.0s
+
+#20 [migrate] resolving provenance for metadata file
+#20 DONE 0.1s
+ Image kanastra-hackathon-migrate Built 
+ Image kanastra-hackathon-api Built 
+ Image kanastra-hackathon-worker Built 
+ Container kanastra-hackathon-db-1 Running 
+ Container kanastra-hackathon-migrate-1 Recreate 
+ Container kanastra-hackathon-migrate-1 Recreated 
+ Container kanastra-hackathon-api-1 Recreate 
+ Container kanastra-hackathon-worker-1 Recreate 
+ Container kanastra-hackathon-api-1 Recreated 
+ Container kanastra-hackathon-worker-1 Recreated 
+ Container kanastra-hackathon-db-1 Waiting 
+ Container kanastra-hackathon-db-1 Healthy 
+ Container kanastra-hackathon-migrate-1 Starting 
+ Container kanastra-hackathon-migrate-1 Started 
+ Container kanastra-hackathon-migrate-1 Waiting 
+ Container kanastra-hackathon-migrate-1 Waiting 
+ Container kanastra-hackathon-migrate-1 Exited 
+ Container kanastra-hackathon-worker-1 Starting 
+ Container kanastra-hackathon-migrate-1 Exited 
+ Container kanastra-hackathon-api-1 Starting 
+ Container kanastra-hackathon-worker-1 Started 
+ Container kanastra-hackathon-api-1 Started 

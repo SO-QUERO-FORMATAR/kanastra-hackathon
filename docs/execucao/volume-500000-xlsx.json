@@ -1,0 +1,9119 @@
+{
+  "count": 500000,
+  "format": "XLSX",
+  "seconds": 740.434385499917,
+  "peak_worker_rss_bytes": 142295040,
+  "p95_ms": 46.34480003733188,
+  "samples": [
+    {
+      "ms": 11.294799973256886,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.203800030983984,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.16479999292642,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.645300064235926,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.68169999215752,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.386300040408969,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.251900035887957,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 81.3631999772042,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.053599935024977,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.914299909956753,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.68710002861917,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.26649992633611,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.034399926662445,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.55999999679625,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.445399943739176,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.714200023561716,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 49.237700062803924,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.308599992655218,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.00310003012419,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 35.92759999446571,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.64209995418787,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.91269995737821,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.452800000086427,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.43800002988428,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.777700050733984,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.452700063586235,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 37.24330000113696,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 28.02740002516657,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.34690006542951,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 79.64549993630499,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.032699991948903,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.07910001743585,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.85209996625781,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.69829993788153,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.450099979527295,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.16409993544221,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.357500051148236,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 34.01659999508411,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.12679997179657,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.83539996482432,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.977200004272163,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.767100038938224,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.676500004716218,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.87740001641214,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.181300071068108,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.700400091707706,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 35.05459998268634,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 37.53910004161298,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.143500042147934,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.4916999777779,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.951300023123622,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 139.95670003350824,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 34.849500050768256,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.732000009156764,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.4535000147298,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.058300018310547,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 46.45449994131923,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 50.39650003891438,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 50.083800102584064,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 35.55239993147552,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.649999893270433,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.591899985447526,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.612800075672567,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.506200078874826,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.56069998536259,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.08250004798174,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 41.52769991196692,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 28.11509999446571,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 42.249899939633906,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 36.95069998502731,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.916700013913214,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.714000036008656,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 53.4961000084877,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.5022999541834,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.616400086320937,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 163.6966000078246,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 36.129600019194186,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 41.02560004685074,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 38.12869999092072,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 43.011600035242736,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.233600025065243,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.794999949634075,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.710500052198768,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.635800022631884,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.40400000847876,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.90579996164888,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 42.576200095936656,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 79.99140000902116,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 40.4598000459373,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.980499926954508,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.394200019538403,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.6284999884665,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 34.806499956175685,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.358499980531633,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.242999994196,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 40.772799984551966,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.65569994598627,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 52.02679999638349,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.427400022745132,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.997599962167442,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.017199985682964,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.739599998109043,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 31.819900032132864,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.193800011649728,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 43.09110005851835,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 36.26780002377927,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 81.07079996261746,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 36.91260004416108,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 48.17159997764975,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 41.4211000315845,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.001300011761487,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 36.582799977622926,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 155.76390002388507,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 47.91690001729876,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 56.921100011095405,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 51.59389995969832,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 39.88499997649342,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 57.562400004826486,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 51.66809994261712,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 46.383599983528256,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 55.614400072954595,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 44.762999983504415,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 38.245600066147745,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 42.47900005429983,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 46.34480003733188,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 58.41689999215305,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 96.03449993301183,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 55.24759995751083,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 44.526200043037534,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 49.15520001668483,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 128.84200003463775,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 56.56449997331947,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 40.94869992695749,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 36.725300014950335,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 47.66779998317361,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.958099984563887,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 51.3978999806568,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 55.49970001447946,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 45.95609998796135,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 54.56890002824366,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.35210001002997,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 42.567500029690564,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 34.4030000269413,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 40.31109996140003,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 44.648800045251846,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.259499977342784,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 36.43300000112504,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 57.46089993044734,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 60.08159997873008,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 120.68439996801317,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.77869999408722,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.65599994827062,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 36.63710004184395,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.843099923804402,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.548700015060604,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.038599989376962,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.791400000452995,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.547899930737913,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.85420000832528,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.18639998137951,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.046399975195527,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.6953000407666,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 61.038199928589165,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.641699998639524,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 38.07509993202984,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.786699981428683,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.638099987991154,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.161999950185418,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.386500008404255,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.368299981579185,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.17249991837889,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 92.55409997422248,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 37.523800041526556,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.108099967241287,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.549100030213594,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.999200007878244,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.590500022284687,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.48140004929155,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.86329990439117,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.331699983216822,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.142399998381734,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.56440005172044,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.67869997397065,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.115399901755154,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 46.131999930366874,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.179500031284988,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.824499915353954,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.451399958692491,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.627099973149598,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.47359996382147,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.847000008448958,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.675099963322282,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.870500011369586,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.240599988028407,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.72660001553595,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.667900020256639,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.86399998795241,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.879000050015748,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.031000000424683,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.078299985267222,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.423500043340027,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.389499953016639,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.481999942101538,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.3273000754416,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.49130004364997,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.570199974812567,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.887700073421,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.749599901027977,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.50579996407032,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.73190002515912,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.847099987789989,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.002399920485914,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.74590008892119,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.923899973742664,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.07939997687936,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.077899998985231,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 97.5951999425888,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.302500010468066,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.44290001038462,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.806700055487454,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.061299988999963,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.312400052323937,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.351000039838254,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.420599956996739,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.719100010581315,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.723499956540763,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.342199894599617,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.721599989570677,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.03369996882975,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.793599960394204,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.49310006480664,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.242700030095875,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.390400012023747,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.16010004747659,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.004600036889315,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.804700061678886,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.87389994226396,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.412299941293895,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.911499995738268,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.036899976432323,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.10299997869879,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.28750003874302,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.514099932275712,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.537800022400916,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.960100073367357,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.107799993827939,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.448899927549064,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 12.698499951511621,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.88720003888011,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.902299899607897,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.655099970288575,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.414000006392598,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 33.05909992195666,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.2553999889642,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.799200003035367,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.52119997702539,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.979000017978251,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.82280006632209,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.464199922978878,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.96340004634112,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.01759994123131,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.910700020380318,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 26.377400034107268,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.54880003258586,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.216900028288364,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.287600013427436,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.149399996735156,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.83139999397099,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.826800075359643,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.033300060778856,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.118999962694943,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.48020001873374,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.58830000087619,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.98859998397529,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.44670003186911,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.2397000240162,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.779200045391917,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.46509997267276,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.830399981699884,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.646400094032288,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.36820001900196,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.580199960619211,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.563699951395392,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.657699951902032,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.77999997790903,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.601699960418046,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.958300028927624,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 25.931400014087558,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.281899996101856,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.027399968355894,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 8.73979995958507,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.69640007801354,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.319399979896843,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.90259993262589,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.584999937564135,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.08150003105402,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.847499947994947,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 26.119000045582652,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.78060004208237,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.782399965450168,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.810899944975972,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.77149997279048,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.436700041405857,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.328199982643127,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.381800015456975,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.11970002949238,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.244300016202033,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.363800020888448,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.895099939778447,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.482699990272522,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.187099989503622,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.09780006017536,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 29.35909992083907,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.876799973659217,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.529299957677722,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.009400052018464,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.82239990402013,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.191999962553382,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.066199962049723,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.079300014302135,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.82900003530085,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.098399974405766,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.509100053459406,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.466700084507465,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.236399977467954,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.201999948360026,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.0194000499323,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.64920002501458,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.13970006071031,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.035199984908104,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 98.69210002943873,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.285300000570714,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.591299976222217,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.00659998320043,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.73340007197112,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.784000041894615,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.883400049991906,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.403300010599196,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.785700016655028,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.83859997522086,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.125100030563772,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.895000050775707,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.9596999399364,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.440300052054226,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.25560003798455,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.31059995573014,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.97209994867444,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.654800015501678,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.02350002899766,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.632599993608892,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.03360001090914,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.94810004159808,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.014199889265,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 71.93510001525283,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.70149998832494,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.728899976238608,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.30440008174628,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.939999958500266,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.812200007028878,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.28129999153316,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.576900025829673,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.687999987974763,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.31729998998344,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.438999904319644,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 268.53989996016026,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.664400041103363,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.091800023801625,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.814600008539855,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.587899954989552,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.0746000520885,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.22049992531538,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.008200054988265,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.14779995381832,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.453399926424026,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 89.26220005378127,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.846399982459843,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.06889994442463,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.468799905851483,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.259499998763204,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.90069998241961,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.998299927450716,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.75570006854832,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.25920003466308,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.889799946919084,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.678100064396858,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.285800068639219,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.31649999320507,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.661099947057664,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.41990009881556,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.776299975812435,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.511200017295778,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.908999998122454,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.033300082199275,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.028899953700602,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.04469998832792,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.070299919694662,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.432200002484024,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 49.05140004120767,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.288300096988678,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.399400033056736,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.22759999614209,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.198900015093386,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.158499892801046,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.561200100928545,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.496700037270784,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.1575999641791,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.684700019657612,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.90700005646795,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.339099992066622,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.552099984139204,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.41420002002269,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.653999987989664,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.405100028961897,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.46830004453659,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.52050000242889,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.38780000898987,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.120699980296195,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.325600010342896,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.065799963660538,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.912499960511923,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.459700043313205,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.719299950636923,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.430599942803383,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.307799986563623,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.236099932342768,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.784000046551228,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.313900016248226,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 36.89360001590103,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.27710003312677,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.09349994175136,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.041700046509504,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.302199939265847,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.155200100503862,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.56590004172176,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.321299999020994,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.13599995430559,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.327699995599687,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 26.89550002105534,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.1646999232471,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.360999978147447,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 8.534399908967316,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.249200027436018,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.170700033195317,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.353899971581995,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.379599972628057,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.346999978646636,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.891199957579374,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 25.68680001422763,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.911799998022616,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.028999942354858,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.116799967363477,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.102099976502359,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.693700057454407,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.620800029486418,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.02360007725656,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.36160002090037,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.09840004798025,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.4294000454247,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.130900036543608,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.518500013276935,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.11619991529733,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.492899994365871,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.49010002054274,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.828599989414215,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.409000015817583,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.079700017347932,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 39.36419996898621,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 28.168799937702715,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.628800033591688,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.141800007782876,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.74350010883063,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.271700034849346,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.37339990399778,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.217100063338876,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.378299988806248,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.587300062179565,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.426499916240573,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.51260003261268,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.211799984797835,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.543199989944696,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.120099949650466,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.169600008055568,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.835899954661727,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.98369996342808,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.739300064742565,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.94950009509921,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.909099982120097,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.592300014570355,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 61.106499982997775,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.8568000709638,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.43730001989752,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.18410004954785,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.26509998459369,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.40580005571246,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.549599960446358,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.35339995380491,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.705999965779483,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.891099982894957,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.99520001281053,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.943499920889735,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.856100008822978,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.511200017295778,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.527600094676018,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.384400030598044,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.383099951781332,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.671099997125566,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.54230000451207,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.777599981054664,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.103699929080904,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.756299909204245,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.599899968132377,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 44.17840007226914,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.385500017553568,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.542800025083125,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.184299977496266,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.830100043676794,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.55600003991276,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.52810003887862,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.153300031088293,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.718099950812757,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.770600034855306,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.598800054751337,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.317500034347177,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.03540002927184,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.987700062803924,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.394700056873262,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 39.986400050111115,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.94700001180172,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.782299931161106,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.16049998626113,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.395299992524087,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.679500044323504,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.928299938328564,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.02170005068183,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.42450008634478,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.279399998486042,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.10720004606992,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.725899953395128,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 39.93349999655038,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.881400099024177,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.027500080876052,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.98800006043166,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.763899940997362,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.63689997419715,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.564500078558922,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.951299992389977,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.58659998793155,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 32.09720004815608,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.762099996209145,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.989799914881587,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.860699974931777,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.961399952881038,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.293999997898936,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.325300072319806,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 37.68370009493083,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.504299895837903,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 36.867700051516294,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 30.927499989047647,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.046599929220974,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.401200046762824,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.316499974578619,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.041999984532595,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.48890003748238,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.788499990478158,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.902099976316094,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.947999967262149,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.168700074777007,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.685600069351494,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.918600006960332,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.051099984906614,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.8337000021711,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.665400005877018,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.824599958956242,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.996699907816947,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.12810001987964,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.259199975058436,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.278699933551252,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.570700052194297,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.675400060601532,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 81.81770006194711,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.394499986432493,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.914199964143336,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.58050001040101,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.3870999654755,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.59589998237789,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.523700022138655,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.100899967364967,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.292599987238646,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.160200022161007,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.783300003036857,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.987199959345162,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.64569990336895,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.885300007648766,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.026400012895465,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.76419998332858,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.097300008870661,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.554900019429624,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.399299932643771,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.893399922177196,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.735099975951016,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.250700008124113,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.597799999639392,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.298799991607666,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.298399979248643,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.84729997254908,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 8.845699951052666,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.462699997238815,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.387700077146292,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.734400018118322,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.1228000652045,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.343900066800416,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.440599966794252,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.209299999289215,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.644400005228817,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.88849997986108,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 8.867800002917647,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.601900030858815,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 12.539300019852817,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.355400016531348,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.649099929258227,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 8.841000031679869,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.234800029546022,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 11.671200045384467,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.793399975635111,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.575099990703166,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.326999916695058,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.709499954245985,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.035200032405555,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.721700037829578,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.12309999857098,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.63360006082803,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.791500013321638,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.88210003077984,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.048699971288443,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 43.46449999138713,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.561900049448013,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.483799972571433,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.817500047385693,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.429900027811527,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.81170000322163,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.46620004530996,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.009600001387298,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.951799910515547,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.731300025247037,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.633599975146353,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.629499982111156,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.246199909597635,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.86629999615252,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.131000101566315,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.57059996109456,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.20570005942136,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.097299944609404,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.467999951913953,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.109000007621944,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.583300062455237,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.837700011208653,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.251099951565266,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.561399981379509,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.578100013546646,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.110700068064034,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.937800006009638,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.63779992144555,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.2102999901399,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.34010005183518,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.383399980142713,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.536599904298782,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.229800069704652,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 32.90520003065467,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.127099900506437,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.572600002400577,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.1232000682503,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.793500063940883,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 27.410399983637035,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.53409997280687,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 46.1003000382334,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.373199997469783,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.42890005093068,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 27.439200086519122,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.715900002978742,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.143899980932474,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.954300062730908,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.85819994378835,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.244199946522713,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.83510005753487,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.85040001012385,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.345499967224896,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.99650004412979,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.82219996675849,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.439399898052216,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.3199999416247,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.089499996975064,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.704399979673326,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.269899952225387,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.7965000346303,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 45.773599995300174,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 65.45450002886355,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 44.74319994915277,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 36.080799996852875,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.24130002874881,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.21409995947033,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.416200023144484,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.10739995725453,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.164199988357723,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.907000018283725,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.626500037498772,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.95659998524934,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.51999997254461,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 51.22829996980727,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.598600045777857,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.010000004433095,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.29310001246631,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.086700023151934,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.197799985297024,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.089300021529198,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.728399981744587,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.818099978379905,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.831999908201396,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 34.47170008439571,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.292799898423254,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.324200025759637,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.156100038439035,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 41.52949992567301,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 28.02610001526773,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.174000098370016,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.442600012756884,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.791299981065094,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.695500002242625,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.033399992622435,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.950499943457544,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.54910008236766,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.756300068460405,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.023200036026537,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.302999971434474,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.271499921567738,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.3482000278309,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.916199931874871,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.714599957689643,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.816500013694167,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.88389998022467,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.98809996340424,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.647900010459125,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.447499976493418,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 29.75789993070066,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.717699985951185,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.379799952730536,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.721999987959862,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.188300003297627,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 12.624399969354272,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.813400011509657,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.86669997032732,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.640800098888576,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.746199905872345,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.96350002102554,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.91069997753948,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.089499980211258,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.550499993376434,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.219100014306605,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 25.013400008901954,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.099200037308037,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.51700003258884,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.5202000644058,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.757199968211353,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 64.86739998217672,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 75.87009994313121,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.01579998899251,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 37.7893999684602,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 49.90220000036061,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 30.784199945628643,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 39.202399901114404,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.728700079023838,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.59130000229925,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.692700054496527,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.133500060997903,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.15200006403029,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.854500058107078,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.356499982066453,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.558399946428835,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 25.557000073604286,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.097799979150295,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.692100007086992,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.866999889723957,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.77599989529699,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 73.5825999872759,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.755499929189682,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.230900035239756,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 205.26479999534786,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.611299947835505,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.013099980540574,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.897700037807226,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.605099948123097,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.51819993276149,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.775699988007545,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.791500008665025,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.321100014261901,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.074000004678965,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.52990001719445,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.767900018952787,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.43140002246946,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.302499946206808,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 41.16759996395558,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.178199931047857,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.28480006568134,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.632100054062903,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 78.5842000041157,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.45319992955774,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.361500084400177,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 39.78590003680438,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 82.38949999213219,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.472999994643033,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.779899986460805,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.24280004762113,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.070099970325828,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.394499926827848,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.347200006246567,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.226700046099722,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.639000011608005,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.32030003424734,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.66110004670918,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.061899907886982,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.356900020502508,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.814599973149598,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.50570002757013,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.212400022894144,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.55000001564622,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.319699939340353,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.432699954137206,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.496499974280596,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.9307000041008,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.16559992544353,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.951000004075468,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.635900035500526,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.535999999381602,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.939799999818206,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.71110003069043,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.55860005505383,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.354500009678304,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.54740000050515,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 30.42480000294745,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.749200023710728,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.9668999183923,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.278600082732737,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.434399993158877,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.763499985449016,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.529299995861948,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.686000029556453,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.89060000050813,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.22420005314052,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 108.2998999627307,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.420300002209842,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.731600032188,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.777099994011223,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.097699964419007,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.72720001079142,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.806599938310683,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.10159990377724,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.977900004945695,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.75779993459582,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.974400009028614,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.919800020754337,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.7345999982208,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.435899904929101,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.108399976976216,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.12280001770705,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.065399977378547,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.971000009216368,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.741999912075698,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.7808000696823,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 35.12999997474253,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.426299983635545,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.199200057424605,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 48.96260006353259,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.773200037889183,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.461800085380673,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.853699947707355,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.076200038194656,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.319400001317263,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.896200047805905,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.101800073869526,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.27720000781119,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.736600001342595,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.721199981868267,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.145699985325336,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.906099954620004,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.757199958898127,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.7507999362424,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.243299935013056,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.50699999462813,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.594999966211617,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.506599991582334,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.338599945418537,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.972700012847781,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.14949996676296,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.541399993002415,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.867100020870566,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.882799993269145,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.197900007478893,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.55620002001524,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.61530007328838,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.961500015109777,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.294400053098798,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.508799999020994,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.503500032238662,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.839800057932734,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.50519990734756,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.483399974182248,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.574999989941716,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.358399910852313,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 27.38169999793172,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.28329998999834,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.835600004531443,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.593499997630715,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.033099985681474,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.93470002990216,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.60470005683601,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.866600098088384,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 56.22840009164065,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.06369995698333,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 28.199000051245093,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.9826000072062,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.825599923729897,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.227799976244569,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.601500006392598,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.70190002489835,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.687800012528896,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.494500101543963,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.108299976214767,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.93229994736612,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 30.085099977441132,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.62099999561906,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.54509990941733,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.29880000371486,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.275999929755926,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.22039994597435,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.60859990119934,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.043799960054457,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.875999979674816,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.597100008279085,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.243200003169477,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 35.914800013415515,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.574100001715124,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.272599989548326,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.997399929910898,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.56290001887828,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 35.02559999469668,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.179400044493377,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.297399945557117,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.911999956704676,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.638100035488605,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.402599888853729,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.920299967750907,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.259600006975234,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.648199991323054,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.168100018054247,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 45.07780005224049,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 32.865599961951375,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.641399913467467,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.15620002243668,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.926899949088693,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.933599931187928,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.424699966795743,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.699200035072863,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.372999969869852,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.457000053487718,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.9004999473691,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 37.21209999639541,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.787700022570789,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.427200007252395,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.752499975264072,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.79109991993755,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.44839997123927,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.322300044819713,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 34.56920001190156,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 54.753300035372376,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 47.631700057536364,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 55.58819998987019,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.856499969027936,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.012700024992228,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.272700047120452,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.916100009344518,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.50369996484369,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.534600052982569,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.409800038672984,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 68.39940010104328,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.788000017404556,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.83830004185438,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.149900012649596,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.534900064580142,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.648499993607402,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.837400103919208,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.77530005853623,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.832699973136187,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.450299997814,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.631999989040196,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.42499996908009,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.53139993082732,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.609800000675023,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.119699946604669,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.20470001641661,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.379800000227988,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.13479999732226,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.850699993781745,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.068299987353384,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.346400026232004,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.84769993275404,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.140199974179268,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.155299989506602,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.014099957421422,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.263100016862154,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.18139996472746,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.17339994199574,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.53429991286248,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.057799997739494,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 26.133700041100383,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.400999997742474,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 35.21739994175732,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.285500044934452,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.87970000784844,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.07659996766597,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.56309997290373,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.85899998806417,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.45460007339716,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.526500022038817,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.390399985946715,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.8023999677971,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.963799954392016,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.178200016729534,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.496900072321296,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 60.69219997152686,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.896300001069903,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.119700024835765,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.832599972374737,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.729900009930134,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 26.095400098711252,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 36.80130001157522,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.592999989166856,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.439299956895411,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.153500066138804,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.240499935112894,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.03150002565235,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.698300032876432,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.170400004833937,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.28339992184192,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.38420005980879,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.2661999668926,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.014399985782802,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.071300086565316,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.92460002657026,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.059899982996285,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.45379996020347,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.647899920120835,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.22369999717921,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.80709998961538,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.27079991158098,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.073100009933114,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.756600070744753,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.419999900273979,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.38030002079904,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.36200002860278,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.852399942465127,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.813799907453358,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.026800075545907,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.01030000206083,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.228700104169548,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.70959999319166,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.920799997635186,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.126000015996397,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.78980002645403,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.399600060656667,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.89699996355921,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.656599986366928,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.166300068609416,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.780799974687397,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 12.967700022272766,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 76.09480002429336,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.10189990606159,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.411899938248098,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.056599945761263,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 27.03029999975115,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.66840003337711,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.568700024858117,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.817299946211278,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.15550005994737,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.74829996470362,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.16720005404204,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.65220000501722,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.756199972704053,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.42420003656298,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 19.77360004093498,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.956099960021675,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.30540006328374,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.837100096978247,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.806800008751452,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.268300077877939,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 38.33520004991442,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.7190999109298,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.71249994635582,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.07480003219098,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 25.04940005019307,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.73179992940277,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.625899964012206,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.523499989882112,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.615799998864532,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.46519993059337,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.997399913147092,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.920399934984744,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.218600001186132,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.49520006403327,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.181500025093555,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.89800005685538,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.51259998511523,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.886399937793612,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.706199924461544,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.278099997900426,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 31.257699942216277,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.298299961723387,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 8.913600002415478,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.817899976857007,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.716200022026896,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.90880007017404,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.951300023123622,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 28.368799947202206,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.303800008259714,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.49659995827824,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.527200100943446,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.740499909967184,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.910599958151579,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.821099953725934,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.50340000540018,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.332299940288067,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.865700026974082,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.737200013361871,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.067399975843728,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 22.824899991974235,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.352399924769998,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.244399964809418,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.798899922519922,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.042699994519353,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.42489998973906,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.25649994984269,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.8681999463588,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.50929998140782,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.476099996827543,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 28.805800015106797,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.681100056506693,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.006199944764376,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.982599993236363,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.599500017240644,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.987800046801567,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.867999901995063,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.729599938727915,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.56849991902709,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.463700014166534,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 12.559699942357838,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.21199997700751,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.988699954003096,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.21259999834001,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.4575000051409,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 35.936999949626625,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.818599986843765,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 30.24079999886453,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.575600020587444,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.811900026164949,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 14.2083999235183,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.60419995803386,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.72730001155287,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.504100010730326,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.840000016614795,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 26.505499961785972,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.44390007480979,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.321199972182512,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 11.937899980694056,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.018899998627603,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 16.285000019706786,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.617000034078956,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.829400000162423,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.393700032494962,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.93240004312247,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 24.81710002757609,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.070700086653233,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.82990000396967,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.057300053536892,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.086400089785457,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.0522999772802,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.98970007803291,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.758499930612743,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.505399961024523,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.676800049841404,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 35.80700000748038,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.638299946673214,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.16919997893274,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 9.138899971731007,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.236700070090592,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 13.212400022894144,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.126500071957707,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.093400035984814,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.864299933426082,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.045000090263784,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 21.678299992345273,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.41179993748665,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.558000002987683,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 10.66739996895194,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.853899996727705,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.573500073514879,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.451499921269715,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.917999980971217,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.388299991376698,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.658899982459843,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 15.017300029285252,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.749099966138601,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.41779991891235,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.485400032252073,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 159.95170001406223,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 42.28749999310821,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 39.038200047798455,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.943399920128286,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.454999964684248,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.15949998795986,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 20.552000030875206,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.064399953000247,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.89290002733469,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.50940000358969,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.11829996202141,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.452700063586235,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.29389998037368,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.995299966074526,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 60.78799988608807,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 33.17930002231151,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 51.93050007801503,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 55.889599956572056,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 29.622099944390357,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.14519993402064,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.386399986222386,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 30.315599986352026,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 35.45429999940097,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 38.03429997060448,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.491400009021163,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 58.843999984674156,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 30.401600059121847,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 102.9024999588728,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 63.99689998943359,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 18.646599957719445,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 38.87150005903095,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 29.99810001347214,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.911500026471913,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 24.617299903184175,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.821500030346215,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.73969995137304,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 18.956200103275478,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 38.01009990274906,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.22380002401769,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 25.265200063586235,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 27.899299981072545,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 30.54149996023625,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.83400009945035,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.584599955938756,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 12.081700027920306,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.006100012920797,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.887900001369417,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 14.379300060681999,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 26.773100020363927,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 20.165699999779463,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.220199975185096,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 17.60180003475398,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.988000069744885,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 17.74530007969588,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 13.590599992312491,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.18989992979914,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 23.232599953189492,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.487700002267957,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 23.87450006790459,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 15.117699978873134,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 19.070499925874174,
+      "filter": {},
+      "during_processing": true
+    },
+    {
+      "ms": 28.970799990929663,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 22.745000082068145,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 16.045400057919323,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": true
+    },
+    {
+      "ms": 21.05049998499453,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 16.651100013405085,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 17.4664999358356,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 18.743199994787574,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 10.30889991670847,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.898100005462766,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 14.087700052186847,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 17.952300026081502,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 16.21629996225238,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 9.54610004555434,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.32829990517348,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 12.83070002682507,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 11.59360003657639,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 12.713100062683225,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 9.563999949023128,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 9.34140000026673,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 10.010399972088635,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 10.633899946697056,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.422500040382147,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 9.238000027835369,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 16.372200101614,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 20.634000073187053,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 17.117199953645468,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 16.848100000061095,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 9.600099991075695,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.101299991831183,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 11.951599968597293,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.263399945572019,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.887800043448806,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 8.498599985614419,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 12.68539996817708,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 12.084299931302667,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.442100025713444,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 15.346699976362288,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 9.581899968907237,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 12.41129997652024,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 13.030500034801662,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.040300109423697,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 16.888700076378882,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 11.762499925680459,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.391700038686395,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 15.279600047506392,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 18.802199978381395,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 22.251299931667745,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 12.333999969996512,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 18.00869998987764,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 14.79250006377697,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.751800103113055,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.92280007712543,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 9.007599903270602,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.69460008572787,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 11.599300079979002,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 12.99649989232421,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.591500046662986,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 8.805799996480346,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.513399917632341,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 12.08110002335161,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 12.584500014781952,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 17.579100094735622,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 12.628199998289347,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 19.901800085790455,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 23.36480002850294,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 21.401099977083504,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 26.797199971042573,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.751799986697733,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 20.2846999745816,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 18.67110002785921,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 19.534500082954764,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 18.07590003591031,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 10.963500011712313,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.259999919682741,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 12.988400063477457,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 13.09719996061176,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 18.295499961823225,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 10.590999969281256,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 15.082300058566034,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 21.423400030471385,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 25.989299989305437,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 31.374599901027977,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 18.65510002244264,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 26.380199939012527,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 18.286800011992455,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 22.26669993251562,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 20.556200062856078,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.89160000346601,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 16.838000039570034,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 16.702799941413105,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 15.950600034557283,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 19.350799964740872,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 12.013799976557493,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 14.47679998818785,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 18.672199919819832,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 19.02380003593862,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 22.272099973633885,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 15.295699937269092,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 16.944500035606325,
+      "filter": {},
+      "during_processing": false
+    },
+    {
+      "ms": 16.154999961145222,
+      "filter": {
+        "status": "APROVADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 16.448199981823564,
+      "filter": {
+        "status": "BARRADO"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 17.135499976575375,
+      "filter": {
+        "motivo": "TIPO_RECEBIVEL"
+      },
+      "during_processing": false
+    },
+    {
+      "ms": 10.103799984790385,
+      "filter": {
+        "tipo": "ERRO_DADOS"
+      },
+      "during_processing": false
+    }
+  ],
+  "workers": 1,
+  "batch_size": 2000,
+  "page_size": 100,
+  "http": "uvicorn + httpx TCP localhost",
+  "hardware": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "cpu": "Intel64 Family 6 Model 140 Stepping 1, GenuineIntel",
+    "logical_cpus": 8,
+    "ram_bytes": 34085830656
+  },
+  "worker_metrics": {
+    "registry_queries": 250,
+    "write_statements": 2514,
+    "statements": 4292
+  },
+  "summary": {
+    "definitivo": true,
+    "total_nominal": "50005000.00",
+    "total_nominal_aprovado": "45004500.00",
+    "total_nominal_barrado": "5000500.00",
+    "total_nominal_erro_dados": "0.00",
+    "total_desconto": "900000.00",
+    "total_liquido": "44104500.00",
+    "aprovadas": 450000,
+    "barradas": 50000,
+    "erros_dados": 0
+  },
+  "p95_by_filter_ms": {
+    "{}": 44.17840007226914,
+    "{'status': 'APROVADO'}": 54.753300035372376,
+    "{'status': 'BARRADO'}": 45.07780005224049,
+    "{'motivo': 'TIPO_RECEBIVEL'}": 46.1003000382334,
+    "{'tipo': 'ERRO_DADOS'}": 32.35210001002997
+  },
+  "target_passed": true
+}

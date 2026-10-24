@@ -1,0 +1,19 @@
+C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Scripts\python.exe -m pytest -q --junitxml=..\docs\execucao/originals-red.xml tests/test_final_edges.py -k original
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________________ test_original_numeric_excel_value_preserved _________________
+
+    def test_original_numeric_excel_value_preserved():
+        raw = dict(zip(COLUMNS, values()))
+        raw['NU_DOCUMENTO'] = NUMERIC_ID+'351153'
+        parsed = parse_row(raw)
+>       assert parsed['raw']['NU_DOCUMENTO'] == '351153'
+E       AssertionError: assert '__ANTECIPE_I...ERICO__351153' == '351153'
+E         
+E         - 351153
+E         + __ANTECIPE_IDENTIFICADOR_NUMERICO__351153
+
+tests\test_final_edges.py:21: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_final_edges.py::test_original_numeric_excel_value_preserved
+1 failed, 2 deselected in 0.91s

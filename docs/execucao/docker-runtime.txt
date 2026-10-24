@@ -1,0 +1,26 @@
+api-1      | INFO:     Waiting for application startup.
+api-1      | INFO:     Application startup complete.
+api-1      | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+api-1      | INFO:     127.0.0.1:40400 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+api-1      | INFO:     127.0.0.1:40406 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+api-1      | INFO:     127.0.0.1:52134 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+api-1      | INFO:     127.0.0.1:52138 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+api-1      | INFO:     172.19.0.1:50168 - "GET /api/v1/health/live HTTP/1.1" 200 OK
+api-1      | INFO:     172.19.0.1:50168 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+api-1      | INFO:     172.19.0.1:50168 - "POST /api/v1/lotes HTTP/1.1" 201 Created
+api-1      | INFO:     172.19.0.1:50168 - "POST /api/v1/lotes/0b979aa3-c71b-4a79-91fd-786465958cbd/batches HTTP/1.1" 201 Created
+api-1      | INFO:     172.19.0.1:50168 - "POST /api/v1/lotes/0b979aa3-c71b-4a79-91fd-786465958cbd/processamento HTTP/1.1" 202 Accepted
+migrate-1  | 2026-10-24 20:02:23,465 INFO alembic.runtime.migration Context impl PostgresqlImpl.
+migrate-1  | 2026-10-24 20:02:23,466 INFO alembic.runtime.migration Will assume transactional DDL.
+migrate-1  | 2026-10-24 20:02:23,502 INFO alembic.runtime.migration Running upgrade  -> 0001, Initial immutable schema SQL, PostgreSQL 16+.
+migrate-1  | 2026-10-24 20:02:23,656 INFO alembic.runtime.migration Running upgrade 0001 -> 0002, Index rejection filters directly by file and sequence, avoiding scans over approved rows.
+migrate-1  | Migrações aplicadas
+api-1      | INFO:     172.19.0.1:50168 - "POST /api/v1/lotes/0b979aa3-c71b-4a79-91fd-786465958cbd/processamento HTTP/1.1" 202 Accepted
+api-1      | INFO:     172.19.0.1:50168 - "GET /api/v1/lotes/0b979aa3-c71b-4a79-91fd-786465958cbd HTTP/1.1" 200 OK
+api-1      | INFO:     172.19.0.1:50168 - "GET /api/v1/lotes/0b979aa3-c71b-4a79-91fd-786465958cbd HTTP/1.1" 200 OK
+api-1      | INFO:     172.19.0.1:50168 - "GET /api/v1/arquivos/099d5483-5564-47f3-b28c-d001e9488be7/resultados?limit=100 HTTP/1.1" 200 OK
+api-1      | INFO:     127.0.0.1:47356 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+api-1      | INFO:     127.0.0.1:47370 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+api-1      | INFO:     127.0.0.1:53964 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+api-1      | INFO:     127.0.0.1:53980 - "GET /api/v1/health/ready HTTP/1.1" 200 OK
+worker-1   | 2026-10-24 20:02:48,941 INFO antecipe.worker lote=0b979aa3-c71b-4a79-91fd-786465958cbd arquivo=099d5483-5564-47f3-b28c-d001e9488be7 fase=ANALISE linha=13 cadastro=f85f149a-55a8-4be1-9ea5-94ca19834970

@@ -1,0 +1,239 @@
+ Image kanastra-hackathon-migrate Building 
+ Image kanastra-hackathon-api Building 
+ Image kanastra-hackathon-worker Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.61kB done
+#1 DONE 0.0s
+
+#2 [worker internal] load build definition from Dockerfile
+#2 transferring dockerfile: 497B 0.0s done
+#2 DONE 0.1s
+
+#3 [migrate internal] load metadata for docker.io/library/python:3.13.5-slim
+#3 ...
+
+#4 [auth] library/python:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [migrate internal] load metadata for docker.io/library/python:3.13.5-slim
+#3 DONE 3.1s
+
+#5 [api internal] load .dockerignore
+#5 transferring context: 173B done
+#5 DONE 0.0s
+
+#6 [migrate internal] load build context
+#6 transferring context: 460.85kB 0.1s done
+#6 DONE 0.2s
+
+#7 [api 1/8] FROM docker.io/library/python:3.13.5-slim@sha256:4c2cf9917bd1cbacc5e9b07320025bdb7cdf2df7b0ceaccb55e9dd7e30987419
+#7 resolve docker.io/library/python:3.13.5-slim@sha256:4c2cf9917bd1cbacc5e9b07320025bdb7cdf2df7b0ceaccb55e9dd7e30987419 0.0s done
+#7 ...
+
+#6 [worker internal] load build context
+#6 DONE 0.2s
+
+#7 [migrate 1/8] FROM docker.io/library/python:3.13.5-slim@sha256:4c2cf9917bd1cbacc5e9b07320025bdb7cdf2df7b0ceaccb55e9dd7e30987419
+#7 sha256:66cd357cf7a1518288e019f7c1ab383d267fa738ec8962e05a3dc84c614019b5 0B / 250B 0.2s
+#7 sha256:66cd357cf7a1518288e019f7c1ab383d267fa738ec8962e05a3dc84c614019b5 250B / 250B 0.2s done
+#7 sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 0B / 12.58MB 0.2s
+#7 sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95 0B / 3.51MB 0.2s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 0B / 28.23MB 0.2s
+#7 sha256:66cd357cf7a1518288e019f7c1ab383d267fa738ec8962e05a3dc84c614019b5 250B / 250B 0.2s done
+#7 sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 1.05MB / 12.58MB 0.8s
+#7 sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 3.15MB / 12.58MB 0.9s
+#7 sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 4.19MB / 12.58MB 1.1s
+#7 sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 7.34MB / 12.58MB 1.2s
+#7 sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 9.44MB / 12.58MB 1.5s
+#7 sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 12.58MB / 12.58MB 1.7s
+#7 sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 12.58MB / 12.58MB 1.7s done
+#7 sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95 1.05MB / 3.51MB 1.8s
+#7 sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95 2.10MB / 3.51MB 2.3s
+#7 sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95 3.15MB / 3.51MB 2.7s
+#7 sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95 3.51MB / 3.51MB 2.8s done
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 2.10MB / 28.23MB 2.7s
+#7 sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95 3.51MB / 3.51MB 2.8s done
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 4.19MB / 28.23MB 3.6s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 6.29MB / 28.23MB 4.5s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 8.39MB / 28.23MB 5.1s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 10.49MB / 28.23MB 5.6s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 12.58MB / 28.23MB 6.0s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 14.68MB / 28.23MB 6.5s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 16.78MB / 28.23MB 6.9s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 18.87MB / 28.23MB 7.2s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 20.97MB / 28.23MB 7.5s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 24.12MB / 28.23MB 7.8s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 26.21MB / 28.23MB 8.1s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 28.23MB / 28.23MB 8.3s
+#7 sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 28.23MB / 28.23MB 8.3s done
+#7 extracting sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d
+#7 extracting sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 1.0s done
+#7 DONE 9.5s
+
+#7 [api 1/8] FROM docker.io/library/python:3.13.5-slim@sha256:4c2cf9917bd1cbacc5e9b07320025bdb7cdf2df7b0ceaccb55e9dd7e30987419
+#7 extracting sha256:59e22667830bf04fb35e15ed9c70023e9d121719bb87f0db7f3159ee7c7e0b8d 1.0s done
+#7 extracting sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95
+#7 extracting sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95 0.4s done
+#7 DONE 9.9s
+
+#7 [worker 1/8] FROM docker.io/library/python:3.13.5-slim@sha256:4c2cf9917bd1cbacc5e9b07320025bdb7cdf2df7b0ceaccb55e9dd7e30987419
+#7 extracting sha256:19f81082f6f0f5682c46ad2fe5283898a3719396e2e8659b150a99de365e1e95 0.4s done
+#7 extracting sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0
+#7 extracting sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 0.7s done
+#7 extracting sha256:66cd357cf7a1518288e019f7c1ab383d267fa738ec8962e05a3dc84c614019b5
+#7 extracting sha256:799df5177ae295959cf5eb8486412f5107481f1e7c10f96adf4d438795fbcbc0 0.7s done
+#7 extracting sha256:66cd357cf7a1518288e019f7c1ab383d267fa738ec8962e05a3dc84c614019b5 0.0s done
+#7 DONE 10.6s
+
+#8 [worker 2/8] RUN pip install --no-cache-dir uv==0.11.2
+#8 2.778 Collecting uv==0.11.2
+#8 3.028   Downloading uv-0.11.2-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+#8 3.081 Downloading uv-0.11.2-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (24.6 MB)
+#8 29.56    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 24.6/24.6 MB 924.5 kB/s eta 0:00:00
+#8 29.60 Installing collected packages: uv
+#8 30.19 Successfully installed uv-0.11.2
+#8 30.19 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#8 30.44 
+#8 30.44 [notice] A new release of pip is available: 25.1.1 -> 26.2.2
+#8 30.44 [notice] To update, run: pip install --upgrade pip
+#8 DONE 33.0s
+
+#8 [worker 2/8] RUN pip install --no-cache-dir uv==0.11.2
+#8 DONE 33.0s
+
+#9 [api 3/8] WORKDIR /app/backend
+#9 DONE 0.2s
+
+#9 [migrate 3/8] WORKDIR /app/backend
+#9 DONE 0.2s
+
+#10 [worker 4/8] COPY backend/pyproject.toml backend/uv.lock ./
+#10 DONE 0.1s
+
+#11 [api 5/8] RUN uv sync --frozen --no-dev --no-install-project
+#11 0.850 Using CPython 3.13.5 interpreter at: /usr/local/bin/python3
+#11 0.850 Creating virtual environment at: .venv
+#11 1.541 Downloading sqlalchemy (3.1MiB)
+#11 1.542 Downloading psycopg-binary (4.9MiB)
+#11 1.549 Downloading pydantic-core (2.1MiB)
+#11 9.859  Downloaded pydantic-core
+#11 13.13  Downloaded sqlalchemy
+#11 14.81  Downloaded psycopg-binary
+#11 14.81 Prepared 29 packages in 13.92s
+#11 14.85 Installed 29 packages in 40ms
+#11 14.85  + alembic==1.18.4
+#11 14.85  + annotated-doc==0.0.5
+#11 14.85  + annotated-types==0.8.0
+#11 14.85  + anyio==4.15.1
+#11 14.85  + attrs==26.1.0
+#11 14.85  + click==8.5.0
+#11 14.85  + et-xmlfile==2.0.0
+#11 14.85  + fastapi==0.135.1
+#11 14.85  + greenlet==3.5.6
+#11 14.85  + h11==0.16.0
+#11 14.85  + idna==3.20
+#11 14.85  + jsonschema==4.26.0
+#11 14.85  + jsonschema-specifications==2025.9.1
+#11 14.85  + mako==1.4.3
+#11 14.85  + markupsafe==3.0.4
+#11 14.85  + openpyxl==3.1.5
+#11 14.85  + psycopg==3.3.3
+#11 14.85  + psycopg-binary==3.3.3
+#11 14.85  + pydantic==2.14.1
+#11 14.85  + pydantic-core==2.50.1
+#11 14.85  + python-calamine==0.6.2
+#11 14.85  + python-multipart==0.0.22
+#11 14.85  + referencing==0.37.0
+#11 14.85  + rpds-py==2026.9.1
+#11 14.85  + sqlalchemy==2.0.48
+#11 14.85  + starlette==1.10.0
+#11 14.85  + typing-extensions==4.16.0
+#11 14.85  + typing-inspection==0.4.4
+#11 14.85  + uvicorn==0.41.0
+#11 DONE 15.2s
+
+#11 [migrate 5/8] RUN uv sync --frozen --no-dev --no-install-project
+#11 DONE 15.2s
+
+#12 [worker 6/8] COPY backend/antecipe ./antecipe
+#12 DONE 0.1s
+
+#13 [worker 7/8] COPY backend/migrations ./migrations
+#13 DONE 0.0s
+
+#13 [migrate 7/8] COPY backend/migrations ./migrations
+#13 DONE 0.0s
+
+#14 [migrate 8/8] COPY docs/contratos /app/docs/contratos
+#14 DONE 0.0s
+
+#15 [worker] exporting to image
+#15 exporting layers
+#15 exporting layers 3.5s done
+#15 exporting manifest sha256:5f2ea9d6e24ae4b7c822bb9b047848de37fe7c3a0f3c388281432f0908115859 0.0s done
+#15 exporting config sha256:989072369ca2ed694b6777b0f42d46c73a319432aa0e7a55c063afc5e986db97 0.0s done
+#15 exporting attestation manifest sha256:e4c300c493a5c7ba17ca49cb4b2069d1c0f8c72d93e7744c13e76a2699e89f6e 0.1s done
+#15 exporting manifest list sha256:73a329c4586b34d8470933958c7cef4cb893dfb1ca1c932fc969c9f38296132f
+#15 exporting manifest list sha256:73a329c4586b34d8470933958c7cef4cb893dfb1ca1c932fc969c9f38296132f 0.0s done
+#15 naming to docker.io/library/kanastra-hackathon-worker:latest done
+#15 unpacking to docker.io/library/kanastra-hackathon-worker:latest
+#15 unpacking to docker.io/library/kanastra-hackathon-worker:latest 2.6s done
+#15 DONE 6.3s
+
+#16 [migrate] exporting to image
+#16 exporting layers 3.5s done
+#16 exporting manifest sha256:08ffcc2d9110b8733fc2feba8b041acf80c893d96774c3bc0fa5cff9f4f36780 0.1s done
+#16 exporting config sha256:291a0fb8b041638c1b2ffc586574471ac8ea5c72e5f50eced027833e61b5f081 0.0s done
+#16 exporting attestation manifest sha256:c4a860190fc85c00833be5107c5869d9bd4bc267fda0203df775720c790b7321 0.1s done
+#16 exporting manifest list sha256:a8ccba28664d61ce4ff599ede47b316fd5fa0984476a5df230901ca7feba4dc6 0.0s done
+#16 naming to docker.io/library/kanastra-hackathon-migrate:latest 0.0s done
+#16 unpacking to docker.io/library/kanastra-hackathon-migrate:latest 2.6s done
+#16 DONE 6.4s
+
+#17 [api] exporting to image
+#17 exporting layers 3.5s done
+#17 exporting manifest sha256:a8814b1e3a1f8c5bbbc8a7b5246805befeab0815dfb336aad145271e34cc3807 0.0s done
+#17 exporting config sha256:03bbaaf648a7744bbf62ed16742fbfcbf0735c922e0c6eb4e1f907a400b1d259 0.0s done
+#17 exporting attestation manifest sha256:f857fd95ff6a7c372b498759a14fd15af702e8cfd0e9e912d228a013cc9314a9 0.1s done
+#17 exporting manifest list sha256:927c91eddde26350dbd55e6dfc064b0a7baa5dcf70ecd8200bde61a1d3cdaf6b 0.0s done
+#17 naming to docker.io/library/kanastra-hackathon-api:latest 0.0s done
+#17 unpacking to docker.io/library/kanastra-hackathon-api:latest 2.6s done
+#17 DONE 6.4s
+
+#18 [worker] resolving provenance for metadata file
+#18 DONE 0.2s
+
+#19 [migrate] resolving provenance for metadata file
+#19 DONE 0.1s
+
+#20 [api] resolving provenance for metadata file
+#20 DONE 0.0s
+ Image kanastra-hackathon-migrate Built 
+ Image kanastra-hackathon-worker Built 
+ Image kanastra-hackathon-api Built 
+ Volume kanastra-hackathon_storage Creating 
+ Container kanastra-hackathon-db-1 Recreate 
+ Volume kanastra-hackathon_storage Creating 
+ Volume kanastra-hackathon_storage Created 
+ Volume kanastra-hackathon_storage Created 
+ Container kanastra-hackathon-db-1 Recreated 
+ Container kanastra-hackathon-migrate-1 Creating 
+ Container kanastra-hackathon-migrate-1 Created 
+ Container kanastra-hackathon-worker-1 Creating 
+ Container kanastra-hackathon-api-1 Creating 
+ Container kanastra-hackathon-api-1 Created 
+ Container kanastra-hackathon-worker-1 Created 
+ Container kanastra-hackathon-db-1 Starting 
+ Container kanastra-hackathon-db-1 Started 
+ Container kanastra-hackathon-db-1 Waiting 
+ Container kanastra-hackathon-db-1 Healthy 
+ Container kanastra-hackathon-migrate-1 Starting 
+ Container kanastra-hackathon-migrate-1 Started 
+ Container kanastra-hackathon-migrate-1 Waiting 
+ Container kanastra-hackathon-migrate-1 Waiting 
+ Container kanastra-hackathon-migrate-1 Exited 
+ Container kanastra-hackathon-migrate-1 Exited 
+ Container kanastra-hackathon-worker-1 Starting 
+ Container kanastra-hackathon-api-1 Starting 
+ Container kanastra-hackathon-worker-1 Started 
+ Container kanastra-hackathon-api-1 Started 

@@ -1,0 +1,1 @@
+{"report": "C:\\Users\\mtgno\\Downloads\\git-repo\\kanastra-hackathon\\docs\\execucao\\divergencias-referencia.jsonl", "aprovacoes_repetidas": 4941, "aprovacoes_antecipe_sem_cadastro": 712}

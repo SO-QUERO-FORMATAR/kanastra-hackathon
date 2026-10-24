@@ -1,0 +1,40 @@
+                                                       version                                                        
+----------------------------------------------------------------------------------------------------------------------
+ PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+(1 row)
+
+          indexname           |                                                   indexdef                                                   
+------------------------------+--------------------------------------------------------------------------------------------------------------
+ alembic_version_pkc          | CREATE UNIQUE INDEX alembic_version_pkc ON public.alembic_version USING btree (version_num)
+ approved_pkey                | CREATE UNIQUE INDEX approved_pkey ON public.approved USING btree (seller, debtor, number)
+ approved_result_id_key       | CREATE UNIQUE INDEX approved_result_id_key ON public.approved USING btree (result_id)
+ contexts_pkey                | CREATE UNIQUE INDEX contexts_pkey ON public.contexts USING btree (lot_id, fund_id)
+ executions_pkey              | CREATE UNIQUE INDEX executions_pkey ON public.executions USING btree (id)
+ exposures_pkey               | CREATE UNIQUE INDEX exposures_pkey ON public.exposures USING btree (fund_id, side, root)
+ files_id_lot_id_key          | CREATE UNIQUE INDEX files_id_lot_id_key ON public.files USING btree (id, lot_id)
+ files_lot_id_client_id_key   | CREATE UNIQUE INDEX files_lot_id_client_id_key ON public.files USING btree (lot_id, client_id)
+ files_lot_id_position_key    | CREATE UNIQUE INDEX files_lot_id_position_key ON public.files USING btree (lot_id, "position")
+ files_pkey                   | CREATE UNIQUE INDEX files_pkey ON public.files USING btree (id)
+ funds_cnpj_key               | CREATE UNIQUE INDEX funds_cnpj_key ON public.funds USING btree (cnpj)
+ funds_pkey                   | CREATE UNIQUE INDEX funds_pkey ON public.funds USING btree (id)
+ idempotency_pkey             | CREATE UNIQUE INDEX idempotency_pkey ON public.idempotency USING btree (scope, key)
+ lots_history                 | CREATE INDEX lots_history ON public.lots USING btree (created_at DESC, id DESC)
+ lots_pkey                    | CREATE UNIQUE INDEX lots_pkey ON public.lots USING btree (id)
+ pending_pkey                 | CREATE UNIQUE INDEX pending_pkey ON public.pending USING btree (id)
+ reasons_code                 | CREATE INDEX reasons_code ON public.reasons USING btree (code, result_id)
+ reasons_page                 | CREATE INDEX reasons_page ON public.reasons USING btree (file_id, code, sequence) INCLUDE (result_id)
+ reasons_pkey                 | CREATE UNIQUE INDEX reasons_pkey ON public.reasons USING btree (result_id, code)
+ registry_pkey                | CREATE UNIQUE INDEX registry_pkey ON public.registry USING btree (load_id, document)
+ one_active_registry          | CREATE UNIQUE INDEX one_active_registry ON public.registry_loads USING btree (active) WHERE (active IS TRUE)
+ registry_loads_pkey          | CREATE UNIQUE INDEX registry_loads_pkey ON public.registry_loads USING btree (id)
+ registry_loads_sha256_key    | CREATE UNIQUE INDEX registry_loads_sha256_key ON public.registry_loads USING btree (sha256)
+ results_file_id_line_key     | CREATE UNIQUE INDEX results_file_id_line_key ON public.results USING btree (file_id, line)
+ results_file_id_sequence_key | CREATE UNIQUE INDEX results_file_id_sequence_key ON public.results USING btree (file_id, sequence)
+ results_filter               | CREATE INDEX results_filter ON public.results USING btree (file_id, status, sequence)
+ results_lot_fund             | CREATE INDEX results_lot_fund ON public.results USING btree (lot_id, fund_id, status)
+ results_pkey                 | CREATE UNIQUE INDEX results_pkey ON public.results USING btree (id)
+ results_type                 | CREATE INDEX results_type ON public.results USING btree (file_id, type, sequence)
+ rules_pkey                   | CREATE UNIQUE INDEX rules_pkey ON public.rules USING btree (id)
+ staging_pkey                 | CREATE UNIQUE INDEX staging_pkey ON public.staging USING btree (file_id, line)
+(31 rows)
+

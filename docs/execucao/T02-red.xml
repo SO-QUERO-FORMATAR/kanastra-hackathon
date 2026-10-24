@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="0.890" timestamp="2026-10-24T16:17:44.481751-03:00" hostname="MATEUS"><testcase classname="" name="tests.test_t02_entities" time="0.000"><error message="collection failure">ImportError while importing test module 'C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\tests\test_t02_entities.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.5-windows-x86_64-none\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_t02_entities.py:7: in &lt;module&gt;
+    from antecipe.domain.entities import Fund, Origin, Title, normalize_document, cnpj_valid, document_root
+E   ModuleNotFoundError: No module named 'antecipe.domain.entities'</error></testcase></testsuite></testsuites>

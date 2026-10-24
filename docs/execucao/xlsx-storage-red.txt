@@ -1,0 +1,61 @@
+C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Scripts\python.exe -m pytest -q --junitxml=..\docs\execucao/xlsx-storage-red.xml tests/test_t11_readers.py -k uuid_storage
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________________ test_xlsx_fallback_reads_uuid_storage_path __________________
+
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-19/test_xlsx_fallback_reads_uuid_0')
+
+    def test_xlsx_fallback_reads_uuid_storage_path(tmp_path):
+        path = tmp_path/'550e8400-e29b-41d4-a716-446655440000'
+        wb=Workbook(); ws=wb.active; ws.append(COLUMNS); ws.append(values()); ws['I2']='=100+1'; wb.save(path)
+>       raw=list(read_rows(path,'XLSX'))[0][1]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_t11_readers.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+antecipe\adapters\readers.py:106: in read_rows
+    wb = load_workbook(path, read_only=True, data_only=False)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\openpyxl\reader\excel.py:346: in load_workbook
+    reader = ExcelReader(filename, read_only, keep_vba,
+.venv\Lib\site-packages\openpyxl\reader\excel.py:123: in __init__
+    self.archive = _validate_archive(fn)
+                   ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+filename = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-19/test_xlsx_fallback_reads_uuid_0/550e8400-e29b-41d4-a716-446655440000')
+
+    def _validate_archive(filename):
+        """
+        Does a first check whether filename is a string or a file-like
+        object. If it is a string representing a filename, a check is done
+        for supported formats by checking the given file-extension. If the
+        file-extension is not in SUPPORTED_FORMATS an InvalidFileException
+        will raised. Otherwise the filename (resp. file-like object) will
+        forwarded to zipfile.ZipFile returning a ZipFile-Instance.
+        """
+        is_file_like = hasattr(filename, 'read')
+        if not is_file_like:
+            file_format = os.path.splitext(filename)[-1].lower()
+            if file_format not in SUPPORTED_FORMATS:
+                if file_format == '.xls':
+                    msg = ('openpyxl does not support the old .xls file format, '
+                           'please use xlrd to read this file, or convert it to '
+                           'the more recent .xlsx file format.')
+                elif file_format == '.xlsb':
+                    msg = ('openpyxl does not support binary format .xlsb, '
+                           'please convert this file to .xlsx format if you want '
+                           'to open it with openpyxl')
+                else:
+                    msg = ('openpyxl does not support %s file format, '
+                           'please check you can open '
+                           'it with Excel first. '
+                           'Supported formats are: %s') % (file_format,
+                                                           ','.join(SUPPORTED_FORMATS))
+>               raise InvalidFileException(msg)
+E               openpyxl.utils.exceptions.InvalidFileException: openpyxl does not support  file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm
+
+.venv\Lib\site-packages\openpyxl\reader\excel.py:93: InvalidFileException
+=========================== short test summary info ===========================
+FAILED tests/test_t11_readers.py::test_xlsx_fallback_reads_uuid_storage_path
+1 failed, 3 deselected in 0.46s

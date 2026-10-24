@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="3.487" timestamp="2026-10-24T16:39:41.685793-03:00" hostname="MATEUS"><testcase classname="tests.test_t18_operations" name="test_cli_available_and_validates_chunk_size" time="0.103"><failure message="AssertionError: assert (1 == 0)&#10; +  where 1 = CompletedProcess(args=['C:\\Users\\mtgno\\Downloads\\git-repo\\kanastra-hackathon\\backend\\.venv\\Scripts\\python.exe...\\mtgno\\Downloads\\git-repo\\kanastra-hackathon\\backend\\.venv\\Scripts\\python.exe: No module named antecipe.cli\n').returncode">def test_cli_available_and_validates_chunk_size():
+        command=[sys.executable,'-m','antecipe.cli']
+        result=subprocess.run(command+['--help'],capture_output=True,text=True)
+&gt;       assert result.returncode==0 and 'import-registry' in result.stdout and 'worker' in result.stdout
+E       AssertionError: assert (1 == 0)
+E        +  where 1 = CompletedProcess(args=['C:\\Users\\mtgno\\Downloads\\git-repo\\kanastra-hackathon\\backend\\.venv\\Scripts\\python.exe...\\mtgno\\Downloads\\git-repo\\kanastra-hackathon\\backend\\.venv\\Scripts\\python.exe: No module named antecipe.cli\n').returncode
+
+tests\test_t18_operations.py:14: AssertionError</failure></testcase><testcase classname="tests.test_t18_operations" name="test_unavailable_database_readiness_envelope" time="2.064" /></testsuite></testsuites>

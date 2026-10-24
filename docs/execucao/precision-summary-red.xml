@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="3.284" timestamp="2026-10-24T17:15:53.004667-03:00" hostname="MATEUS"><testcase classname="tests.test_hardening" name="test_fund_summary_preserves_precision_above_default_decimal_context" time="2.155"><failure message="AssertionError: assert '120000000000...0000000000.00' == '120000000000...0000000001.20'&#10;  &#10;  - 12000000000000000000000000001.20&#10;  ?                             ^ -&#10;  + 12000000000000000000000000000.00&#10;  ?                             ^  +">db = Engine(postgresql+psycopg://antecipe:***@127.0.0.1:55432/antecipe_test)
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-28/test_fund_summary_preserves_pr0')
+client = &lt;starlette.testclient.TestClient object at 0x000001D2686F1BE0&gt;
+
+    def test_fund_summary_preserves_precision_above_default_decimal_context(db, tmp_path, client):
+        rows = [values() for _ in range(12)]
+        for i, row in enumerate(rows):
+            row[6] = str(i)
+            row[8] = "10000000000000000000000000001,00"
+        _, lid, _ = prepare(db, tmp_path, rows)
+        admin = PgAdmin(db)
+        fid, version = admin.import_rules(Path("../files/validadores_antecipe.json"))
+        config = config_dict()
+        for rule in config["validadores"]:
+            if rule["codigo"] == "CONCENTRACAO_MAXIMA_CEDENTE":
+                rule["ativo"] = True
+                rule["parametros"]["percentual_maximo"] = "20"
+        admin.publish_rules(fid, config, version)
+        Worker(db).run_once()
+        response = client.get(f"/api/v1/lotes/{lid}/resumos-fundos")
+        assert response.status_code == 200
+        summary = response.json()["itens"][0]
+        assert summary["pl"] == "120000000000000000000000000012.00"
+&gt;       assert summary["limite_sacado"] == "12000000000000000000000000001.20"
+E       AssertionError: assert '120000000000...0000000000.00' == '120000000000...0000000001.20'
+E         
+E         - 12000000000000000000000000001.20
+E         ?                             ^ -
+E         + 12000000000000000000000000000.00
+E         ?                             ^  +
+
+tests\test_hardening.py:208: AssertionError</failure></testcase></testsuite></testsuites>

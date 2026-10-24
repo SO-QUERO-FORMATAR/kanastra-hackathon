@@ -1,0 +1,46 @@
+C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Scripts\python.exe -m pytest -q --junitxml=..\docs\execucao/precision-summary-red.xml tests/test_hardening.py -k precision_above
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____ test_fund_summary_preserves_precision_above_default_decimal_context _____
+
+db = Engine(postgresql+psycopg://antecipe:***@127.0.0.1:55432/antecipe_test)
+tmp_path = WindowsPath('C:/Users/mtgno/AppData/Local/Temp/pytest-of-mtgno/pytest-28/test_fund_summary_preserves_pr0')
+client = <starlette.testclient.TestClient object at 0x000001D2686F1BE0>
+
+    def test_fund_summary_preserves_precision_above_default_decimal_context(db, tmp_path, client):
+        rows = [values() for _ in range(12)]
+        for i, row in enumerate(rows):
+            row[6] = str(i)
+            row[8] = "10000000000000000000000000001,00"
+        _, lid, _ = prepare(db, tmp_path, rows)
+        admin = PgAdmin(db)
+        fid, version = admin.import_rules(Path("../files/validadores_antecipe.json"))
+        config = config_dict()
+        for rule in config["validadores"]:
+            if rule["codigo"] == "CONCENTRACAO_MAXIMA_CEDENTE":
+                rule["ativo"] = True
+                rule["parametros"]["percentual_maximo"] = "20"
+        admin.publish_rules(fid, config, version)
+        Worker(db).run_once()
+        response = client.get(f"/api/v1/lotes/{lid}/resumos-fundos")
+        assert response.status_code == 200
+        summary = response.json()["itens"][0]
+        assert summary["pl"] == "120000000000000000000000000012.00"
+>       assert summary["limite_sacado"] == "12000000000000000000000000001.20"
+E       AssertionError: assert '120000000000...0000000000.00' == '120000000000...0000000001.20'
+E         
+E         - 12000000000000000000000000001.20
+E         ?                             ^ -
+E         + 12000000000000000000000000000.00
+E         ?                             ^  +
+
+tests\test_hardening.py:208: AssertionError
+============================== warnings summary ===============================
+tests/test_hardening.py::test_fund_summary_preserves_precision_above_default_decimal_context
+  C:\Users\mtgno\Downloads\git-repo\kanastra-hackathon\backend\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_hardening.py::test_fund_summary_preserves_precision_above_default_decimal_context
+1 failed, 7 deselected, 1 warning in 3.29s

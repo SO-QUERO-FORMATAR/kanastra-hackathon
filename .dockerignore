@@ -1,0 +1,10 @@
+.git
+.local
+backend/.venv
+backend/storage
+backend/.mypy_cache
+backend/.ruff_cache
+backend/.pytest_cache
+**/__pycache__
+files
+*.pdf

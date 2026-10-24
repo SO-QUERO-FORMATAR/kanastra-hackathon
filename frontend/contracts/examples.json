@@ -1,0 +1,1146 @@
+{
+  "Dinheiro": "2278.08",
+  "DecimalNaoNegativo": "2.0",
+  "CodigoRecusa": "NOTA_DUPLICADA",
+  "StatusNota": "APROVADO",
+  "StatusLote": "RECEBENDO",
+  "StatusArquivo": "AGUARDANDO_UPLOAD",
+  "FormatoArquivo": "CSV",
+  "CodigoErro": "VALIDACAO_REQUISICAO",
+  "DetalheErroDTO": {
+    "campo": "exemplo",
+    "codigo": "exemplo",
+    "mensagem": "exemplo"
+  },
+  "ErroDTO": {
+    "codigo": "VERSAO_REGRAS_CONFLITANTE",
+    "mensagem": "As regras foram alteradas por outra operação. Recarregue a configuração.",
+    "retry_permitido": false,
+    "detalhes": [],
+    "versao_atual": "00000000-0000-4000-8000-000000000003"
+  },
+  "ErroResponse": {
+    "request_id": "00000000-0000-4000-8000-000000000099",
+    "erro": {
+      "codigo": "VERSAO_REGRAS_CONFLITANTE",
+      "mensagem": "As regras foram alteradas por outra operação. Recarregue a configuração.",
+      "retry_permitido": false,
+      "detalhes": [],
+      "versao_atual": "00000000-0000-4000-8000-000000000003"
+    }
+  },
+  "SaudeResponse": {
+    "status": "OK",
+    "servico": "antecipe-api",
+    "versao_api": "1.0.0",
+    "verificado_em": "2026-10-24T18:00:00Z"
+  },
+  "CapacidadesResponse": {
+    "versao_contrato": "1.0.0",
+    "autenticacao": "SEM_AUTENTICACAO_DEMO",
+    "formatos": [
+      "CSV",
+      "XLSX"
+    ],
+    "max_arquivos_lote": 100,
+    "max_arquivos_batch": 3,
+    "max_bytes_arquivo": 67108864,
+    "max_bytes_batch": 67108864,
+    "max_linhas_lote": 500000,
+    "max_pagina": 100,
+    "polling_intervalo_ms": 2000,
+    "permite_exportacao": false,
+    "permite_cancelamento": false
+  },
+  "BaseCadastralStatusResponse": {
+    "disponivel": true,
+    "versao": "00000000-0000-4000-8000-000000000040",
+    "sha256": "522ba08c9685a48d2c2a5b20bfde0773f58bb15b095e03cf605b44c224ca6916",
+    "quantidade_cnpjs": 3041,
+    "importado_em": "2026-10-24T18:00:00Z"
+  },
+  "FundoDTO": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "nome": "ANTECIPE FIDC",
+    "cnpj": "92234400000180",
+    "configurado": true,
+    "versao_regras_atual": "00000000-0000-4000-8000-000000000002"
+  },
+  "ParametrosVaziosDTO": {},
+  "ParametrosSituacaoDTO": {
+    "situacoes_aceitas": [
+      "ATIVA"
+    ]
+  },
+  "ParametrosTipoDTO": {
+    "tipos_aceitos": [
+      "Duplicata",
+      "Duplicata de Serviço"
+    ]
+  },
+  "ParametrosValorMinimoDTO": {
+    "valor_minimo": "100.0"
+  },
+  "ParametrosPrazoMinimoDTO": {
+    "prazo_minimo_dias": 30
+  },
+  "ParametrosPrazoMaximoDTO": {
+    "prazo_maximo_dias": 180
+  },
+  "ParametrosConcentracaoDTO": {
+    "percentual_maximo": "10.0",
+    "agrupamento": "RAIZ_CNPJ"
+  },
+  "ValidadorCnpjSacadoValidoDTO": {
+    "codigo": "CNPJ_SACADO_VALIDO",
+    "ativo": true,
+    "parametros": {}
+  },
+  "ValidadorSituacaoCadastralSacadoDTO": {
+    "codigo": "SITUACAO_CADASTRAL_SACADO",
+    "ativo": true,
+    "parametros": {
+      "situacoes_aceitas": [
+        "ATIVA"
+      ]
+    }
+  },
+  "ValidadorTipoRecebivelDTO": {
+    "codigo": "TIPO_RECEBIVEL",
+    "ativo": true,
+    "parametros": {
+      "tipos_aceitos": [
+        "Duplicata",
+        "Duplicata de Serviço"
+      ]
+    }
+  },
+  "ValidadorValorMinimoDTO": {
+    "codigo": "VALOR_MINIMO",
+    "ativo": true,
+    "parametros": {
+      "valor_minimo": "100.0"
+    }
+  },
+  "ValidadorNaoVencidaDTO": {
+    "codigo": "NAO_VENCIDA",
+    "ativo": true,
+    "parametros": {}
+  },
+  "ValidadorPrazoMinimoDTO": {
+    "codigo": "PRAZO_MINIMO",
+    "ativo": false,
+    "parametros": {
+      "prazo_minimo_dias": 30
+    }
+  },
+  "ValidadorPrazoMaximoDTO": {
+    "codigo": "PRAZO_MAXIMO",
+    "ativo": true,
+    "parametros": {
+      "prazo_maximo_dias": 180
+    }
+  },
+  "ValidadorConcentracaoMaximaSacadoDTO": {
+    "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+    "ativo": true,
+    "parametros": {
+      "percentual_maximo": "10.0",
+      "agrupamento": "RAIZ_CNPJ"
+    }
+  },
+  "ValidadorConcentracaoMaximaCedenteDTO": {
+    "codigo": "CONCENTRACAO_MAXIMA_CEDENTE",
+    "ativo": false,
+    "parametros": {
+      "percentual_maximo": "8.0",
+      "agrupamento": "RAIZ_CNPJ"
+    }
+  },
+  "ValidadorDTO": {
+    "codigo": "CNPJ_SACADO_VALIDO",
+    "ativo": true,
+    "parametros": {}
+  },
+  "PrecificacaoDTO": {
+    "metodo": "DESCONTO_SIMPLES",
+    "taxa_mensal_percentual": "2.0",
+    "base_dias": 30
+  },
+  "ConfiguracaoRegrasDTO": {
+    "validadores": [
+      {
+        "codigo": "CNPJ_SACADO_VALIDO",
+        "ativo": true,
+        "parametros": {}
+      },
+      {
+        "codigo": "SITUACAO_CADASTRAL_SACADO",
+        "ativo": true,
+        "parametros": {
+          "situacoes_aceitas": [
+            "ATIVA"
+          ]
+        }
+      },
+      {
+        "codigo": "TIPO_RECEBIVEL",
+        "ativo": true,
+        "parametros": {
+          "tipos_aceitos": [
+            "Duplicata",
+            "Duplicata de Serviço"
+          ]
+        }
+      },
+      {
+        "codigo": "VALOR_MINIMO",
+        "ativo": true,
+        "parametros": {
+          "valor_minimo": "100.0"
+        }
+      },
+      {
+        "codigo": "NAO_VENCIDA",
+        "ativo": true,
+        "parametros": {}
+      },
+      {
+        "codigo": "PRAZO_MAXIMO",
+        "ativo": true,
+        "parametros": {
+          "prazo_maximo_dias": 180
+        }
+      },
+      {
+        "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+        "ativo": true,
+        "parametros": {
+          "percentual_maximo": "10.0",
+          "agrupamento": "RAIZ_CNPJ"
+        }
+      },
+      {
+        "codigo": "PRAZO_MINIMO",
+        "ativo": false,
+        "parametros": {
+          "prazo_minimo_dias": 30
+        }
+      },
+      {
+        "codigo": "CONCENTRACAO_MAXIMA_CEDENTE",
+        "ativo": false,
+        "parametros": {
+          "percentual_maximo": "8.0",
+          "agrupamento": "RAIZ_CNPJ"
+        }
+      }
+    ],
+    "precificacao": {
+      "metodo": "DESCONTO_SIMPLES",
+      "taxa_mensal_percentual": "2.0",
+      "base_dias": 30
+    }
+  },
+  "AtualizarRegrasRequest": {
+    "versao_base": null,
+    "configuracao": {
+      "validadores": [
+        {
+          "codigo": "CNPJ_SACADO_VALIDO",
+          "ativo": true,
+          "parametros": {}
+        },
+        {
+          "codigo": "SITUACAO_CADASTRAL_SACADO",
+          "ativo": true,
+          "parametros": {
+            "situacoes_aceitas": [
+              "ATIVA"
+            ]
+          }
+        },
+        {
+          "codigo": "TIPO_RECEBIVEL",
+          "ativo": true,
+          "parametros": {
+            "tipos_aceitos": [
+              "Duplicata",
+              "Duplicata de Serviço"
+            ]
+          }
+        },
+        {
+          "codigo": "VALOR_MINIMO",
+          "ativo": true,
+          "parametros": {
+            "valor_minimo": "100.0"
+          }
+        },
+        {
+          "codigo": "NAO_VENCIDA",
+          "ativo": true,
+          "parametros": {}
+        },
+        {
+          "codigo": "PRAZO_MAXIMO",
+          "ativo": true,
+          "parametros": {
+            "prazo_maximo_dias": 180
+          }
+        },
+        {
+          "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+          "ativo": true,
+          "parametros": {
+            "percentual_maximo": "10.0",
+            "agrupamento": "RAIZ_CNPJ"
+          }
+        },
+        {
+          "codigo": "PRAZO_MINIMO",
+          "ativo": false,
+          "parametros": {
+            "prazo_minimo_dias": 30
+          }
+        },
+        {
+          "codigo": "CONCENTRACAO_MAXIMA_CEDENTE",
+          "ativo": false,
+          "parametros": {
+            "percentual_maximo": "8.0",
+            "agrupamento": "RAIZ_CNPJ"
+          }
+        }
+      ],
+      "precificacao": {
+        "metodo": "DESCONTO_SIMPLES",
+        "taxa_mensal_percentual": "2.0",
+        "base_dias": 30
+      }
+    }
+  },
+  "RegrasFundoResponse": {
+    "fundo": {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "nome": "ANTECIPE FIDC",
+      "cnpj": "92234400000180",
+      "configurado": true,
+      "versao_regras_atual": "00000000-0000-4000-8000-000000000002"
+    },
+    "versao": "00000000-0000-4000-8000-000000000002",
+    "criada_em": "2026-10-24T18:00:00Z",
+    "configuracao": {
+      "validadores": [
+        {
+          "codigo": "CNPJ_SACADO_VALIDO",
+          "ativo": true,
+          "parametros": {}
+        },
+        {
+          "codigo": "SITUACAO_CADASTRAL_SACADO",
+          "ativo": true,
+          "parametros": {
+            "situacoes_aceitas": [
+              "ATIVA"
+            ]
+          }
+        },
+        {
+          "codigo": "TIPO_RECEBIVEL",
+          "ativo": true,
+          "parametros": {
+            "tipos_aceitos": [
+              "Duplicata",
+              "Duplicata de Serviço"
+            ]
+          }
+        },
+        {
+          "codigo": "VALOR_MINIMO",
+          "ativo": true,
+          "parametros": {
+            "valor_minimo": "100.0"
+          }
+        },
+        {
+          "codigo": "NAO_VENCIDA",
+          "ativo": true,
+          "parametros": {}
+        },
+        {
+          "codigo": "PRAZO_MAXIMO",
+          "ativo": true,
+          "parametros": {
+            "prazo_maximo_dias": 180
+          }
+        },
+        {
+          "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+          "ativo": true,
+          "parametros": {
+            "percentual_maximo": "10.0",
+            "agrupamento": "RAIZ_CNPJ"
+          }
+        },
+        {
+          "codigo": "PRAZO_MINIMO",
+          "ativo": false,
+          "parametros": {
+            "prazo_minimo_dias": 30
+          }
+        },
+        {
+          "codigo": "CONCENTRACAO_MAXIMA_CEDENTE",
+          "ativo": false,
+          "parametros": {
+            "percentual_maximo": "8.0",
+            "agrupamento": "RAIZ_CNPJ"
+          }
+        }
+      ],
+      "precificacao": {
+        "metodo": "DESCONTO_SIMPLES",
+        "taxa_mensal_percentual": "2.0",
+        "base_dias": 30
+      }
+    }
+  },
+  "ArquivoManifestoRequest": {
+    "client_id": "00000000-0000-4000-8000-000000000101",
+    "nome": "exemplo",
+    "formato": "CSV",
+    "tamanho_bytes": 1,
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "ordem": 0,
+    "aba": "exemplo"
+  },
+  "CriarLoteRequest": {
+    "nome": "Demonstração de contrato",
+    "arquivos": [
+      {
+        "client_id": "00000000-0000-4000-8000-000000000010",
+        "nome": "exemplo.csv",
+        "formato": "CSV",
+        "tamanho_bytes": 1024,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "ordem": 0,
+        "aba": null
+      }
+    ]
+  },
+  "ArquivoDTO": {
+    "id": "00000000-0000-4000-8000-000000000011",
+    "lote_id": "00000000-0000-4000-8000-000000000012",
+    "client_id": "00000000-0000-4000-8000-000000000010",
+    "nome": "exemplo.csv",
+    "formato": "CSV",
+    "tamanho_bytes": 1024,
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "ordem": 0,
+    "aba": null,
+    "bytes_recebidos": 0,
+    "status": "AGUARDANDO_UPLOAD",
+    "linhas_total": null,
+    "linhas_processadas": 0,
+    "aprovadas": 0,
+    "barradas": 0,
+    "erros_dados": 0,
+    "recebido_em": null,
+    "concluido_em": null,
+    "erro": null
+  },
+  "ProgressoDTO": {
+    "fase": "AGUARDANDO",
+    "arquivos_total": 1,
+    "arquivos_recebidos": 0,
+    "arquivos_falhos": 0,
+    "bytes_esperados": 1024,
+    "bytes_recebidos": 0,
+    "linhas_lidas_primeira_passagem": 0,
+    "linhas_total": null,
+    "linhas_processadas": 0
+  },
+  "ResumoFinanceiroDTO": {
+    "definitivo": false,
+    "total_nominal": "0.00",
+    "total_nominal_aprovado": "0.00",
+    "total_nominal_barrado": "0.00",
+    "total_nominal_erro_dados": "0.00",
+    "total_desconto": "0.00",
+    "total_liquido": "0.00",
+    "aprovadas": 0,
+    "barradas": 0,
+    "erros_dados": 0
+  },
+  "AcoesLoteDTO": {
+    "pode_enviar_arquivos": true,
+    "pode_iniciar": false,
+    "pode_retomar": false,
+    "precisa_corrigir_configuracao": false,
+    "precisa_recriar_lote": false
+  },
+  "LoteDTO": {
+    "id": "00000000-0000-4000-8000-000000000012",
+    "nome": "Demonstração de contrato",
+    "status": "BLOQUEADO",
+    "criado_em": "2026-10-24T18:00:00Z",
+    "iniciado_em": "2026-10-24T18:00:00Z",
+    "concluido_em": null,
+    "atualizado_em": "2026-10-24T18:00:00Z",
+    "versao_cadastral": null,
+    "progresso": {
+      "fase": "INDEXACAO",
+      "arquivos_total": 1,
+      "arquivos_recebidos": 1,
+      "arquivos_falhos": 0,
+      "bytes_esperados": 1024,
+      "bytes_recebidos": 1024,
+      "linhas_lidas_primeira_passagem": 3,
+      "linhas_total": 3,
+      "linhas_processadas": 0
+    },
+    "resumo": {
+      "definitivo": false,
+      "total_nominal": "0.00",
+      "total_nominal_aprovado": "0.00",
+      "total_nominal_barrado": "0.00",
+      "total_nominal_erro_dados": "0.00",
+      "total_desconto": "0.00",
+      "total_liquido": "0.00",
+      "aprovadas": 0,
+      "barradas": 0,
+      "erros_dados": 0
+    },
+    "quantidade_pendencias": 1,
+    "acoes": {
+      "pode_enviar_arquivos": false,
+      "pode_iniciar": false,
+      "pode_retomar": true,
+      "precisa_corrigir_configuracao": true,
+      "precisa_recriar_lote": false
+    },
+    "erro": null
+  },
+  "CriarLoteResponse": {
+    "lote": {
+      "id": "00000000-0000-4000-8000-000000000012",
+      "nome": "Demonstração de contrato",
+      "status": "RECEBENDO",
+      "criado_em": "2026-10-24T18:00:00Z",
+      "iniciado_em": null,
+      "concluido_em": null,
+      "atualizado_em": "2026-10-24T18:00:00Z",
+      "versao_cadastral": null,
+      "progresso": {
+        "fase": "AGUARDANDO",
+        "arquivos_total": 1,
+        "arquivos_recebidos": 0,
+        "arquivos_falhos": 0,
+        "bytes_esperados": 1024,
+        "bytes_recebidos": 0,
+        "linhas_lidas_primeira_passagem": 0,
+        "linhas_total": null,
+        "linhas_processadas": 0
+      },
+      "resumo": {
+        "definitivo": false,
+        "total_nominal": "0.00",
+        "total_nominal_aprovado": "0.00",
+        "total_nominal_barrado": "0.00",
+        "total_nominal_erro_dados": "0.00",
+        "total_desconto": "0.00",
+        "total_liquido": "0.00",
+        "aprovadas": 0,
+        "barradas": 0,
+        "erros_dados": 0
+      },
+      "quantidade_pendencias": 0,
+      "acoes": {
+        "pode_enviar_arquivos": true,
+        "pode_iniciar": false,
+        "pode_retomar": false,
+        "precisa_corrigir_configuracao": false,
+        "precisa_recriar_lote": false
+      },
+      "erro": null
+    },
+    "arquivos": [
+      {
+        "id": "00000000-0000-4000-8000-000000000011",
+        "lote_id": "00000000-0000-4000-8000-000000000012",
+        "client_id": "00000000-0000-4000-8000-000000000010",
+        "nome": "exemplo.csv",
+        "formato": "CSV",
+        "tamanho_bytes": 1024,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "ordem": 0,
+        "aba": null,
+        "bytes_recebidos": 0,
+        "status": "AGUARDANDO_UPLOAD",
+        "linhas_total": null,
+        "linhas_processadas": 0,
+        "aprovadas": 0,
+        "barradas": 0,
+        "erros_dados": 0,
+        "recebido_em": null,
+        "concluido_em": null,
+        "erro": null
+      }
+    ]
+  },
+  "LoteResumoDTO": {
+    "id": "00000000-0000-4000-8000-000000000012",
+    "nome": "Demonstração de contrato",
+    "status": "RECEBENDO",
+    "criado_em": "2026-10-24T18:00:00Z",
+    "atualizado_em": "2026-10-24T18:00:00Z",
+    "arquivos_total": 1,
+    "linhas_processadas": 0,
+    "total_liquido": "0.00"
+  },
+  "BatchMetadadosDTO": {
+    "arquivo_ids": [
+      "00000000-0000-4000-8000-000000000011"
+    ]
+  },
+  "EnviarBatchRequest": {
+    "metadados": "{\"arquivo_ids\":[\"00000000-0000-4000-8000-000000000011\"]}",
+    "arquivos": [
+      "<bytes do arquivo; parte binaria multipart>"
+    ]
+  },
+  "ArquivoRecebidoDTO": {
+    "arquivo_id": "00000000-0000-4000-8000-000000000103",
+    "client_id": "00000000-0000-4000-8000-000000000104",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "bytes_recebidos": 1,
+    "status": "RECEBIDO"
+  },
+  "EnviarBatchResponse": {
+    "batch_id": "00000000-0000-4000-8000-000000000013",
+    "lote_id": "00000000-0000-4000-8000-000000000012",
+    "recebido_em": "2026-10-24T18:00:00Z",
+    "arquivos": [
+      {
+        "arquivo_id": "00000000-0000-4000-8000-000000000011",
+        "client_id": "00000000-0000-4000-8000-000000000010",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bytes_recebidos": 1024,
+        "status": "RECEBIDO"
+      }
+    ]
+  },
+  "ProcessarLoteResponse": {
+    "lote_id": "00000000-0000-4000-8000-000000000012",
+    "execucao_id": "00000000-0000-4000-8000-000000000014",
+    "status": "NA_FILA",
+    "aceito_em": "2026-10-24T18:00:00Z",
+    "status_url": "/api/v1/lotes/00000000-0000-4000-8000-000000000012"
+  },
+  "PendenciaDTO": {
+    "codigo": "FUNDO_SEM_REGRAS",
+    "mensagem": "Configure as regras deste fundo antes de analisar o lote.",
+    "fundo": {
+      "id": "00000000-0000-4000-8000-000000000030",
+      "nome": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SAFIRA VAREJO RESPONSABILIDADE LIMITADA",
+      "cnpj": "32482084000133",
+      "configurado": false,
+      "versao_regras_atual": null
+    },
+    "arquivo_id": null,
+    "linha": null,
+    "campo": null,
+    "acao": "CONFIGURAR_FUNDO"
+  },
+  "ResumoFundoDTO": {
+    "fundo": {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "nome": "ANTECIPE FIDC",
+      "cnpj": "92234400000180",
+      "configurado": true,
+      "versao_regras_atual": "00000000-0000-4000-8000-000000000002"
+    },
+    "versao_regras_utilizada": null,
+    "pl": "0.00",
+    "limite_sacado": null,
+    "limite_cedente": null,
+    "resumo": {
+      "definitivo": false,
+      "total_nominal": "0.00",
+      "total_nominal_aprovado": "0.00",
+      "total_nominal_barrado": "0.00",
+      "total_nominal_erro_dados": "0.00",
+      "total_desconto": "0.00",
+      "total_liquido": "0.00",
+      "aprovadas": 0,
+      "barradas": 0,
+      "erros_dados": 0
+    }
+  },
+  "MotivoDTO": {
+    "codigo": "NOTA_DUPLICADA",
+    "mensagem": "Título já aprovado para este cedente, sacado e documento.",
+    "valor_observado": "000351153",
+    "limite_aplicado": null
+  },
+  "ErroDadoDTO": {
+    "campo": "DATA_AQUISICAO",
+    "codigo": "DATA_INVALIDA",
+    "mensagem": "Data inexistente no calendário."
+  },
+  "DadosOriginaisTituloDTO": {
+    "NOME_FUNDO": "ANTECIPE FIDC",
+    "DOC_FUNDO": "92234400000180",
+    "NOME_CEDENTE": "Cedente de exemplo",
+    "DOC_CEDENTE": "10062050000157",
+    "NOME_SACADO": "Sacado de exemplo",
+    "DOC_SACADO": "22144961000102",
+    "NU_DOCUMENTO": "000351153",
+    "TIPO_RECEBIVEL": "Duplicata",
+    "VALOR_NOMINAL": "10000,00",
+    "DATA_VENCIMENTO_ORIGINAL": "31/10/2026",
+    "DATA_AQUISICAO": "01/10/2026"
+  },
+  "TituloNormalizadoDTO": {
+    "fundo_id": "00000000-0000-4000-8000-000000000001",
+    "nome_fundo": "ANTECIPE FIDC",
+    "doc_fundo": "92234400000180",
+    "nome_cedente": "Cedente de exemplo",
+    "doc_cedente": "10062050000157",
+    "raiz_cedente": "10062050",
+    "nome_sacado": "Sacado de exemplo",
+    "doc_sacado": "22144961000102",
+    "raiz_sacado": "22144961",
+    "nu_documento": "000351153",
+    "tipo_recebivel": "Duplicata",
+    "valor_nominal": "10000.00",
+    "data_aquisicao": "2026-10-01",
+    "data_vencimento_original": "2026-10-31",
+    "prazo_dias": 30
+  },
+  "ResultadoAprovadoDTO": {
+    "id": "00000000-0000-4000-8000-000000000020",
+    "lote_id": "00000000-0000-4000-8000-000000000012",
+    "arquivo_id": "00000000-0000-4000-8000-000000000011",
+    "sequencia": 1,
+    "linha": 2,
+    "dados_originais": {
+      "NOME_FUNDO": "ANTECIPE FIDC",
+      "DOC_FUNDO": "92234400000180",
+      "NOME_CEDENTE": "Cedente de exemplo",
+      "DOC_CEDENTE": "10062050000157",
+      "NOME_SACADO": "Sacado de exemplo",
+      "DOC_SACADO": "22144961000102",
+      "NU_DOCUMENTO": "000351153",
+      "TIPO_RECEBIVEL": "Duplicata",
+      "VALOR_NOMINAL": "10000,00",
+      "DATA_VENCIMENTO_ORIGINAL": "31/10/2026",
+      "DATA_AQUISICAO": "01/10/2026"
+    },
+    "tipo": "ANALISE",
+    "status": "APROVADO",
+    "titulo": {
+      "fundo_id": "00000000-0000-4000-8000-000000000001",
+      "nome_fundo": "ANTECIPE FIDC",
+      "doc_fundo": "92234400000180",
+      "nome_cedente": "Cedente de exemplo",
+      "doc_cedente": "10062050000157",
+      "raiz_cedente": "10062050",
+      "nome_sacado": "Sacado de exemplo",
+      "doc_sacado": "22144961000102",
+      "raiz_sacado": "22144961",
+      "nu_documento": "000351153",
+      "tipo_recebivel": "Duplicata",
+      "valor_nominal": "10000.00",
+      "data_aquisicao": "2026-10-01",
+      "data_vencimento_original": "2026-10-31",
+      "prazo_dias": 30
+    },
+    "motivos": [],
+    "erros_dados": [],
+    "desconto": "200.00",
+    "valor_liquido": "9800.00"
+  },
+  "ResultadoBarradoDTO": {
+    "id": "00000000-0000-4000-8000-000000000021",
+    "lote_id": "00000000-0000-4000-8000-000000000012",
+    "arquivo_id": "00000000-0000-4000-8000-000000000011",
+    "sequencia": 2,
+    "linha": 3,
+    "dados_originais": {
+      "NOME_FUNDO": "ANTECIPE FIDC",
+      "DOC_FUNDO": "92234400000180",
+      "NOME_CEDENTE": "Cedente de exemplo",
+      "DOC_CEDENTE": "10062050000157",
+      "NOME_SACADO": "Sacado de exemplo",
+      "DOC_SACADO": "22144961000102",
+      "NU_DOCUMENTO": "000351153",
+      "TIPO_RECEBIVEL": "Duplicata",
+      "VALOR_NOMINAL": "10000,00",
+      "DATA_VENCIMENTO_ORIGINAL": "31/10/2026",
+      "DATA_AQUISICAO": "01/10/2026"
+    },
+    "tipo": "ANALISE",
+    "status": "BARRADO",
+    "titulo": {
+      "fundo_id": "00000000-0000-4000-8000-000000000001",
+      "nome_fundo": "ANTECIPE FIDC",
+      "doc_fundo": "92234400000180",
+      "nome_cedente": "Cedente de exemplo",
+      "doc_cedente": "10062050000157",
+      "raiz_cedente": "10062050",
+      "nome_sacado": "Sacado de exemplo",
+      "doc_sacado": "22144961000102",
+      "raiz_sacado": "22144961",
+      "nu_documento": "000351153",
+      "tipo_recebivel": "Duplicata",
+      "valor_nominal": "10000.00",
+      "data_aquisicao": "2026-10-01",
+      "data_vencimento_original": "2026-10-31",
+      "prazo_dias": 30
+    },
+    "motivos": [
+      {
+        "codigo": "NOTA_DUPLICADA",
+        "mensagem": "Título já aprovado para este cedente, sacado e documento.",
+        "valor_observado": "000351153",
+        "limite_aplicado": null
+      }
+    ],
+    "erros_dados": [],
+    "desconto": "0.00",
+    "valor_liquido": "0.00"
+  },
+  "ResultadoErroDadosDTO": {
+    "id": "00000000-0000-4000-8000-000000000022",
+    "lote_id": "00000000-0000-4000-8000-000000000012",
+    "arquivo_id": "00000000-0000-4000-8000-000000000011",
+    "sequencia": 3,
+    "linha": 4,
+    "dados_originais": {
+      "NOME_FUNDO": "ANTECIPE FIDC",
+      "DOC_FUNDO": "92234400000180",
+      "NOME_CEDENTE": "Cedente de exemplo",
+      "DOC_CEDENTE": "10062050000157",
+      "NOME_SACADO": "Sacado de exemplo",
+      "DOC_SACADO": "22144961000102",
+      "NU_DOCUMENTO": "000351153",
+      "TIPO_RECEBIVEL": "Duplicata",
+      "VALOR_NOMINAL": "10000,00",
+      "DATA_VENCIMENTO_ORIGINAL": "31/10/2026",
+      "DATA_AQUISICAO": "31/02/2026"
+    },
+    "tipo": "ERRO_DADOS",
+    "status": null,
+    "titulo": null,
+    "motivos": [],
+    "erros_dados": [
+      {
+        "campo": "DATA_AQUISICAO",
+        "codigo": "DATA_INVALIDA",
+        "mensagem": "Data inexistente no calendário."
+      }
+    ],
+    "desconto": "0.00",
+    "valor_liquido": "0.00"
+  },
+  "ResultadoDTO": {
+    "id": "00000000-0000-4000-8000-000000000020",
+    "lote_id": "00000000-0000-4000-8000-000000000012",
+    "arquivo_id": "00000000-0000-4000-8000-000000000011",
+    "sequencia": 1,
+    "linha": 2,
+    "dados_originais": {
+      "NOME_FUNDO": "ANTECIPE FIDC",
+      "DOC_FUNDO": "92234400000180",
+      "NOME_CEDENTE": "Cedente de exemplo",
+      "DOC_CEDENTE": "10062050000157",
+      "NOME_SACADO": "Sacado de exemplo",
+      "DOC_SACADO": "22144961000102",
+      "NU_DOCUMENTO": "000351153",
+      "TIPO_RECEBIVEL": "Duplicata",
+      "VALOR_NOMINAL": "10000,00",
+      "DATA_VENCIMENTO_ORIGINAL": "31/10/2026",
+      "DATA_AQUISICAO": "01/10/2026"
+    },
+    "tipo": "ANALISE",
+    "status": "APROVADO",
+    "titulo": {
+      "fundo_id": "00000000-0000-4000-8000-000000000001",
+      "nome_fundo": "ANTECIPE FIDC",
+      "doc_fundo": "92234400000180",
+      "nome_cedente": "Cedente de exemplo",
+      "doc_cedente": "10062050000157",
+      "raiz_cedente": "10062050",
+      "nome_sacado": "Sacado de exemplo",
+      "doc_sacado": "22144961000102",
+      "raiz_sacado": "22144961",
+      "nu_documento": "000351153",
+      "tipo_recebivel": "Duplicata",
+      "valor_nominal": "10000.00",
+      "data_aquisicao": "2026-10-01",
+      "data_vencimento_original": "2026-10-31",
+      "prazo_dias": 30
+    },
+    "motivos": [],
+    "erros_dados": [],
+    "desconto": "200.00",
+    "valor_liquido": "9800.00"
+  },
+  "PaginacaoQuery": {
+    "limit": 50
+  },
+  "ListarFundosQuery": {
+    "limit": 50
+  },
+  "ListarLotesQuery": {
+    "limit": 50
+  },
+  "ConsultarRegrasQuery": {},
+  "ListarResultadosQuery": {
+    "limit": 50
+  },
+  "FundosPageResponse": {
+    "itens": [
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "nome": "ANTECIPE FIDC",
+        "cnpj": "92234400000180",
+        "configurado": true,
+        "versao_regras_atual": "00000000-0000-4000-8000-000000000002"
+      }
+    ],
+    "proximo_cursor": null,
+    "limit": 50
+  },
+  "LotesPageResponse": {
+    "itens": [
+      {
+        "id": "00000000-0000-4000-8000-000000000012",
+        "nome": "Demonstração de contrato",
+        "status": "RECEBENDO",
+        "criado_em": "2026-10-24T18:00:00Z",
+        "atualizado_em": "2026-10-24T18:00:00Z",
+        "arquivos_total": 1,
+        "linhas_processadas": 0,
+        "total_liquido": "0.00"
+      }
+    ],
+    "proximo_cursor": null,
+    "limit": 50
+  },
+  "ArquivosPageResponse": {
+    "itens": [
+      {
+        "id": "00000000-0000-4000-8000-000000000011",
+        "lote_id": "00000000-0000-4000-8000-000000000012",
+        "client_id": "00000000-0000-4000-8000-000000000010",
+        "nome": "exemplo.csv",
+        "formato": "CSV",
+        "tamanho_bytes": 1024,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "ordem": 0,
+        "aba": null,
+        "bytes_recebidos": 0,
+        "status": "AGUARDANDO_UPLOAD",
+        "linhas_total": null,
+        "linhas_processadas": 0,
+        "aprovadas": 0,
+        "barradas": 0,
+        "erros_dados": 0,
+        "recebido_em": null,
+        "concluido_em": null,
+        "erro": null
+      }
+    ],
+    "proximo_cursor": null,
+    "limit": 50
+  },
+  "PendenciasPageResponse": {
+    "itens": [
+      {
+        "codigo": "FUNDO_SEM_REGRAS",
+        "mensagem": "Configure as regras deste fundo antes de analisar o lote.",
+        "fundo": {
+          "id": "00000000-0000-4000-8000-000000000030",
+          "nome": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SAFIRA VAREJO RESPONSABILIDADE LIMITADA",
+          "cnpj": "32482084000133",
+          "configurado": false,
+          "versao_regras_atual": null
+        },
+        "arquivo_id": null,
+        "linha": null,
+        "campo": null,
+        "acao": "CONFIGURAR_FUNDO"
+      }
+    ],
+    "proximo_cursor": null,
+    "limit": 50
+  },
+  "ResumosFundosPageResponse": {
+    "itens": [
+      {
+        "fundo": {
+          "id": "00000000-0000-4000-8000-000000000001",
+          "nome": "ANTECIPE FIDC",
+          "cnpj": "92234400000180",
+          "configurado": true,
+          "versao_regras_atual": "00000000-0000-4000-8000-000000000002"
+        },
+        "versao_regras_utilizada": null,
+        "pl": "0.00",
+        "limite_sacado": null,
+        "limite_cedente": null,
+        "resumo": {
+          "definitivo": false,
+          "total_nominal": "0.00",
+          "total_nominal_aprovado": "0.00",
+          "total_nominal_barrado": "0.00",
+          "total_nominal_erro_dados": "0.00",
+          "total_desconto": "0.00",
+          "total_liquido": "0.00",
+          "aprovadas": 0,
+          "barradas": 0,
+          "erros_dados": 0
+        }
+      }
+    ],
+    "proximo_cursor": null,
+    "limit": 50
+  },
+  "ResultadosPageResponse": {
+    "itens": [
+      {
+        "id": "00000000-0000-4000-8000-000000000020",
+        "lote_id": "00000000-0000-4000-8000-000000000012",
+        "arquivo_id": "00000000-0000-4000-8000-000000000011",
+        "sequencia": 1,
+        "linha": 2,
+        "dados_originais": {
+          "NOME_FUNDO": "ANTECIPE FIDC",
+          "DOC_FUNDO": "92234400000180",
+          "NOME_CEDENTE": "Cedente de exemplo",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado de exemplo",
+          "DOC_SACADO": "22144961000102",
+          "NU_DOCUMENTO": "000351153",
+          "TIPO_RECEBIVEL": "Duplicata",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026",
+          "DATA_AQUISICAO": "01/10/2026"
+        },
+        "tipo": "ANALISE",
+        "status": "APROVADO",
+        "titulo": {
+          "fundo_id": "00000000-0000-4000-8000-000000000001",
+          "nome_fundo": "ANTECIPE FIDC",
+          "doc_fundo": "92234400000180",
+          "nome_cedente": "Cedente de exemplo",
+          "doc_cedente": "10062050000157",
+          "raiz_cedente": "10062050",
+          "nome_sacado": "Sacado de exemplo",
+          "doc_sacado": "22144961000102",
+          "raiz_sacado": "22144961",
+          "nu_documento": "000351153",
+          "tipo_recebivel": "Duplicata",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "data_vencimento_original": "2026-10-31",
+          "prazo_dias": 30
+        },
+        "motivos": [],
+        "erros_dados": [],
+        "desconto": "200.00",
+        "valor_liquido": "9800.00"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000021",
+        "lote_id": "00000000-0000-4000-8000-000000000012",
+        "arquivo_id": "00000000-0000-4000-8000-000000000011",
+        "sequencia": 2,
+        "linha": 3,
+        "dados_originais": {
+          "NOME_FUNDO": "ANTECIPE FIDC",
+          "DOC_FUNDO": "92234400000180",
+          "NOME_CEDENTE": "Cedente de exemplo",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado de exemplo",
+          "DOC_SACADO": "22144961000102",
+          "NU_DOCUMENTO": "000351153",
+          "TIPO_RECEBIVEL": "Duplicata",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026",
+          "DATA_AQUISICAO": "01/10/2026"
+        },
+        "tipo": "ANALISE",
+        "status": "BARRADO",
+        "titulo": {
+          "fundo_id": "00000000-0000-4000-8000-000000000001",
+          "nome_fundo": "ANTECIPE FIDC",
+          "doc_fundo": "92234400000180",
+          "nome_cedente": "Cedente de exemplo",
+          "doc_cedente": "10062050000157",
+          "raiz_cedente": "10062050",
+          "nome_sacado": "Sacado de exemplo",
+          "doc_sacado": "22144961000102",
+          "raiz_sacado": "22144961",
+          "nu_documento": "000351153",
+          "tipo_recebivel": "Duplicata",
+          "valor_nominal": "10000.00",
+          "data_aquisicao": "2026-10-01",
+          "data_vencimento_original": "2026-10-31",
+          "prazo_dias": 30
+        },
+        "motivos": [
+          {
+            "codigo": "NOTA_DUPLICADA",
+            "mensagem": "Título já aprovado para este cedente, sacado e documento.",
+            "valor_observado": "000351153",
+            "limite_aplicado": null
+          }
+        ],
+        "erros_dados": [],
+        "desconto": "0.00",
+        "valor_liquido": "0.00"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000022",
+        "lote_id": "00000000-0000-4000-8000-000000000012",
+        "arquivo_id": "00000000-0000-4000-8000-000000000011",
+        "sequencia": 3,
+        "linha": 4,
+        "dados_originais": {
+          "NOME_FUNDO": "ANTECIPE FIDC",
+          "DOC_FUNDO": "92234400000180",
+          "NOME_CEDENTE": "Cedente de exemplo",
+          "DOC_CEDENTE": "10062050000157",
+          "NOME_SACADO": "Sacado de exemplo",
+          "DOC_SACADO": "22144961000102",
+          "NU_DOCUMENTO": "000351153",
+          "TIPO_RECEBIVEL": "Duplicata",
+          "VALOR_NOMINAL": "10000,00",
+          "DATA_VENCIMENTO_ORIGINAL": "31/10/2026",
+          "DATA_AQUISICAO": "31/02/2026"
+        },
+        "tipo": "ERRO_DADOS",
+        "status": null,
+        "titulo": null,
+        "motivos": [],
+        "erros_dados": [
+          {
+            "campo": "DATA_AQUISICAO",
+            "codigo": "DATA_INVALIDA",
+            "mensagem": "Data inexistente no calendário."
+          }
+        ],
+        "desconto": "0.00",
+        "valor_liquido": "0.00"
+      }
+    ],
+    "proximo_cursor": null,
+    "limit": 50,
+    "snapshot_ate_sequencia": 3,
+    "arquivo_finalizado": true
+  }
+}

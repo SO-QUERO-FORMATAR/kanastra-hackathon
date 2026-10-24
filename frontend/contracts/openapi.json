@@ -1,0 +1,5350 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Antecipe — Contrato backend/frontend",
+    "version": "1.0.0",
+    "description": "Contrato de projeto; implementação ainda pendente. Fonte editável: scripts/gerar_contrato_api.py. Complementado por docs/contrato-api.md. Ambiente MVP de demonstração, sem autenticação. Não representa serviço publicado."
+  },
+  "servers": [
+    {
+      "url": "/api/v1",
+      "description": "Usar proxy de desenvolvimento ou VITE_API_BASE_URL."
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/health/live": {
+      "get": {
+        "operationId": "verificarVida",
+        "summary": "Verificar processo",
+        "description": "",
+        "tags": [
+          "health"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaudeResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "verificarProntidao",
+        "summary": "Verificar banco e armazenamento",
+        "description": "",
+        "tags": [
+          "health"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaudeResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/capacidades": {
+      "get": {
+        "operationId": "obterCapacidades",
+        "summary": "Limites e recursos do MVP",
+        "description": "",
+        "tags": [
+          "capacidades"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapacidadesResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cadastro/status": {
+      "get": {
+        "operationId": "obterStatusCadastro",
+        "summary": "Disponibilidade da base cadastral",
+        "description": "",
+        "tags": [
+          "cadastro"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseCadastralStatusResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fundos": {
+      "get": {
+        "operationId": "listarFundos",
+        "summary": "Listar fundos cadastrados ou descobertos no estoque",
+        "description": "",
+        "tags": [
+          "fundos"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          {
+            "name": "busca",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            }
+          },
+          {
+            "name": "configurado",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundosPageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ou cursor inválido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fundos/{fundo_id}/regras": {
+      "get": {
+        "operationId": "consultarRegrasFundo",
+        "summary": "Consultar versão atual ou histórica das regras",
+        "description": "",
+        "tags": [
+          "fundos"
+        ],
+        "parameters": [
+          {
+            "name": "fundo_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "versao",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegrasFundoResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "atualizarRegrasFundo",
+        "summary": "Configurar um fundo ou publicar nova versão",
+        "description": "Primeira configuração e atualização retornam 200. Não copia regras para outros fundos. Verifica versao_base; conflito retorna 409. Lote que já começou análise mantém seu snapshot.",
+        "tags": [
+          "fundos"
+        ],
+        "parameters": [
+          {
+            "name": "fundo_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID por operação lógica; repetir em retry do mesmo conteúdo. Escopo método + caminho + chave; retenção durante toda a vida do lote (regras: mínima de 24h)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              },
+              "Idempotency-Replayed": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "description": "true quando devolve o corpo/status originalmente persistidos."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegrasFundoResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de estado, idempotência ou versão.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Tipo de mídia não suportado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtualizarRegrasRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lotes": {
+      "get": {
+        "operationId": "listarLotes",
+        "summary": "Histórico de lotes",
+        "description": "",
+        "tags": [
+          "lotes"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/StatusLote"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LotesPageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ou cursor inválido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "criarLote",
+        "summary": "Criar manifesto imutável",
+        "description": "",
+        "tags": [
+          "lotes"
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID por operação lógica; repetir em retry do mesmo conteúdo. Escopo método + caminho + chave; retenção durante toda a vida do lote (regras: mínima de 24h)."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              },
+              "Idempotency-Replayed": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "description": "true quando devolve o corpo/status originalmente persistidos."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CriarLoteResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de estado, idempotência ou versão.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Tipo de mídia não suportado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CriarLoteRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lotes/{lote_id}": {
+      "get": {
+        "operationId": "consultarLote",
+        "summary": "Estado, progresso, resumo e ações disponíveis",
+        "description": "",
+        "tags": [
+          "lotes"
+        ],
+        "parameters": [
+          {
+            "name": "lote_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoteDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lotes/{lote_id}/batches": {
+      "post": {
+        "operationId": "enviarBatch",
+        "summary": "Receber até três arquivos, atomicamente",
+        "description": "Até 67108864 bytes somados de conteúdo binário, sem overhead multipart. Formatos CSV/XLSX; ZIP não é upload válido. Metadados JSON string com arquivo_ids na ordem das partes arquivos. Aceita somente lote RECEBENDO. Todos os arquivos deste batch são confirmados ou nenhum é confirmado.",
+        "tags": [
+          "lotes"
+        ],
+        "parameters": [
+          {
+            "name": "lote_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID por operação lógica; repetir em retry do mesmo conteúdo. Escopo método + caminho + chave; retenção durante toda a vida do lote (regras: mínima de 24h)."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              },
+              "Idempotency-Replayed": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "description": "true quando devolve o corpo/status originalmente persistidos."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnviarBatchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ou cursor inválido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de estado, idempotência ou versão.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Limite de upload excedido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Tipo de mídia não suportado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/EnviarBatchRequest"
+              },
+              "encoding": {
+                "metadados": {
+                  "contentType": "text/plain"
+                },
+                "arquivos": {
+                  "style": "form",
+                  "explode": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lotes/{lote_id}/processamento": {
+      "post": {
+        "operationId": "solicitarProcessamento",
+        "summary": "Selar uploads e iniciar ou retomar o worker",
+        "description": "Sem corpo. Inicialmente exige todos os arquivos recebidos. Em BLOQUEADO permite nova tentativa após correção de cadastro/regras; em FALHOU somente se acoes.pode_retomar. Nunca descarta aprovações já persistidas. Não espera análise no HTTP.",
+        "tags": [
+          "lotes"
+        ],
+        "parameters": [
+          {
+            "name": "lote_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID por operação lógica; repetir em retry do mesmo conteúdo. Escopo método + caminho + chave; retenção durante toda a vida do lote (regras: mínima de 24h)."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              },
+              "Idempotency-Replayed": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "description": "true quando devolve o corpo/status originalmente persistidos."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessarLoteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de estado, idempotência ou versão.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lotes/{lote_id}/arquivos": {
+      "get": {
+        "operationId": "listarArquivosLote",
+        "summary": "Listar arquivos em ordem de manifesto",
+        "description": "",
+        "tags": [
+          "lotes"
+        ],
+        "parameters": [
+          {
+            "name": "lote_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArquivosPageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ou cursor inválido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lotes/{lote_id}/pendencias": {
+      "get": {
+        "operationId": "listarPendenciasLote",
+        "summary": "Listar bloqueios com ação requerida",
+        "description": "",
+        "tags": [
+          "lotes"
+        ],
+        "parameters": [
+          {
+            "name": "lote_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PendenciasPageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ou cursor inválido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lotes/{lote_id}/resumos-fundos": {
+      "get": {
+        "operationId": "listarResumosFundos",
+        "summary": "Consultar PL e resumo por fundo",
+        "description": "",
+        "tags": [
+          "lotes"
+        ],
+        "parameters": [
+          {
+            "name": "lote_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResumosFundosPageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ou cursor inválido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/arquivos/{arquivo_id}": {
+      "get": {
+        "operationId": "consultarArquivo",
+        "summary": "Consultar estado de um arquivo",
+        "description": "",
+        "tags": [
+          "arquivos"
+        ],
+        "parameters": [
+          {
+            "name": "arquivo_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArquivoDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/arquivos/{arquivo_id}/resultados": {
+      "get": {
+        "operationId": "listarResultados",
+        "summary": "Consultar resultados e diagnósticos por cursor",
+        "description": "Filtros combinados com AND. motivo seleciona barramentos. tipo=ERRO_DADOS com status/motivo é inválido (422); APROVADO com motivo também. Cursor não pode ser reutilizado com outro arquivo, filtros ou limit.",
+        "tags": [
+          "arquivos"
+        ],
+        "parameters": [
+          {
+            "name": "arquivo_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/StatusNota"
+            }
+          },
+          {
+            "name": "motivo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CodigoRecusa"
+            }
+          },
+          {
+            "name": "tipo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ANALISE",
+                "ERRO_DADOS"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultadosPageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ou cursor inválido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso ou versão não encontrado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Dinheiro": {
+        "type": "string",
+        "description": "Decimal em BRL, ponto e duas casas; nunca JSON number.",
+        "pattern": "^-?(0|[1-9][0-9]*)\\.[0-9]{2}$",
+        "examples": [
+          "2278.08"
+        ]
+      },
+      "DecimalNaoNegativo": {
+        "type": "string",
+        "description": "Decimal exato não negativo; até 8 casas, sem notação científica.",
+        "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,8})?$",
+        "examples": [
+          "2.0"
+        ]
+      },
+      "CodigoRecusa": {
+        "type": "string",
+        "enum": [
+          "NOTA_DUPLICADA",
+          "CNPJ_SACADO_VALIDO",
+          "SITUACAO_CADASTRAL_SACADO",
+          "TIPO_RECEBIVEL",
+          "VALOR_MINIMO",
+          "NAO_VENCIDA",
+          "PRAZO_MINIMO",
+          "PRAZO_MAXIMO",
+          "CONCENTRACAO_MAXIMA_SACADO",
+          "CONCENTRACAO_MAXIMA_CEDENTE"
+        ]
+      },
+      "StatusNota": {
+        "type": "string",
+        "enum": [
+          "APROVADO",
+          "BARRADO"
+        ]
+      },
+      "StatusLote": {
+        "type": "string",
+        "enum": [
+          "RECEBENDO",
+          "NA_FILA",
+          "INDEXANDO",
+          "BLOQUEADO",
+          "ANALISANDO",
+          "CONCLUIDO",
+          "CONCLUIDO_COM_ERROS",
+          "FALHOU"
+        ]
+      },
+      "StatusArquivo": {
+        "type": "string",
+        "enum": [
+          "AGUARDANDO_UPLOAD",
+          "RECEBIDO",
+          "INDEXANDO",
+          "PRONTO",
+          "ANALISANDO",
+          "CONCLUIDO",
+          "CONCLUIDO_COM_ERROS",
+          "FALHOU"
+        ]
+      },
+      "FormatoArquivo": {
+        "type": "string",
+        "enum": [
+          "CSV",
+          "XLSX"
+        ]
+      },
+      "CodigoErro": {
+        "type": "string",
+        "enum": [
+          "VALIDACAO_REQUISICAO",
+          "RECURSO_NAO_ENCONTRADO",
+          "ESTADO_INVALIDO",
+          "IDEMPOTENCIA_CONFLITANTE",
+          "REQUISICAO_EM_ANDAMENTO",
+          "UPLOAD_INCOMPLETO",
+          "LIMITE_UPLOAD_EXCEDIDO",
+          "LIMITE_LOTE_EXCEDIDO",
+          "TIPO_ARQUIVO_NAO_SUPORTADO",
+          "INTEGRIDADE_ARQUIVO",
+          "ARQUIVO_FORA_MANIFESTO",
+          "ARQUIVO_JA_RECEBIDO",
+          "CURSOR_INVALIDO",
+          "VERSAO_REGRAS_CONFLITANTE",
+          "CONFIGURACAO_INVALIDA",
+          "ESTRUTURA_ARQUIVO_INVALIDA",
+          "ARQUIVO_CORROMPIDO",
+          "DADOS_IMPEDEM_PL",
+          "FUNDOS_SEM_REGRAS",
+          "BASE_CADASTRAL_INDISPONIVEL",
+          "INFRAESTRUTURA_INDISPONIVEL",
+          "ERRO_INTERNO"
+        ]
+      },
+      "DetalheErroDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "campo": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "JSON Pointer no corpo, ou query.nome/header.nome; null para erro geral."
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "codigo": {
+            "type": "string"
+          },
+          "mensagem": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campo",
+          "codigo",
+          "mensagem"
+        ]
+      },
+      "ErroDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "$ref": "#/components/schemas/CodigoErro"
+          },
+          "mensagem": {
+            "type": "string"
+          },
+          "retry_permitido": {
+            "type": "boolean"
+          },
+          "detalhes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetalheErroDTO"
+            }
+          },
+          "versao_atual": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "codigo",
+          "mensagem",
+          "retry_permitido",
+          "detalhes",
+          "versao_atual"
+        ]
+      },
+      "ErroResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "erro": {
+            "$ref": "#/components/schemas/ErroDTO"
+          }
+        },
+        "required": [
+          "request_id",
+          "erro"
+        ]
+      },
+      "SaudeResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "OK"
+            ]
+          },
+          "servico": {
+            "type": "string",
+            "enum": [
+              "antecipe-api"
+            ]
+          },
+          "versao_api": {
+            "type": "string",
+            "enum": [
+              "1.0.0"
+            ]
+          },
+          "verificado_em": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "status",
+          "servico",
+          "versao_api",
+          "verificado_em"
+        ]
+      },
+      "CapacidadesResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "versao_contrato": {
+            "type": "string",
+            "enum": [
+              "1.0.0"
+            ]
+          },
+          "autenticacao": {
+            "type": "string",
+            "enum": [
+              "SEM_AUTENTICACAO_DEMO"
+            ]
+          },
+          "formatos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormatoArquivo"
+            }
+          },
+          "max_arquivos_lote": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "max_arquivos_batch": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "max_bytes_arquivo": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "max_bytes_batch": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "max_linhas_lote": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "max_pagina": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "polling_intervalo_ms": {
+            "type": "integer",
+            "minimum": 1000
+          },
+          "permite_exportacao": {
+            "type": "boolean"
+          },
+          "permite_cancelamento": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "versao_contrato",
+          "autenticacao",
+          "formatos",
+          "max_arquivos_lote",
+          "max_arquivos_batch",
+          "max_bytes_arquivo",
+          "max_bytes_batch",
+          "max_linhas_lote",
+          "max_pagina",
+          "polling_intervalo_ms",
+          "permite_exportacao",
+          "permite_cancelamento"
+        ]
+      },
+      "BaseCadastralStatusResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "disponivel": {
+            "type": "boolean"
+          },
+          "versao": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "quantidade_cnpjs": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "importado_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "disponivel",
+          "versao",
+          "sha256",
+          "quantidade_cnpjs",
+          "importado_em"
+        ]
+      },
+      "FundoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "string",
+            "pattern": "^[0-9]{14}$"
+          },
+          "configurado": {
+            "type": "boolean"
+          },
+          "versao_regras_atual": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "nome",
+          "cnpj",
+          "configurado",
+          "versao_regras_atual"
+        ]
+      },
+      "ParametrosVaziosDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "ParametrosSituacaoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "situacoes_aceitas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "situacoes_aceitas"
+        ]
+      },
+      "ParametrosTipoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipos_aceitos": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "tipos_aceitos"
+        ]
+      },
+      "ParametrosValorMinimoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "valor_minimo": {
+            "$ref": "#/components/schemas/DecimalNaoNegativo"
+          }
+        },
+        "required": [
+          "valor_minimo"
+        ]
+      },
+      "ParametrosPrazoMinimoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "prazo_minimo_dias": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "prazo_minimo_dias"
+        ]
+      },
+      "ParametrosPrazoMaximoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "prazo_maximo_dias": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "prazo_maximo_dias"
+        ]
+      },
+      "ParametrosConcentracaoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "percentual_maximo": {
+            "$ref": "#/components/schemas/DecimalNaoNegativo",
+            "description": "Entre 0 e 100, inclusive; limite semântico validado pelo servidor."
+          },
+          "agrupamento": {
+            "type": "string",
+            "enum": [
+              "RAIZ_CNPJ"
+            ]
+          }
+        },
+        "required": [
+          "percentual_maximo",
+          "agrupamento"
+        ]
+      },
+      "ValidadorCnpjSacadoValidoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "CNPJ_SACADO_VALIDO"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosVaziosDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorSituacaoCadastralSacadoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "SITUACAO_CADASTRAL_SACADO"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosSituacaoDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorTipoRecebivelDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "TIPO_RECEBIVEL"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosTipoDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorValorMinimoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "VALOR_MINIMO"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosValorMinimoDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorNaoVencidaDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "NAO_VENCIDA"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosVaziosDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorPrazoMinimoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "PRAZO_MINIMO"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosPrazoMinimoDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorPrazoMaximoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "PRAZO_MAXIMO"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosPrazoMaximoDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorConcentracaoMaximaSacadoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "CONCENTRACAO_MAXIMA_SACADO"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosConcentracaoDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorConcentracaoMaximaCedenteDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "CONCENTRACAO_MAXIMA_CEDENTE"
+            ]
+          },
+          "ativo": {
+            "type": "boolean"
+          },
+          "parametros": {
+            "$ref": "#/components/schemas/ParametrosConcentracaoDTO"
+          }
+        },
+        "required": [
+          "codigo",
+          "ativo",
+          "parametros"
+        ]
+      },
+      "ValidadorDTO": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ValidadorCnpjSacadoValidoDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ValidadorSituacaoCadastralSacadoDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ValidadorTipoRecebivelDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ValidadorValorMinimoDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ValidadorNaoVencidaDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ValidadorPrazoMinimoDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ValidadorPrazoMaximoDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ValidadorConcentracaoMaximaSacadoDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ValidadorConcentracaoMaximaCedenteDTO"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "codigo",
+          "mapping": {
+            "CNPJ_SACADO_VALIDO": "#/components/schemas/ValidadorCnpjSacadoValidoDTO",
+            "SITUACAO_CADASTRAL_SACADO": "#/components/schemas/ValidadorSituacaoCadastralSacadoDTO",
+            "TIPO_RECEBIVEL": "#/components/schemas/ValidadorTipoRecebivelDTO",
+            "VALOR_MINIMO": "#/components/schemas/ValidadorValorMinimoDTO",
+            "NAO_VENCIDA": "#/components/schemas/ValidadorNaoVencidaDTO",
+            "PRAZO_MINIMO": "#/components/schemas/ValidadorPrazoMinimoDTO",
+            "PRAZO_MAXIMO": "#/components/schemas/ValidadorPrazoMaximoDTO",
+            "CONCENTRACAO_MAXIMA_SACADO": "#/components/schemas/ValidadorConcentracaoMaximaSacadoDTO",
+            "CONCENTRACAO_MAXIMA_CEDENTE": "#/components/schemas/ValidadorConcentracaoMaximaCedenteDTO"
+          }
+        }
+      },
+      "PrecificacaoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "metodo": {
+            "type": "string",
+            "enum": [
+              "DESCONTO_SIMPLES"
+            ]
+          },
+          "taxa_mensal_percentual": {
+            "$ref": "#/components/schemas/DecimalNaoNegativo"
+          },
+          "base_dias": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 366
+          }
+        },
+        "required": [
+          "metodo",
+          "taxa_mensal_percentual",
+          "base_dias"
+        ]
+      },
+      "ConfiguracaoRegrasDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "validadores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidadorDTO"
+            },
+            "minItems": 9,
+            "maxItems": 9,
+            "allOf": [
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "CNPJ_SACADO_VALIDO"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "SITUACAO_CADASTRAL_SACADO"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "TIPO_RECEBIVEL"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "VALOR_MINIMO"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "NAO_VENCIDA"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "PRAZO_MINIMO"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "PRAZO_MAXIMO"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "CONCENTRACAO_MAXIMA_SACADO"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "codigo": {
+                      "const": "CONCENTRACAO_MAXIMA_CEDENTE"
+                    }
+                  },
+                  "required": [
+                    "codigo"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
+            ]
+          },
+          "precificacao": {
+            "$ref": "#/components/schemas/PrecificacaoDTO"
+          }
+        },
+        "required": [
+          "validadores",
+          "precificacao"
+        ],
+        "description": "Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Parâmetros inativos também devem ser válidos."
+      },
+      "AtualizarRegrasRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "versao_base": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "configuracao": {
+            "$ref": "#/components/schemas/ConfiguracaoRegrasDTO"
+          }
+        },
+        "required": [
+          "versao_base",
+          "configuracao"
+        ],
+        "description": "versao_base=null somente para primeira configuração; para edição, versão obtida no GET. Atualização integral dos nove validadores."
+      },
+      "RegrasFundoResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fundo": {
+            "$ref": "#/components/schemas/FundoDTO"
+          },
+          "versao": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "criada_em": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "configuracao": {
+            "$ref": "#/components/schemas/ConfiguracaoRegrasDTO"
+          }
+        },
+        "required": [
+          "fundo",
+          "versao",
+          "criada_em",
+          "configuracao"
+        ]
+      },
+      "ArquivoManifestoRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "formato": {
+            "$ref": "#/components/schemas/FormatoArquivo"
+          },
+          "tamanho_bytes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 67108864
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "ordem": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "aba": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 31
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "client_id",
+          "nome",
+          "formato",
+          "tamanho_bytes",
+          "sha256",
+          "ordem",
+          "aba"
+        ],
+        "description": "client_id gerado pelo front e único no lote. ordem deve ser contígua de 0 a N-1. aba=null para CSV; XLSX null seleciona primeira aba com dados."
+      },
+      "CriarLoteRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "nome": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "arquivos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArquivoManifestoRequest"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "nome",
+          "arquivos"
+        ]
+      },
+      "ArquivoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lote_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "client_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "formato": {
+            "$ref": "#/components/schemas/FormatoArquivo"
+          },
+          "ordem": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "aba": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tamanho_bytes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes_recebidos": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusArquivo"
+          },
+          "linhas_total": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "linhas_processadas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "aprovadas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "barradas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "erros_dados": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "recebido_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "concluido_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "erro": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErroDTO"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "lote_id",
+          "client_id",
+          "nome",
+          "formato",
+          "ordem",
+          "aba",
+          "tamanho_bytes",
+          "sha256",
+          "bytes_recebidos",
+          "status",
+          "linhas_total",
+          "linhas_processadas",
+          "aprovadas",
+          "barradas",
+          "erros_dados",
+          "recebido_em",
+          "concluido_em",
+          "erro"
+        ]
+      },
+      "ProgressoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fase": {
+            "type": "string",
+            "enum": [
+              "AGUARDANDO",
+              "INDEXACAO",
+              "ANALISE",
+              "FINALIZADO"
+            ]
+          },
+          "arquivos_total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "arquivos_recebidos": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "arquivos_falhos": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "bytes_esperados": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "bytes_recebidos": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "linhas_lidas_primeira_passagem": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "linhas_total": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "linhas_processadas": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "fase",
+          "arquivos_total",
+          "arquivos_recebidos",
+          "arquivos_falhos",
+          "bytes_esperados",
+          "bytes_recebidos",
+          "linhas_lidas_primeira_passagem",
+          "linhas_total",
+          "linhas_processadas"
+        ],
+        "description": "Contadores persistidos. Total null até terminar indexação. Não somar as duas passagens como notas diferentes."
+      },
+      "ResumoFinanceiroDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "definitivo": {
+            "type": "boolean"
+          },
+          "total_nominal": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "total_nominal_aprovado": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "total_nominal_barrado": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "total_nominal_erro_dados": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "total_desconto": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "total_liquido": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "aprovadas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "barradas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "erros_dados": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "definitivo",
+          "total_nominal",
+          "total_nominal_aprovado",
+          "total_nominal_barrado",
+          "total_nominal_erro_dados",
+          "total_desconto",
+          "total_liquido",
+          "aprovadas",
+          "barradas",
+          "erros_dados"
+        ],
+        "description": "Durante execução, totais parciais; total_nominal é PL dos arquivos válidos após indexação. Não é patrimônio global histórico do fundo."
+      },
+      "AcoesLoteDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "pode_enviar_arquivos": {
+            "type": "boolean"
+          },
+          "pode_iniciar": {
+            "type": "boolean"
+          },
+          "pode_retomar": {
+            "type": "boolean"
+          },
+          "precisa_corrigir_configuracao": {
+            "type": "boolean"
+          },
+          "precisa_recriar_lote": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "pode_enviar_arquivos",
+          "pode_iniciar",
+          "pode_retomar",
+          "precisa_corrigir_configuracao",
+          "precisa_recriar_lote"
+        ]
+      },
+      "LoteDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusLote"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "iniciado_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "concluido_em": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "atualizado_em": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "versao_cadastral": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "progresso": {
+            "$ref": "#/components/schemas/ProgressoDTO"
+          },
+          "resumo": {
+            "$ref": "#/components/schemas/ResumoFinanceiroDTO"
+          },
+          "quantidade_pendencias": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "acoes": {
+            "$ref": "#/components/schemas/AcoesLoteDTO"
+          },
+          "erro": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErroDTO"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "nome",
+          "status",
+          "criado_em",
+          "iniciado_em",
+          "concluido_em",
+          "atualizado_em",
+          "versao_cadastral",
+          "progresso",
+          "resumo",
+          "quantidade_pendencias",
+          "acoes",
+          "erro"
+        ]
+      },
+      "CriarLoteResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "lote": {
+            "$ref": "#/components/schemas/LoteDTO"
+          },
+          "arquivos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArquivoDTO"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "lote",
+          "arquivos"
+        ]
+      },
+      "LoteResumoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusLote"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "atualizado_em": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "arquivos_total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "linhas_processadas": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "total_liquido": {
+            "$ref": "#/components/schemas/Dinheiro"
+          }
+        },
+        "required": [
+          "id",
+          "nome",
+          "status",
+          "criado_em",
+          "atualizado_em",
+          "arquivos_total",
+          "linhas_processadas",
+          "total_liquido"
+        ]
+      },
+      "BatchMetadadosDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "arquivo_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "arquivo_ids"
+        ],
+        "description": "A posição de arquivo_ids corresponde à posição de cada parte multipart arquivos. Não mapear por nome do arquivo."
+      },
+      "EnviarBatchRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "metadados": {
+            "type": "string",
+            "description": "JSON serializado de BatchMetadadosDTO; campo textual do FormData."
+          },
+          "arquivos": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "minItems": 1,
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "metadados",
+          "arquivos"
+        ]
+      },
+      "ArquivoRecebidoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "arquivo_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "client_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes_recebidos": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "RECEBIDO"
+            ]
+          }
+        },
+        "required": [
+          "arquivo_id",
+          "client_id",
+          "sha256",
+          "bytes_recebidos",
+          "status"
+        ]
+      },
+      "EnviarBatchResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "batch_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lote_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "recebido_em": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "arquivos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArquivoRecebidoDTO"
+            },
+            "minItems": 1,
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "batch_id",
+          "lote_id",
+          "recebido_em",
+          "arquivos"
+        ]
+      },
+      "ProcessarLoteResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "lote_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "execucao_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NA_FILA"
+            ]
+          },
+          "aceito_em": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status_url": {
+            "type": "string",
+            "format": "uri-reference"
+          }
+        },
+        "required": [
+          "lote_id",
+          "execucao_id",
+          "status",
+          "aceito_em",
+          "status_url"
+        ]
+      },
+      "PendenciaDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "FUNDO_SEM_REGRAS",
+              "BASE_CADASTRAL_AUSENTE",
+              "DADOS_IMPEDEM_PL"
+            ]
+          },
+          "mensagem": {
+            "type": "string"
+          },
+          "fundo": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FundoDTO"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "arquivo_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "linha": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 2
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "campo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "acao": {
+            "type": "string",
+            "enum": [
+              "CONFIGURAR_FUNDO",
+              "IMPORTAR_BASE_CADASTRAL",
+              "RECRIAR_LOTE"
+            ]
+          }
+        },
+        "required": [
+          "codigo",
+          "mensagem",
+          "fundo",
+          "arquivo_id",
+          "linha",
+          "campo",
+          "acao"
+        ]
+      },
+      "ResumoFundoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fundo": {
+            "$ref": "#/components/schemas/FundoDTO"
+          },
+          "versao_regras_utilizada": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pl": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "limite_sacado": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Dinheiro"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limite_cedente": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Dinheiro"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "resumo": {
+            "$ref": "#/components/schemas/ResumoFinanceiroDTO"
+          }
+        },
+        "required": [
+          "fundo",
+          "versao_regras_utilizada",
+          "pl",
+          "limite_sacado",
+          "limite_cedente",
+          "resumo"
+        ],
+        "description": "Limite null se regra inativa ou contexto ainda não congelado. versao_regras_utilizada identifica a versão histórica, não necessariamente a atual do fundo."
+      },
+      "MotivoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "codigo": {
+            "$ref": "#/components/schemas/CodigoRecusa"
+          },
+          "mensagem": {
+            "type": "string"
+          },
+          "valor_observado": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limite_aplicado": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "codigo",
+          "mensagem",
+          "valor_observado",
+          "limite_aplicado"
+        ],
+        "description": "Explicação para exibição; frontend não recalcula a regra nem interpreta os valores textuais como contrato de cálculo."
+      },
+      "ErroDadoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "campo": {
+            "type": "string"
+          },
+          "codigo": {
+            "type": "string",
+            "enum": [
+              "OBRIGATORIO",
+              "FORMATO_INVALIDO",
+              "DATA_INVALIDA",
+              "DECIMAL_INVALIDO",
+              "FORMULA_SEM_VALOR",
+              "DOCUMENTO_SEM_RAIZ"
+            ]
+          },
+          "mensagem": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "campo",
+          "codigo",
+          "mensagem"
+        ]
+      },
+      "DadosOriginaisTituloDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "NOME_FUNDO": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "DOC_FUNDO": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "NOME_CEDENTE": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "DOC_CEDENTE": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "NOME_SACADO": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "DOC_SACADO": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "NU_DOCUMENTO": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "TIPO_RECEBIVEL": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "VALOR_NOMINAL": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "DATA_VENCIMENTO_ORIGINAL": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "DATA_AQUISICAO": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "NOME_FUNDO",
+          "DOC_FUNDO",
+          "NOME_CEDENTE",
+          "DOC_CEDENTE",
+          "NOME_SACADO",
+          "DOC_SACADO",
+          "NU_DOCUMENTO",
+          "TIPO_RECEBIVEL",
+          "VALOR_NOMINAL",
+          "DATA_VENCIMENTO_ORIGINAL",
+          "DATA_AQUISICAO"
+        ]
+      },
+      "TituloNormalizadoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fundo_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome_fundo": {
+            "type": "string"
+          },
+          "doc_fundo": {
+            "type": "string",
+            "pattern": "^[0-9]{14}$"
+          },
+          "nome_cedente": {
+            "type": "string"
+          },
+          "doc_cedente": {
+            "type": "string"
+          },
+          "raiz_cedente": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{8}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nome_sacado": {
+            "type": "string"
+          },
+          "doc_sacado": {
+            "type": "string"
+          },
+          "raiz_sacado": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{8}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nu_documento": {
+            "type": "string"
+          },
+          "tipo_recebivel": {
+            "type": "string"
+          },
+          "valor_nominal": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "data_aquisicao": {
+            "type": "string",
+            "format": "date"
+          },
+          "data_vencimento_original": {
+            "type": "string",
+            "format": "date"
+          },
+          "prazo_dias": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "fundo_id",
+          "nome_fundo",
+          "doc_fundo",
+          "nome_cedente",
+          "doc_cedente",
+          "raiz_cedente",
+          "nome_sacado",
+          "doc_sacado",
+          "raiz_sacado",
+          "nu_documento",
+          "tipo_recebivel",
+          "valor_nominal",
+          "data_aquisicao",
+          "data_vencimento_original",
+          "prazo_dias"
+        ],
+        "description": "Documento observado pode ser inválido e gerar CNPJ_SACADO_VALIDO. Não aplicar regex CNPJ válido aos campos doc_sacado/cedente do resultado."
+      },
+      "ResultadoAprovadoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lote_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "arquivo_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sequencia": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "linha": {
+            "type": "integer",
+            "minimum": 2
+          },
+          "dados_originais": {
+            "$ref": "#/components/schemas/DadosOriginaisTituloDTO"
+          },
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "ANALISE"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "APROVADO"
+            ]
+          },
+          "titulo": {
+            "$ref": "#/components/schemas/TituloNormalizadoDTO"
+          },
+          "motivos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MotivoDTO"
+            },
+            "maxItems": 0
+          },
+          "erros_dados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErroDadoDTO"
+            },
+            "maxItems": 0
+          },
+          "desconto": {
+            "$ref": "#/components/schemas/Dinheiro"
+          },
+          "valor_liquido": {
+            "$ref": "#/components/schemas/Dinheiro"
+          }
+        },
+        "required": [
+          "id",
+          "lote_id",
+          "arquivo_id",
+          "sequencia",
+          "linha",
+          "dados_originais",
+          "tipo",
+          "status",
+          "titulo",
+          "motivos",
+          "erros_dados",
+          "desconto",
+          "valor_liquido"
+        ]
+      },
+      "ResultadoBarradoDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lote_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "arquivo_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sequencia": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "linha": {
+            "type": "integer",
+            "minimum": 2
+          },
+          "dados_originais": {
+            "$ref": "#/components/schemas/DadosOriginaisTituloDTO"
+          },
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "ANALISE"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "BARRADO"
+            ]
+          },
+          "titulo": {
+            "$ref": "#/components/schemas/TituloNormalizadoDTO"
+          },
+          "motivos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MotivoDTO"
+            },
+            "minItems": 1
+          },
+          "erros_dados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErroDadoDTO"
+            },
+            "maxItems": 0
+          },
+          "desconto": {
+            "type": "string",
+            "enum": [
+              "0.00"
+            ]
+          },
+          "valor_liquido": {
+            "type": "string",
+            "enum": [
+              "0.00"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "lote_id",
+          "arquivo_id",
+          "sequencia",
+          "linha",
+          "dados_originais",
+          "tipo",
+          "status",
+          "titulo",
+          "motivos",
+          "erros_dados",
+          "desconto",
+          "valor_liquido"
+        ]
+      },
+      "ResultadoErroDadosDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lote_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "arquivo_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sequencia": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "linha": {
+            "type": "integer",
+            "minimum": 2
+          },
+          "dados_originais": {
+            "$ref": "#/components/schemas/DadosOriginaisTituloDTO"
+          },
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "ERRO_DADOS"
+            ]
+          },
+          "status": {
+            "type": "null"
+          },
+          "titulo": {
+            "type": "null"
+          },
+          "motivos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MotivoDTO"
+            },
+            "maxItems": 0
+          },
+          "erros_dados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErroDadoDTO"
+            },
+            "minItems": 1
+          },
+          "desconto": {
+            "type": "string",
+            "enum": [
+              "0.00"
+            ]
+          },
+          "valor_liquido": {
+            "type": "string",
+            "enum": [
+              "0.00"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "lote_id",
+          "arquivo_id",
+          "sequencia",
+          "linha",
+          "dados_originais",
+          "tipo",
+          "status",
+          "titulo",
+          "motivos",
+          "erros_dados",
+          "desconto",
+          "valor_liquido"
+        ],
+        "description": "Diagnóstico de parsing; não é um novo status financeiro nem um novo código de recusa FIDC. Usar dados_originais na interface."
+      },
+      "ResultadoDTO": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ResultadoAprovadoDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ResultadoBarradoDTO"
+          },
+          {
+            "$ref": "#/components/schemas/ResultadoErroDadosDTO"
+          }
+        ]
+      },
+      "PaginacaoQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          },
+          "cursor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        },
+        "required": []
+      },
+      "ListarFundosQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          },
+          "cursor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "busca": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "configurado": {
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "ListarLotesQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          },
+          "cursor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusLote"
+          }
+        },
+        "required": []
+      },
+      "ConsultarRegrasQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "versao": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": []
+      },
+      "ListarResultadosQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          },
+          "cursor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "status": {
+            "$ref": "#/components/schemas/StatusNota"
+          },
+          "motivo": {
+            "$ref": "#/components/schemas/CodigoRecusa"
+          },
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "ANALISE",
+              "ERRO_DADOS"
+            ]
+          }
+        },
+        "required": []
+      },
+      "FundosPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FundoDTO"
+            },
+            "maxItems": 100
+          },
+          "proximo_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "itens",
+          "proximo_cursor",
+          "limit"
+        ]
+      },
+      "LotesPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LoteResumoDTO"
+            },
+            "maxItems": 100
+          },
+          "proximo_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "itens",
+          "proximo_cursor",
+          "limit"
+        ]
+      },
+      "ArquivosPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArquivoDTO"
+            },
+            "maxItems": 100
+          },
+          "proximo_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "itens",
+          "proximo_cursor",
+          "limit"
+        ]
+      },
+      "PendenciasPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PendenciaDTO"
+            },
+            "maxItems": 100
+          },
+          "proximo_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "itens",
+          "proximo_cursor",
+          "limit"
+        ]
+      },
+      "ResumosFundosPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResumoFundoDTO"
+            },
+            "maxItems": 100
+          },
+          "proximo_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "itens",
+          "proximo_cursor",
+          "limit"
+        ]
+      },
+      "ResultadosPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResultadoDTO"
+            },
+            "maxItems": 100
+          },
+          "proximo_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "snapshot_ate_sequencia": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "arquivo_finalizado": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "itens",
+          "proximo_cursor",
+          "limit",
+          "snapshot_ate_sequencia",
+          "arquivo_finalizado"
+        ],
+        "description": "Cursor fixa teto de sequência e filtros. Refazer primeira página para incluir resultados mais recentes. Não fornece total filtrado nem salto arbitrário de página."
+      }
+    }
+  }
+}

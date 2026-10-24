@@ -10,8 +10,63 @@ import ErrorNotice from "../components/ErrorNotice.vue";
 import ActionErrorDialog from "../components/ActionErrorDialog.vue";
 import CursorNav from "../components/CursorNav.vue";
 import examples from "../../contracts/examples.json";
+import contract from "../../contracts/openapi.json";
 import { ruleFieldErrors, validateRules } from "../ruleValidation";
 const $q = useQuasar();
+const parameterOptions: Record<string, { label: string; value: string }[]> = {
+  situacoes_aceitas:
+    contract.components.schemas.ParametrosSituacaoDTO.properties.situacoes_aceitas.items.enum.map(
+      (value) => ({ label: label(value), value }),
+    ),
+  tipos_aceitos:
+    contract.components.schemas.ParametrosTipoDTO.properties.tipos_aceitos.items.enum.map(
+      (value) => ({ label: value, value }),
+    ),
+};
+const parameterLabels: Record<string, string> = {
+  situacoes_aceitas: "Situações aceitas",
+  tipos_aceitos: "Tipos de recebível aceitos",
+};
+const importFile = ref<File | null>(null),
+  importing = ref(false),
+  importError = shallowRef<unknown>(null);
+let importKey = crypto.randomUUID();
+function selectImport() {
+  importKey = crypto.randomUUID();
+  importError.value = null;
+}
+async function importRules() {
+  if (!importFile.value || importing.value) return;
+  importing.value = true;
+  importError.value = null;
+  try {
+    if (!importFile.value.name.toLowerCase().endsWith(".json"))
+      throw Error("Selecione um arquivo JSON de regras.");
+    if (importFile.value.size > 1048576)
+      throw Error("O JSON deve ter no máximo 1 MiB.");
+    let body: DTO<"ImportarRegrasRequest">;
+    try {
+      body = JSON.parse((await importFile.value.text()).replace(/^\uFEFF/, ""));
+    } catch {
+      throw Error("O arquivo não contém um JSON válido.");
+    }
+    const result = await api.importarRegras(body, importKey);
+    importFile.value = null;
+    selectImport();
+    busca.value = "";
+    configurado.value = undefined;
+    await load(true);
+    $q.notify({
+      type: "positive",
+      message: `Regras importadas para ${result.fundos.length} fundo(s).`,
+      position: "top",
+    });
+  } catch (e) {
+    importError.value = e;
+  } finally {
+    importing.value = false;
+  }
+}
 const busca = ref(""),
   configurado = ref<boolean>(),
   route = useRoute();
@@ -55,6 +110,7 @@ async function reloadRules() {
   try {
     const r = await api.regras(selected.value.id);
     form.value = { versao_base: r.versao, configuracao: r.configuracao };
+    hydrateParameters();
     conflict.value = false;
     reviewed.value = false;
     attempted.value = false;
@@ -107,6 +163,29 @@ async function open(f: DTO<"FundoDTO">, version?: string) {
     }
   } catch (e) {
     editError.value = e;
+  }
+  hydrateParameters();
+}
+function hydrateParameters() {
+  // Inactive imported rules can omit parameters; expose empty editable fields
+  // when they are enabled, without copying another fund's business values.
+  if (form.value && !historical.value) {
+    for (const v of form.value.configuracao.validadores) {
+      const template = examples.ConfiguracaoRegrasDTO.validadores.find(
+        (t) => t.codigo === v.codigo,
+      );
+      for (const [key, value] of Object.entries(template?.parametros ?? {})) {
+        if (!(key in v.parametros))
+          v.parametros[key] =
+            key === "agrupamento"
+              ? "RAIZ_CNPJ"
+              : Array.isArray(value)
+                ? []
+                : typeof value === "number"
+                  ? 0
+                  : "";
+      }
+    }
   }
 }
 function param(v: DTO<"ValidadorDTO">, key: string, value: unknown) {
@@ -190,6 +269,34 @@ onMounted(async () => {
   <ErrorNotice :error="error">
     <q-btn flat label="Tentar carregar novamente" @click="load()" />
   </ErrorNotice>
+  <div class="surface q-pa-lg q-mb-lg">
+    <h2>Importar regras de fundos</h2>
+    <p class="subtitle">
+      Selecione o JSON de inputs com fundo, validadores e precificação. Aceita
+      um fundo ou uma lista de até 100 fundos. As configurações dos fundos
+      presentes no arquivo serão atualizadas.
+    </p>
+    <div class="row items-start q-gutter-md q-mt-sm">
+      <q-file
+        v-model="importFile"
+        outlined
+        dense
+        accept=".json,application/json"
+        label="Arquivo JSON de regras"
+        :disable="importing"
+        @update:model-value="selectImport"
+      />
+      <q-btn
+        color="primary"
+        icon="upload_file"
+        label="Importar regras"
+        :loading="importing"
+        :disable="!importFile"
+        @click="importRules"
+      />
+    </div>
+    <ErrorNotice :error="importError" />
+  </div>
   <ActionErrorDialog
     :error="actionError"
     :title="
@@ -274,156 +381,193 @@ onMounted(async () => {
       @back="back"
     />
   </div>
-  <section v-if="selected" ref="rulesSection" class="surface section-space">
-    <div class="surface-head">
-      <div>
-        <h2>{{ selected.nome }}</h2>
-        <p class="subtitle">
-          {{
-            historical
-              ? "Versão histórica · somente leitura"
-              : "Alterações valem para lotes que ainda não iniciaram a análise."
-          }}
-        </p>
-      </div>
-      <q-btn
-        flat
-        icon="close"
-        aria-label="Fechar regras"
-        :disable="saving"
-        @click="selected = undefined"
-      />
-    </div>
-    <ErrorNotice :error="editError">
-      <q-btn
-        flat
-        label="Tentar carregar regras novamente"
-        @click="
-          open(selected, historical ? String(route.query.versao) : undefined)
-        "
-      />
-    </ErrorNotice>
-    <q-banner
-      v-if="formError"
-      class="error-banner"
-      role="alert"
-      tabindex="-1"
-      data-form-error
-    >
-      {{ formError }}
-    </q-banner>
-    <div v-if="conflict" class="q-pa-lg">
-      <p>
-        Outra edição alterou as regras. Recarregue a versão atual e revise antes
-        de salvar novamente.
-      </p>
-      <q-btn
-        outline
-        label="Recarregar configuração"
-        :disable="saving"
-        @click="showConflict"
-      />
-    </div>
-    <template v-if="form">
-      <div class="q-pa-lg info-banner">
-        Duplicidade de notas é verificada sempre. Cada fundo exige configuração
-        explícita; regras não são copiadas de outros fundos.
-      </div>
-      <div
-        v-for="(v, index) in form.configuracao.validadores"
-        :key="v.codigo"
-        class="rule-row"
-      >
-        <q-toggle
-          v-model="v.ativo"
-          :label="label(v.codigo)"
-          :disable="historical || saving"
-        />
-        <div class="rule-fields">
-          <template v-for="(value, key) in v.parametros" :key="key">
-            <q-select
-              v-if="Array.isArray(value)"
-              outlined
-              dense
-              multiple
-              use-input
-              use-chips
-              new-value-mode="add-unique"
-              :model-value="value"
-              :options="[]"
-              :label="label(String(key)) + ' (Enter para adicionar)'"
-              :disable="historical || saving"
-              :error="!!fieldError(`/validadores/${index}/parametros/${key}`)"
-              :error-message="
-                fieldError(`/validadores/${index}/parametros/${key}`)
-              "
-              @update:model-value="param(v, String(key), $event)"
-            />
-            <q-input
-              v-else
-              outlined
-              dense
-              :model-value="value"
-              :label="label(String(key))"
-              :readonly="key === 'agrupamento' || historical || saving"
-              :error="!!fieldError(`/validadores/${index}/parametros/${key}`)"
-              :error-message="
-                fieldError(`/validadores/${index}/parametros/${key}`)
-              "
-              :type="typeof value === 'number' ? 'number' : 'text'"
-              @update:model-value="
-                param(
-                  v,
-                  String(key),
-                  typeof value === 'number' ? Number($event) : String($event),
-                )
-              "
-            />
-          </template>
-        </div>
-      </div>
-      <div class="q-pa-lg">
-        <h3>Precificação · Desconto simples</h3>
-        <div class="rule-fields">
-          <q-input
-            outlined
-            v-model="form.configuracao.precificacao.taxa_mensal_percentual"
-            label="Taxa mensal (%)"
-            :readonly="historical || saving"
-            :error="!!fieldError('/precificacao/taxa_mensal_percentual')"
-            :error-message="fieldError('/precificacao/taxa_mensal_percentual')"
-          />
-          <q-input
-            outlined
-            type="number"
-            v-model.number="form.configuracao.precificacao.base_dias"
-            label="Base de dias (1–366)"
-            :readonly="historical || saving"
-            :error="!!fieldError('/precificacao/base_dias')"
-            :error-message="fieldError('/precificacao/base_dias')"
-          />
-        </div>
-        <div class="text-caption text-grey-7 q-my-md">
-          Versão base: {{ form.versao_base ?? "Primeira configuração" }}
-        </div>
-        <template v-if="!historical">
-          <q-checkbox
-            v-model="reviewed"
+  <q-dialog
+    :model-value="!!selected"
+    :persistent="saving"
+    aria-labelledby="fund-rules-title"
+    @update:model-value="!$event && (selected = undefined)"
+  >
+    <q-card class="fund-rules-dialog">
+      <section v-if="selected" ref="rulesSection">
+        <div class="surface-head">
+          <div>
+            <h2 id="fund-rules-title">{{ selected.nome }}</h2>
+            <p class="subtitle">
+              {{
+                historical
+                  ? "Versão histórica · somente leitura"
+                  : "Alterações valem para novas análises deste fundo."
+              }}
+            </p>
+          </div>
+          <q-btn
+            flat
+            icon="close"
+            aria-label="Fechar regras"
             :disable="saving"
-            label="Revisei os nove validadores e a precificação deste fundo."
+            @click="selected = undefined"
           />
-          <div class="q-mt-md">
-            <q-btn
-              color="primary"
-              label="Salvar configuração"
-              :loading="saving"
-              :disable="!reviewed || conflict"
-              @click="save"
+        </div>
+        <ErrorNotice :error="editError">
+          <q-btn
+            flat
+            label="Tentar carregar regras novamente"
+            @click="
+              open(
+                selected,
+                historical ? String(route.query.versao) : undefined,
+              )
+            "
+          />
+        </ErrorNotice>
+        <q-banner
+          v-if="formError"
+          class="error-banner"
+          role="alert"
+          tabindex="-1"
+          data-form-error
+        >
+          {{ formError }}
+        </q-banner>
+        <div v-if="conflict" class="q-pa-lg">
+          <p>
+            Outra edição alterou as regras. Recarregue a versão atual e revise
+            antes de salvar novamente.
+          </p>
+          <q-btn
+            outline
+            label="Recarregar configuração"
+            :disable="saving"
+            @click="showConflict"
+          />
+        </div>
+        <template v-if="form">
+          <div class="q-pa-lg info-banner">
+            Duplicidade de notas é verificada sempre. Cada fundo exige
+            configuração explícita; regras não são copiadas de outros fundos.
+          </div>
+          <div
+            v-for="(v, index) in form.configuracao.validadores"
+            :key="v.codigo"
+            class="rule-row"
+          >
+            <q-toggle
+              v-model="v.ativo"
+              :label="label(v.codigo)"
+              :disable="historical || saving"
             />
+            <div class="rule-fields">
+              <template v-for="(value, key) in v.parametros" :key="key">
+                <q-select
+                  v-if="parameterOptions[String(key)]"
+                  outlined
+                  dense
+                  multiple
+                  use-chips
+                  emit-value
+                  map-options
+                  :model-value="Array.isArray(value) ? value : []"
+                  :options="parameterOptions[String(key)]"
+                  :label="parameterLabels[String(key)]"
+                  :disable="!v.ativo || historical || saving"
+                  :error="
+                    !!fieldError(`/validadores/${index}/parametros/${key}`)
+                  "
+                  :error-message="
+                    fieldError(`/validadores/${index}/parametros/${key}`)
+                  "
+                  @update:model-value="param(v, String(key), $event)"
+                />
+                <q-input
+                  v-else
+                  outlined
+                  dense
+                  :model-value="
+                    typeof value === 'number' ? value : String(value ?? '')
+                  "
+                  :label="label(String(key))"
+                  :readonly="key === 'agrupamento' || historical || saving"
+                  :disable="!v.ativo"
+                  :error="
+                    !!fieldError(`/validadores/${index}/parametros/${key}`)
+                  "
+                  :error-message="
+                    fieldError(`/validadores/${index}/parametros/${key}`)
+                  "
+                  :type="typeof value === 'number' ? 'number' : 'text'"
+                  @update:model-value="
+                    param(
+                      v,
+                      String(key),
+                      typeof value === 'number'
+                        ? Number($event)
+                        : String($event),
+                    )
+                  "
+                />
+              </template>
+            </div>
+          </div>
+          <div class="q-pa-lg">
+            <h3>Precificação · Desconto simples</h3>
+            <div class="rule-fields">
+              <q-input
+                outlined
+                v-model="form.configuracao.precificacao.taxa_mensal_percentual"
+                label="Taxa mensal (%)"
+                :readonly="historical || saving"
+                :error="!!fieldError('/precificacao/taxa_mensal_percentual')"
+                :error-message="
+                  fieldError('/precificacao/taxa_mensal_percentual')
+                "
+              />
+              <q-input
+                outlined
+                type="number"
+                v-model.number="form.configuracao.precificacao.base_dias"
+                label="Base de dias (1–366)"
+                :readonly="historical || saving"
+                :error="!!fieldError('/precificacao/base_dias')"
+                :error-message="fieldError('/precificacao/base_dias')"
+              />
+            </div>
+            <div class="text-caption text-grey-7 q-my-md">
+              Versão base: {{ form.versao_base ?? "Primeira configuração" }}
+            </div>
+            <template v-if="!historical">
+              <q-checkbox
+                v-model="reviewed"
+                :disable="saving"
+                label="Revisei os nove validadores e a precificação deste fundo."
+              />
+              <div class="q-mt-md">
+                <q-btn
+                  color="primary"
+                  label="Salvar configuração"
+                  :loading="saving"
+                  :disable="!reviewed || conflict"
+                  @click="save"
+                />
+              </div>
+            </template>
           </div>
         </template>
-      </div>
-    </template>
-    <q-spinner v-else-if="!editError" class="q-ma-lg" />
-  </section>
+        <q-spinner v-else-if="!editError" class="q-ma-lg" />
+      </section>
+    </q-card>
+  </q-dialog>
 </template>
+<style scoped>
+.fund-rules-dialog {
+  width: 960px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.fund-rules-dialog .surface-head {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 2;
+}
+</style>

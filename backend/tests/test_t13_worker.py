@@ -37,7 +37,8 @@ def test_block_then_resume_snapshot_and_full_pl(db, tmp_path):
     assert Worker(db, batch_size=3).run_once()
     with db.connect() as c:
         assert c.scalar(select(lots.c.status)) == "BLOQUEADO"
-        assert c.scalar(select(func.count()).select_from(results)) == 0
+        assert c.scalar(select(func.count()).select_from(results)) == 12
+        assert c.scalar(select(results.c.payload).limit(1))["erros_dados"][0]["codigo"] == "FUNDO_SEM_REGRAS"
         assert c.scalar(select(pending.c.code)) == "FUNDO_SEM_REGRAS"
     [(fid, version)] = PgAdmin(db).import_rules(Path("../files/validadores_antecipe.json"))
     store.enqueue(lid, str(uuid4()))

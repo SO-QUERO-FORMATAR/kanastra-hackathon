@@ -65,8 +65,8 @@ obj("CapacidadesResponse", {"versao_contrato": text(enum=["1.0.0"]), "autenticac
 obj("BaseCadastralStatusResponse", {"disponivel": BOOL, "versao": nullable(UUID), "sha256": nullable(HASH), "quantidade_cnpjs": integer(), "importado_em": nullable(DATETIME)})
 obj("FundoDTO", {"id": UUID, "nome": text(), "cnpj": CNPJ, "configurado": BOOL, "versao_regras_atual": nullable(UUID)})
 obj("ParametrosVaziosDTO", {})
-obj("ParametrosSituacaoDTO", {"situacoes_aceitas": array(text(minLength=1), minItems=1, uniqueItems=True)})
-obj("ParametrosTipoDTO", {"tipos_aceitos": array(text(minLength=1), minItems=1, uniqueItems=True)})
+obj("ParametrosSituacaoDTO", {"situacoes_aceitas": array(text(enum=["ATIVA", "SUSPENSA", "INAPTA", "BAIXADA"]), minItems=1, uniqueItems=True)})
+obj("ParametrosTipoDTO", {"tipos_aceitos": array(text(enum=["Duplicata", "Duplicata de Serviço", "Cheque", "CCB", "Nota Comercial"]), minItems=1, uniqueItems=True)})
 obj("ParametrosValorMinimoDTO", {"valor_minimo": DECIMAL})
 obj("ParametrosPrazoMinimoDTO", {"prazo_minimo_dias": integer()})
 obj("ParametrosPrazoMaximoDTO", {"prazo_maximo_dias": integer()})
@@ -80,13 +80,16 @@ param_map = {
 validator_names = []
 for code, params in param_map.items():
     name = "Validador" + "".join(word.title() for word in code.lower().split("_")) + "DTO"
-    obj(name, {"codigo": text(enum=[code]), "ativo": BOOL, "parametros": ref(params)})
+    obj(name, {"codigo": text(enum=[code]), "ativo": BOOL, "parametros": {"type": "object", "additionalProperties": True}})
+    S[name]["allOf"] = [{"if": {"properties": {"ativo": {"const": True}}}, "then": {"properties": {"parametros": ref(params)}}}]
     validator_names.append(name)
 S["ValidadorDTO"] = {"oneOf": [ref(name) for name in validator_names], "discriminator": {"propertyName": "codigo", "mapping": {code: f"#/components/schemas/{name}" for code, name in zip(param_map, validator_names)}}}
 obj("PrecificacaoDTO", {"metodo": text(enum=["DESCONTO_SIMPLES"]), "taxa_mensal_percentual": DECIMAL, "base_dias": integer(1, maximum=366)})
-obj("ConfiguracaoRegrasDTO", {"validadores": array(ref("ValidadorDTO"), minItems=9, maxItems=9, allOf=[{"contains": {"type": "object", "properties": {"codigo": {"const": code}}, "required": ["codigo"]}, "minContains": 1, "maxContains": 1} for code in param_map]), "precificacao": ref("PrecificacaoDTO")}, description="Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Parâmetros inativos também devem ser válidos.")
+obj("ConfiguracaoRegrasDTO", {"validadores": array(ref("ValidadorDTO"), minItems=9, maxItems=9, allOf=[{"contains": {"type": "object", "properties": {"codigo": {"const": code}}, "required": ["codigo"]}, "minContains": 1, "maxContains": 1} for code in param_map]), "precificacao": ref("PrecificacaoDTO")}, description="Exatamente uma ocorrência de cada código configurável. NOTA_DUPLICADA não é configurável. Somente parâmetros de validadores ativos são validados.")
 obj("AtualizarRegrasRequest", {"versao_base": nullable(UUID), "configuracao": ref("ConfiguracaoRegrasDTO")}, description="versao_base=null somente para primeira configuração; para edição, versão obtida no GET. Atualização integral dos nove validadores.")
 obj("RegrasFundoResponse", {"fundo": ref("FundoDTO"), "versao": UUID, "criada_em": DATETIME, "configuracao": ref("ConfiguracaoRegrasDTO")})
+S["ImportarRegrasRequest"] = {"oneOf": [{"type": "object", "additionalProperties": True}, array({"type": "object", "additionalProperties": True}, minItems=1, maxItems=100)], "description": "Conteúdo do JSON de inputs: objeto com fundo, validadores e precificacao, ou array de até 100 objetos. Aceita decimais numéricos do formato de inputs. Validação semântica integral antes de publicar; importação atômica."}
+obj("ImportarRegrasResponse", {"fundos": array(ref("FundoDTO"), minItems=1, maxItems=100)})
 obj("ArquivoManifestoRequest", {"client_id": UUID, "nome": text(minLength=1, maxLength=255), "formato": ref("FormatoArquivo"), "tamanho_bytes": integer(1, maximum=67108864), "sha256": HASH, "ordem": integer(0, maximum=99), "aba": nullable(text(minLength=1, maxLength=31))}, description="client_id gerado pelo front e único no lote. ordem deve ser contígua de 0 a N-1. aba=null para CSV; XLSX null seleciona primeira aba com dados.")
 obj("CriarLoteRequest", {"nome": text(minLength=1, maxLength=120), "arquivos": array(ref("ArquivoManifestoRequest"), minItems=1, maxItems=100)})
 obj("ArquivoDTO", {"id": UUID, "lote_id": UUID, "client_id": UUID, "nome": text(), "formato": ref("FormatoArquivo"), "ordem": integer(), "aba": nullable(text()), "tamanho_bytes": integer(1), "sha256": HASH, "bytes_recebidos": integer(), "status": ref("StatusArquivo"), "linhas_total": nullable(integer()), "linhas_processadas": integer(), "aprovadas": integer(), "barradas": integer(), "erros_dados": integer(), "recebido_em": nullable(DATETIME), "concluido_em": nullable(DATETIME), "erro": nullable(ref("ErroDTO"))})
@@ -104,7 +107,7 @@ obj("ProcessarLoteResponse", {"lote_id": UUID, "execucao_id": UUID, "status": te
 obj("PendenciaDTO", {"codigo": text(enum=["FUNDO_SEM_REGRAS", "BASE_CADASTRAL_AUSENTE", "DADOS_IMPEDEM_PL"]), "mensagem": text(), "fundo": nullable(ref("FundoDTO")), "arquivo_id": nullable(UUID), "linha": nullable(integer(2)), "campo": nullable(text()), "acao": text(enum=["CONFIGURAR_FUNDO", "IMPORTAR_BASE_CADASTRAL", "RECRIAR_LOTE"])})
 obj("ResumoFundoDTO", {"fundo": ref("FundoDTO"), "versao_regras_utilizada": nullable(UUID), "pl": MONEY, "limite_sacado": nullable(MONEY), "limite_cedente": nullable(MONEY), "resumo": ref("ResumoFinanceiroDTO")}, description="Limite null se regra inativa ou contexto ainda não congelado. versao_regras_utilizada identifica a versão histórica, não necessariamente a atual do fundo.")
 obj("MotivoDTO", {"codigo": ref("CodigoRecusa"), "mensagem": text(), "valor_observado": nullable(text()), "limite_aplicado": nullable(text())}, description="Explicação para exibição; frontend não recalcula a regra nem interpreta os valores textuais como contrato de cálculo.")
-obj("ErroDadoDTO", {"campo": text(), "codigo": text(enum=["OBRIGATORIO", "FORMATO_INVALIDO", "DATA_INVALIDA", "DECIMAL_INVALIDO", "FORMULA_SEM_VALOR", "DOCUMENTO_SEM_RAIZ"]), "mensagem": text()})
+obj("ErroDadoDTO", {"campo": text(), "codigo": text(enum=["OBRIGATORIO", "FORMATO_INVALIDO", "DATA_INVALIDA", "DECIMAL_INVALIDO", "FORMULA_SEM_VALOR", "DOCUMENTO_SEM_RAIZ", "FUNDO_SEM_REGRAS"]), "mensagem": text()})
 fields = ["NOME_FUNDO", "DOC_FUNDO", "NOME_CEDENTE", "DOC_CEDENTE", "NOME_SACADO", "DOC_SACADO", "NU_DOCUMENTO", "TIPO_RECEBIVEL", "VALOR_NOMINAL", "DATA_VENCIMENTO_ORIGINAL", "DATA_AQUISICAO"]
 obj("DadosOriginaisTituloDTO", {field: nullable(text()) for field in fields})
 obj("TituloNormalizadoDTO", {"fundo_id": UUID, "nome_fundo": text(), "doc_fundo": CNPJ, "nome_cedente": text(), "doc_cedente": text(), "raiz_cedente": nullable(text(pattern=r"^[0-9]{8}$")), "nome_sacado": text(), "doc_sacado": text(), "raiz_sacado": nullable(text(pattern=r"^[0-9]{8}$")), "nu_documento": text(), "tipo_recebivel": text(), "valor_nominal": MONEY, "data_aquisicao": DATE, "data_vencimento_original": DATE, "prazo_dias": {"type": "integer"}}, description="Documento observado pode ser inválido e gerar CNPJ_SACADO_VALIDO. Não aplicar regex CNPJ válido aos campos doc_sacado/cedente do resultado.")
@@ -158,6 +161,7 @@ endpoint("/health/ready", "get", "verificarProntidao", "SaudeResponse", summary=
 endpoint("/capacidades", "get", "obterCapacidades", "CapacidadesResponse", summary="Limites e recursos do MVP", errors=(500, 503))
 endpoint("/cadastro/status", "get", "obterStatusCadastro", "BaseCadastralStatusResponse", summary="Disponibilidade da base cadastral", errors=(500, 503))
 endpoint("/fundos", "get", "listarFundos", "FundosPageResponse", query="ListarFundosQuery", summary="Listar fundos cadastrados ou descobertos no estoque", errors=(400, 422, 500, 503))
+endpoint("/fundos/regras/importacao", "post", "importarRegrasFundos", "ImportarRegrasResponse", request="ImportarRegrasRequest", idem=True, summary="Importar JSON de regras de um ou mais fundos", errors=(409, 413, 415, 422, 500, 503))
 endpoint("/fundos/{fundo_id}/regras", "get", "consultarRegrasFundo", "RegrasFundoResponse", query="ConsultarRegrasQuery", summary="Consultar versão atual ou histórica das regras")
 endpoint("/fundos/{fundo_id}/regras", "put", "atualizarRegrasFundo", "RegrasFundoResponse", request="AtualizarRegrasRequest", idem=True, summary="Configurar um fundo ou publicar nova versão", description="Primeira configuração e atualização retornam 200. Não copia regras para outros fundos. Verifica versao_base; conflito retorna 409. Lote que já começou análise mantém seu snapshot.", errors=(404, 409, 415, 422, 500, 503))
 endpoint("/lotes", "get", "listarLotes", "LotesPageResponse", query="ListarLotesQuery", summary="Histórico de lotes", errors=(400, 422, 500, 503))
@@ -194,7 +198,7 @@ def ts_type(schema):
         return f"Array<{ts_type(schema['items'])}>"
     if kind == "object":
         if not schema.get("properties"):
-            return "Record<string, never>"
+            return "Record<string, unknown>" if schema.get("additionalProperties") else "Record<string, never>"
         required = schema.get("required", [])
         return "{\n" + "".join(f"  {json.dumps(key)}{'' if key in required else '?'}: {ts_type(value)};\n" for key, value in schema["properties"].items()) + "}"
     raise ValueError(schema)

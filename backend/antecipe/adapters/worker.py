@@ -147,19 +147,24 @@ class Worker:
                 .all()
             )
         for file in fs:
+            checkpoint = 0
             while True:
                 chunk_started = perf_counter()
                 with self.engine.begin() as c:
                     # The result/checkpoint commit is the only progress boundary.
-                    checkpoint = c.scalar(
-                        select(func.coalesce(func.max(results.c.sequence), 0)).where(
-                            results.c.file_id == file["id"]
-                        )
-                    )
                     rows = (
                         c.execute(
                             select(staging)
-                            .where(staging.c.file_id == file["id"], staging.c.sequence > checkpoint)
+                            .where(
+                                staging.c.file_id == file["id"],
+                                staging.c.sequence > checkpoint,
+                                ~select(results.c.id)
+                                .where(
+                                    results.c.file_id == staging.c.file_id,
+                                    results.c.line == staging.c.line,
+                                )
+                                .exists(),
+                            )
                             .order_by(staging.c.sequence)
                             .limit(self.batch_size)
                         )
@@ -168,15 +173,32 @@ class Worker:
                     )
                     if not rows:
                         break
-                    event("worker.checkpoint", level=logging.DEBUG, file_id=file["id"], checkpoint=checkpoint)
+                    event(
+                        "worker.checkpoint",
+                        level=logging.DEBUG,
+                        file_id=file["id"],
+                        checkpoint=rows[0]["sequence"] - 1,
+                    )
                     titles, diagnostics = [], []
                     for row in rows:
                         parsed = row["payload"]
                         errors = list(parsed["errors"])
-                        config, _ = context[row["fund_id"]]
-                        for side, field in [("SACADO", "DOC_SACADO"), ("CEDENTE", "DOC_CEDENTE")]:
+                        config = context[row["fund_id"]][0] if row["fund_id"] in context else None
+                        if config is None:
+                            errors.insert(
+                                0,
+                                {
+                                    "campo": "DOC_FUNDO",
+                                    "codigo": "FUNDO_SEM_REGRAS",
+                                    "mensagem": "Regras de fundo não configuradas",
+                                },
+                            )
+                        for side, field in (
+                            [("SACADO", "DOC_SACADO"), ("CEDENTE", "DOC_CEDENTE")] if config else []
+                        ):
                             if (
-                                config.rule("CONCENTRACAO_MAXIMA_" + side).active
+                                config is not None
+                                and config.rule("CONCENTRACAO_MAXIMA_" + side).active
                                 and document_root(parsed["raw"].get(field) or "") is None
                             ):
                                 errors.append(
@@ -245,6 +267,7 @@ class Worker:
                     c.execute(update(files).where(files.c.id == file["id"]).values(status="ANALISANDO"))
                     self.event("before_commit")
                 self.event("after_commit")
+                checkpoint = rows[-1]["sequence"]
                 event(
                     "worker.chunk_committed",
                     file_id=file["id"],
@@ -275,6 +298,8 @@ class Worker:
                 outcome="CONCLUIDO_COM_ERROS" if errors else "CONCLUIDO",
             )
         with self.engine.begin() as c:
+            pending_codes = c.scalars(select(pending.c.code).where(pending.c.lot_id == lid)).all()
+            awaiting_rules = len(pending_codes)
             errors = c.scalar(
                 select(func.count())
                 .select_from(files)
@@ -284,19 +309,30 @@ class Worker:
                 update(lots)
                 .where(lots.c.id == lid)
                 .values(
-                    status="CONCLUIDO_COM_ERROS" if errors else "CONCLUIDO",
-                    completed_at=func.now(),
+                    status="BLOQUEADO"
+                    if awaiting_rules
+                    else "CONCLUIDO_COM_ERROS"
+                    if errors
+                    else "CONCLUIDO",
+                    completed_at=None if awaiting_rules else func.now(),
                     updated_at=func.now(),
                 )
             )
             c.execute(
                 update(executions).where(executions.c.id == eid).values(status="DONE", heartbeat=func.now())
             )
+        if awaiting_rules:
+            event(
+                "worker.blocking",
+                level=logging.WARNING,
+                pending_count=awaiting_rules,
+                reason_counts=dict(Counter(pending_codes)),
+            )
         event(
             "worker.completed",
             file_count=len(fs),
             error_count=errors,
-            outcome="CONCLUIDO_COM_ERROS" if errors else "CONCLUIDO",
+            outcome="blocked" if awaiting_rules else "CONCLUIDO_COM_ERROS" if errors else "CONCLUIDO",
         )
 
     @observed(
@@ -464,8 +500,6 @@ class Worker:
             lot = c.execute(select(lots).where(lots.c.id == lid).with_for_update()).mappings().one()
             if lot["load_id"]:
                 event("worker.snapshot_reused", registry_version=lot["load_id"], recovered=True)
-                c.execute(update(lots).where(lots.c.id == lid).values(status="ANALISANDO"))
-                return True
             c.execute(delete(pending).where(pending.c.lot_id == lid))
             c.execute(
                 update(lots).where(lots.c.id == lid).values(pending_revision=lots.c.pending_revision + 1)
@@ -491,7 +525,7 @@ class Worker:
                 c.execute(
                     select(funds)
                     .join(contexts, contexts.c.fund_id == funds.c.id)
-                    .where(contexts.c.lot_id == lid)
+                    .where(contexts.c.lot_id == lid, contexts.c.rule_id.is_(None))
                     .order_by(funds.c.id)
                     .with_for_update(of=funds)
                 )
@@ -503,10 +537,10 @@ class Worker:
                     problem(
                         "FUNDO_SEM_REGRAS",
                         "CONFIGURAR_FUNDO",
-                        "Configure regras próprias deste fundo",
+                        "Regras de fundo não configuradas",
                         fund["id"],
                     )
-            load = c.scalar(select(loads.c.id).where(loads.c.active))
+            load = lot["load_id"] or c.scalar(select(loads.c.id).where(loads.c.active))
             if not load:
                 problem("BASE_CADASTRAL_AUSENTE", "IMPORTAR_BASE_CADASTRAL", "Importe a base cadastral")
             invalid = c.execute(
@@ -527,13 +561,14 @@ class Worker:
                             field,
                         )
             if problems:
+                c.execute(insert(pending), problems)
+            if any(p["code"] != "FUNDO_SEM_REGRAS" for p in problems):
                 event(
                     "worker.blocking",
                     level=logging.WARNING,
                     pending_count=len(problems),
                     reason_counts=dict(Counter(p["code"] for p in problems)),
                 )
-                c.execute(insert(pending), problems)
                 c.execute(
                     update(lots)
                     .where(lots.c.id == lid)
@@ -546,6 +581,38 @@ class Worker:
                 return False
             self.event("before_freeze")
             for fund in configured:
+                if not fund["active_rule"]:
+                    continue
+                # Only missing-rule diagnostics are replaceable. Existing financial
+                # decisions and their frozen configurations remain immutable.
+                removed = (
+                    c.execute(
+                        delete(results)
+                        .where(
+                            results.c.lot_id == lid,
+                            results.c.fund_id == fund["id"],
+                            results.c.type == "ERRO_DADOS",
+                            results.c.payload["erros_dados"].contains([{"codigo": "FUNDO_SEM_REGRAS"}]),
+                        )
+                        .returning(results.c.file_id)
+                    )
+                    .scalars()
+                    .all()
+                )
+                for file_id, count in Counter(removed).items():
+                    c.execute(
+                        update(files)
+                        .where(files.c.id == file_id)
+                        .values(
+                            processed=files.c.processed - count,
+                            status="PRONTO",
+                            completed_at=None,
+                        )
+                    )
+                if removed:
+                    c.execute(
+                        update(lots).where(lots.c.id == lid).values(processed=lots.c.processed - len(removed))
+                    )
                 c.execute(
                     update(contexts)
                     .where(contexts.c.lot_id == lid, contexts.c.fund_id == fund["id"])
@@ -557,6 +624,8 @@ class Worker:
                 .values(status="ANALISANDO", load_id=load, updated_at=func.now())
             )
         for fund in configured:
+            if not fund["active_rule"]:
+                continue
             event(
                 "worker.rules_frozen",
                 fund_id=fund["id"],

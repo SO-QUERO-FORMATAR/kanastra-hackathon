@@ -224,7 +224,9 @@ def test_notes_use_only_their_own_fund_configuration(db, tmp_path, missing):
     report = process_input(settings, db, path)
     if missing:
         assert report["lot"]["status"] == "BLOQUEADO"
-        assert report["results"] == []
+        assert report["results"][0]["status"] == "APROVADO"
+        assert len(report["results"]) == 3
+        assert all(r["erros_dados"][0]["codigo"] == "FUNDO_SEM_REGRAS" for r in report["results"][1:])
         assert any(p["codigo"] == "FUNDO_SEM_REGRAS" for p in report["pending"])
     else:
         assert report["lot"]["status"] == "CONCLUIDO"

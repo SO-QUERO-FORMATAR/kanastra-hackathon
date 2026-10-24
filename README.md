@@ -185,7 +185,7 @@ Para usar o conjunto fornecido:
 
 **Selecione o CSV extraído, não o ZIP.** `resultado_esperado_100k.json` é uma referência de auditoria e também não deve ser enviado como recebível.
 
-O conjunto completo contém 100.554 notas de 18 fundos. É esperado que esse lote fique bloqueado enquanto faltarem as configurações dos outros 17 fundos; esse estado não indica, por si só, uma falha de instalação.
+O conjunto completo contém 100.554 notas de 18 fundos. As notas dos fundos configurados são analisadas normalmente. Nas demais, aparece **Regras de fundo não configuradas**, em vermelho. O lote mantém uma pendência para permitir configurar os fundos restantes e retomar apenas essas notas.
 
 Para usar arquivos próprios:
 
@@ -230,11 +230,13 @@ No acompanhamento, observe o status do lote:
 
 1. Na pendência, clique em **Configurar fundo**.
 2. Em **Fundos e regras**, revise os nove validadores, seus parâmetros e a precificação do fundo selecionado.
-3. Preencha também os parâmetros dos validadores inativos; eles precisam ser válidos para salvar a configuração.
+3. Preencha os parâmetros dos validadores ativos. Para situação cadastral, selecione Ativa, Suspensa, Inapta e/ou Baixada. Para tipo de recebível, selecione Duplicata, Duplicata de Serviço, Cheque, CCB e/ou Nota Comercial. Esses campos aceitam apenas as opções da lista. Os campos desativados não precisam ser preenchidos nem validados; a precificação continua obrigatória.
 4. Marque **Revisei os nove validadores e a precificação deste fundo.**
 5. Clique em **Salvar configuração**.
 6. Repita para cada fundo pendente, usando critérios definidos para aquele fundo.
-7. Volte ao lote pelo histórico e clique em **Retomar análise**.
+7. Volte ao lote pelo histórico e clique em **Retomar análise**. As decisões anteriores são preservadas; somente as notas dos fundos recém-configurados são analisadas.
+
+Você também pode configurar fundos por arquivo: em **Fundos e regras → Importar regras de fundos**, selecione o JSON de inputs (como `validadores_antecipe.json`) e clique em **Importar regras**. O arquivo pode conter um objeto com `fundo`, `validadores` e `precificacao`, ou uma lista de até 100 objetos, com limite de 1 MiB. A importação valida todos os fundos antes de salvar; se qualquer configuração for inválida, nenhuma é alterada. Os fundos presentes no JSON têm suas regras atualizadas.
 
 As regras do ANTECIPE não devem ser copiadas automaticamente para os outros fundos. Se outra pessoa tiver alterado a versão durante sua edição, use **Recarregar configuração** e revise antes de salvar novamente.
 

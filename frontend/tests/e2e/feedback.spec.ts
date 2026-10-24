@@ -133,6 +133,11 @@ test("regras inválidas exibem mensagens locais e falha ao salvar preserva ediç
   });
   await page.goto(origin + "/fundos");
   await page.getByText("ANTECIPE FIDC", { exact: true }).click();
+  const editor = page.getByRole("dialog", {
+    name: "ANTECIPE FIDC",
+    exact: true,
+  });
+  await expect(editor).toBeVisible();
   await page.getByLabel("Taxa mensal (%)").fill("-1");
   await page.getByLabel("Base de dias (1–366)").fill("367");
   await page
@@ -146,14 +151,16 @@ test("regras inválidas exibem mensagens locais e falha ao salvar preserva ediç
   await expect(
     page.getByText("Informe um valor menor ou igual a 366."),
   ).toBeVisible();
-  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(page.getByRole("dialog")).toHaveCount(1);
   expect(saves).toBe(0);
   await page.getByLabel("Taxa mensal (%)").fill("3.125");
   await page.getByLabel("Base de dias (1–366)").fill("30");
   await page.getByRole("button", { name: "Salvar configuração" }).click();
-  await expect(page.getByRole("dialog")).toContainText(
-    "Não foi possível salvar a configuração",
-  );
+  await expect(
+    page.getByRole("dialog", {
+      name: "Não foi possível salvar a configuração",
+    }),
+  ).toContainText("Não foi possível salvar a configuração");
   await page.getByRole("button", { name: "Voltar à edição" }).click();
   await expect(page.getByLabel("Taxa mensal (%)")).toHaveValue("3.125");
   expect(saves).toBe(1);
@@ -257,7 +264,9 @@ test("conflito mantém edição quando a recarga falha", async ({ page }) => {
     .click();
   await page.getByRole("button", { name: "Salvar configuração" }).click();
   await page.getByRole("button", { name: "Carregar versão atual" }).click();
-  await expect(page.getByRole("dialog")).toContainText("Verifique sua conexão");
+  await expect(
+    page.getByRole("dialog", { name: "As regras foram alteradas" }),
+  ).toContainText("Verifique sua conexão");
   await page.getByRole("button", { name: "Manter minha edição" }).click();
   await expect(page.getByLabel("Taxa mensal (%)")).toHaveValue("3.125");
   await expect(
@@ -265,7 +274,7 @@ test("conflito mantém edição quando a recarga falha", async ({ page }) => {
   ).toBeDisabled();
   await page.getByRole("button", { name: "Recarregar configuração" }).click();
   await page.getByRole("button", { name: "Carregar versão atual" }).click();
-  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(page.getByRole("dialog")).toHaveCount(1);
   await expect(page.getByLabel("Taxa mensal (%)")).toHaveValue("2.0");
   await expect(
     page.getByRole("button", { name: "Salvar configuração" }),

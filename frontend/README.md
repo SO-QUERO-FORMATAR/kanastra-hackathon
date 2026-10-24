@@ -52,7 +52,7 @@ npm run test:e2e
 
 Instale o Chromium com `npx playwright install chromium` antes da primeira execução. O download padrão do Playwright exige acesso ao CDN oficial. Para usar um navegador já instalado, defina a variável de ambiente `PLAYWRIGHT_EXECUTABLE_PATH` com o caminho do executável. Os testes funcionam no Windows e no Linux/macOS e iniciam seus próprios servidores nas portas 5183 e 5184, que devem estar livres; o Compose pode continuar ativo na porta 5173. Para usar portas diferentes, configure `E2E_DEMO_PORT` e `E2E_API_PORT`.
 
-Os testes unitários validam os schemas/exemplos fornecidos, as 17 operações, strings monetárias, SHA-256, multipart, batches, headers, erros e cursores. Os testes de navegador usam demonstração e respostas HTTP controladas; não certificam o backend externo. Veja [integração e limitações](docs/integration.md).
+Os testes unitários validam os schemas/exemplos fornecidos, as 18 operações, strings monetárias, SHA-256, multipart, batches, headers, erros e cursores. Os testes de navegador usam demonstração e respostas HTTP controladas; não certificam o backend externo. Veja [integração e limitações](docs/integration.md).
 
 Tipos gerados em `src/api/schema.d.ts`; fonte normativa em `contracts/openapi.json`. Regere com `npm run generate:api`. O CI verifica geração determinística, testes, tipos, build e navegador.
 

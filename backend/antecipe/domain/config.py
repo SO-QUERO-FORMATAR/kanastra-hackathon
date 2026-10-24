@@ -5,6 +5,12 @@ from types import MappingProxyType
 from typing import Any, Mapping
 
 
+PARAMETER_OPTIONS = {
+    "situacoes_aceitas": ("ATIVA", "SUSPENSA", "INAPTA", "BAIXADA"),
+    "tipos_aceitos": ("Duplicata", "Duplicata de Serviço", "Cheque", "CCB", "Nota Comercial"),
+}
+
+
 PARAMETERS: dict[str, dict[str, type]] = {
     "CNPJ_SACADO_VALIDO": {},
     "NAO_VENCIDA": {},
@@ -50,9 +56,11 @@ class Configuration:
                 if set(item) != {"codigo", "ativo", "parametros"} or type(item["ativo"]) is not bool:
                     raise ValueError("Validador inválido")
                 code, params = item["codigo"], item["parametros"]
-                if code not in PARAMETERS or set(params) != set(PARAMETERS[code]):
+                if code not in PARAMETERS or not isinstance(params, dict):
                     raise ValueError("Código/parâmetros inválidos")
-                for key, typ in PARAMETERS[code].items():
+                if item["ativo"] and set(params) != set(PARAMETERS[code]):
+                    raise ValueError("Código/parâmetros inválidos")
+                for key, typ in PARAMETERS[code].items() if item["ativo"] else []:
                     val: Any = params[key]
                     if type(val) is not typ:
                         raise ValueError("Tipo de parâmetro inválido")
@@ -62,6 +70,12 @@ class Configuration:
                         not val or any(type(v) is not str or not v for v in val) or len(set(val)) != len(val)
                     ):
                         raise ValueError("Lista inválida")
+                    if (
+                        key in PARAMETER_OPTIONS
+                        and isinstance(val, list)
+                        and any(v not in PARAMETER_OPTIONS[key] for v in val)
+                    ):
+                        raise ValueError(f"{key}: use somente {', '.join(PARAMETER_OPTIONS[key])}")
                     if key in {"valor_minimo", "percentual_maximo"}:
                         number = exact_decimal(val)
                         if key == "percentual_maximo" and number > 100:
@@ -88,7 +102,9 @@ class Configuration:
                 raise ValueError("Base deve estar entre 1 e 366")
             result = cls(tuple(rules), exact_decimal(pricing["taxa_mensal_percentual"]), pricing["base_dias"])
             if (
-                result.rule("PRAZO_MINIMO").parameters["prazo_minimo_dias"]
+                result.rule("PRAZO_MINIMO").active
+                and result.rule("PRAZO_MAXIMO").active
+                and result.rule("PRAZO_MINIMO").parameters["prazo_minimo_dias"]
                 > result.rule("PRAZO_MAXIMO").parameters["prazo_maximo_dias"]
             ):
                 raise ValueError("Prazo mínimo maior que máximo")

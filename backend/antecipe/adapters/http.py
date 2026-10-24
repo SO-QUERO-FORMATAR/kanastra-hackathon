@@ -21,7 +21,8 @@ from antecipe.adapters.contract import SPEC, validate
 from antecipe.adapters.lot_store import LotStore, MAX_BYTES
 from antecipe.adapters.queries import Queries
 from antecipe.adapters.views import registry_dto, fund_dto, require, instant
-from antecipe.adapters.admin import publish
+from antecipe.adapters.admin import publish, import_configurations
+from antecipe.adapters.config_import import parse_configurations
 from antecipe.adapters.schema import funds, rules
 from antecipe.adapters.idempotency import execute
 from antecipe.application.errors import AppError
@@ -165,6 +166,18 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             return store.upload(paths["lote_id"], body[0], body[1], key)
         if op == "solicitarProcessamento":
             return store.enqueue(paths["lote_id"], key)
+        if op == "importarRegrasFundos":
+            try:
+                configurations = parse_configurations(body)
+            except ValueError as exc:
+                raise AppError("CONFIGURACAO_INVALIDA", str(exc)) from exc
+            with engine.begin() as c:
+
+                def import_action():
+                    imported = import_configurations(c, configurations)
+                    return {"fundos": [fund_dto(require(c, funds, fid)) for fid, _ in imported]}
+
+                return execute(c, "POST /fundos/regras/importacao", key, body, 200, import_action)
         if op == "atualizarRegrasFundo":
             fid = paths["fundo_id"]
             with engine.begin() as c:
@@ -243,8 +256,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 if media not in expected["content"]:
                     raise AppError("TIPO_ARQUIVO_NAO_SUPORTADO", "Content-Type incompatível", 415)
                 if media == "application/json":
+                    content: bytes | bytearray
+                    if operation["operationId"] == "importarRegrasFundos":
+                        content = bytearray()
+                        async for chunk in request.stream():
+                            content.extend(chunk)
+                            if len(content) > 1048576:
+                                raise AppError("LIMITE_UPLOAD_EXCEDIDO", "JSON excede 1 MiB", 413)
+                    else:
+                        content = await request.body()
                     try:
-                        body = json.loads(await request.body())
+                        body = json.loads(content.decode("utf-8-sig"))
                     except (ValueError, UnicodeError) as exc:
                         raise AppError("VALIDACAO_REQUISICAO", "JSON inválido") from exc
                     validate(expected["content"][media]["schema"]["$ref"].split("/")[-1], body)

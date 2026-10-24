@@ -110,6 +110,74 @@ export async function mockRequest(
   if (parts[0] === "cadastro")
     return copy(examples.BaseCadastralStatusResponse);
   if (parts[0] === "fundos") {
+    if (path === "/fundos/regras/importacao" && method === "POST") {
+      const raw = JSON.parse(String(options.body));
+      const items = Array.isArray(raw) ? raw : [raw];
+      const { validateRules } = await import("../ruleValidation");
+      const seen = new Set<string>();
+      const normalized = items.map((item) => {
+        const cnpj = String(item.fundo?.cnpj ?? "").replace(/\D/g, "");
+        if (!/^\d{14}$/.test(cnpj) || !item.fundo?.nome || seen.has(cnpj))
+          fail(
+            422,
+            "Identidade do fundo inválida ou repetida.",
+            "CONFIGURACAO_INVALIDA",
+          );
+        seen.add(cnpj);
+        const config = copy({
+          validadores: item.validadores,
+          precificacao: item.precificacao,
+        });
+        if (Array.isArray(config.validadores))
+          for (const v of config.validadores) {
+            for (const key of ["valor_minimo", "percentual_maximo"])
+              if (v.parametros && key in v.parametros)
+                v.parametros[key] = String(v.parametros[key]);
+            if (v.codigo?.startsWith("CONCENTRACAO_MAXIMA") && v.parametros)
+              v.parametros.agrupamento ??= "RAIZ_CNPJ";
+          }
+        if (config.precificacao)
+          config.precificacao.taxa_mensal_percentual = String(
+            config.precificacao.taxa_mensal_percentual,
+          );
+        if (!validateRules({ versao_base: null, configuracao: config }))
+          fail(
+            422,
+            "Configuração de regras inválida.",
+            "CONFIGURACAO_INVALIDA",
+          );
+        return { cnpj, nome: item.fundo.nome, config };
+      });
+      if (!items.length || items.length > 100)
+        fail(422, "Informe de 1 a 100 fundos.", "CONFIGURACAO_INVALIDA");
+      const imported = normalized.map(({ cnpj, nome, config }) => {
+        let fund = funds.find((f) => f.cnpj === cnpj);
+        if (!fund) {
+          fund = {
+            id: crypto.randomUUID(),
+            cnpj,
+            nome,
+            configurado: false,
+            versao_regras_atual: null,
+          };
+          funds.push(fund);
+        }
+        fund.configurado = true;
+        fund.versao_regras_atual = crypto.randomUUID();
+        const rule = {
+          fundo: copy(fund),
+          versao: fund.versao_regras_atual,
+          criada_em: new Date().toISOString(),
+          configuracao: config,
+        };
+        rules.set(fund.id, rule);
+        versions.set(rule.versao, copy(rule));
+        return copy(fund);
+      });
+      result = { fundos: imported };
+      replay.set(key, copy(result));
+      return result;
+    }
     if (parts.length === 1) {
       const busca = (url.searchParams.get("busca") || "").toLowerCase();
       return page(

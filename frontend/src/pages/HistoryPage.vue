@@ -75,7 +75,6 @@ const columns = [
         to="/novo"
       />
     </div>
-    <div class="hero-mark" aria-hidden="true">↗</div>
   </section>
   <div class="eyebrow">
     {{ latest ? `ÚLTIMO LOTE · ${latest.nome}` : "RESUMO DO ÚLTIMO LOTE" }}

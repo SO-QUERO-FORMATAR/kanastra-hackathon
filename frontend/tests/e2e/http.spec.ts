@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import examples from "../../contracts/examples.json" with { type: "json" };
 import fixtures from "../../contracts/fixtures.json" with { type: "json" };
-const origin = `http://127.0.0.1:${process.env.E2E_API_PORT || "5174"}`;
+const origin = `http://127.0.0.1:${process.env.E2E_API_PORT || "5184"}`;
 const fixture = (name: string) =>
   structuredClone(fixtures.exemplos.find((x) => x.nome === name)!.valor) as any;
 

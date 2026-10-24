@@ -50,7 +50,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Neste ambiente, Chromium já está disponível; use `PLAYWRIGHT_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e`. O download padrão do Playwright exige acesso ao CDN oficial. Os testes de navegador iniciam seus próprios servidores nas portas 5173 e 5174, que devem estar livres. Para usar portas diferentes, configure `E2E_DEMO_PORT` e `E2E_API_PORT`.
+Instale o Chromium com `npx playwright install chromium` antes da primeira execução. O download padrão do Playwright exige acesso ao CDN oficial. Para usar um navegador já instalado, defina a variável de ambiente `PLAYWRIGHT_EXECUTABLE_PATH` com o caminho do executável. Os testes funcionam no Windows e no Linux/macOS e iniciam seus próprios servidores nas portas 5183 e 5184, que devem estar livres; o Compose pode continuar ativo na porta 5173. Para usar portas diferentes, configure `E2E_DEMO_PORT` e `E2E_API_PORT`.
 
 Os testes unitários validam os schemas/exemplos fornecidos, as 17 operações, strings monetárias, SHA-256, multipart, batches, headers, erros e cursores. Os testes de navegador usam demonstração e respostas HTTP controladas; não certificam o backend externo. Veja [integração e limitações](docs/integration.md).
 

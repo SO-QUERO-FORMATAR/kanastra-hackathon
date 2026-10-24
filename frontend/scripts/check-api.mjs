@@ -28,9 +28,10 @@ try {
     ],
     { stdio: "inherit" },
   );
-  if (
-    readFileSync(dest, "utf8") !== readFileSync("src/api/schema.d.ts", "utf8")
-  )
+  // Git may check out CRLF on Windows; generated files always use LF.
+  const readTypes = (path) =>
+    readFileSync(path, "utf8").replaceAll("\r\n", "\n");
+  if (readTypes(dest) !== readTypes("src/api/schema.d.ts"))
     throw Error("Tipos desatualizados: execute npm run generate:api.");
 } finally {
   rmSync(dir, { recursive: true, force: true });

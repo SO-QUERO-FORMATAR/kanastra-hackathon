@@ -342,7 +342,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Os testes iniciam seus próprios servidores; as portas 5173 e 5174 devem estar livres. Eles validam a interface com respostas controladas e não certificam o backend real.
+Os testes iniciam seus próprios servidores; as portas 5183 e 5184 devem estar livres. Assim, podem rodar com o Compose ativo na porta 5173, tanto no Windows quanto no Linux/macOS. Eles validam a interface com respostas controladas e não certificam o backend real.
 
 Para desenvolver e testar o backend com Python 3.13.5 e `uv`, siga [backend/README.md](backend/README.md). As suítes de backend recriam o schema do banco `antecipe_test`; use a configuração de teste documentada e não execute as suítes em paralelo contra esse banco.
 

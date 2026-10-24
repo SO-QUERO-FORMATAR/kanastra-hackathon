@@ -43,6 +43,10 @@ test("409 de versão exige recarga e preserva edição até revisar", async ({
     .getByText("Revisei os nove validadores e a precificação deste fundo.")
     .click();
   await page.getByRole("button", { name: "Salvar configuração" }).click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "As regras foram alteradas",
+  );
+  await page.getByRole("button", { name: "Manter minha edição" }).click();
   await expect(
     page.getByRole("button", { name: "Recarregar configuração" }),
   ).toBeVisible();
@@ -51,6 +55,10 @@ test("409 de versão exige recarga e preserva edição até revisar", async ({
     page.getByRole("button", { name: "Salvar configuração" }),
   ).toBeDisabled();
   await page.getByRole("button", { name: "Recarregar configuração" }).click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "substituirá os valores locais",
+  );
+  await page.getByRole("button", { name: "Carregar versão atual" }).click();
   await expect(page.getByLabel("Taxa mensal (%)")).toHaveValue("2.0");
 });
 test("retry de criação mantém manifesto e Idempotency-Key", async ({
@@ -102,7 +110,10 @@ test("retry de criação mantém manifesto e Idempotency-Key", async ({
   await page
     .getByRole("button", { name: "Enviar recebíveis", exact: true })
     .click();
-  await expect(page.locator(".error-banner")).toBeVisible();
+  await expect(page.getByRole("dialog")).toContainText(
+    "Não foi possível concluir o envio",
+  );
+  await page.getByRole("button", { name: "Voltar ao envio" }).click();
   await page
     .getByRole("button", { name: "Retomar envio", exact: true })
     .click();

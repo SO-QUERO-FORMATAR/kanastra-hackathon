@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import { ref, shallowRef, onMounted } from "vue";
+import { ref, shallowRef, onMounted, computed, nextTick } from "vue";
+import { useQuasar } from "quasar";
 import { ruleMutationKey } from "../api/idempotency";
 import { useRoute } from "vue-router";
 import { api, ApiError, type DTO } from "../api/client";
 import { useCursor } from "../composables/useCursor";
 import { label } from "../utils";
 import ErrorNotice from "../components/ErrorNotice.vue";
+import ActionErrorDialog from "../components/ActionErrorDialog.vue";
 import CursorNav from "../components/CursorNav.vue";
 import examples from "../../contracts/examples.json";
-import Ajv from "ajv/dist/2020";
-import addFormats from "ajv-formats";
-import contract from "../../contracts/openapi.json";
-const ajv = new Ajv({ strict: false });
-addFormats(ajv);
-ajv.addSchema(contract, "contract");
-const validate = ajv.compile({
-  $ref: "contract#/components/schemas/AtualizarRegrasRequest",
-});
+import { ruleFieldErrors, validateRules } from "../ruleValidation";
+const $q = useQuasar();
 const busca = ref(""),
   configurado = ref<boolean>(),
   route = useRoute();
@@ -32,14 +27,53 @@ const { rows, loading, error, next, history, load, forward, back } = useCursor(
 const selected = ref<DTO<"FundoDTO">>(),
   form = ref<DTO<"AtualizarRegrasRequest">>(),
   editError = shallowRef<unknown>(null),
+  actionError = shallowRef<unknown>(null),
+  attempted = ref(false),
+  formError = ref(""),
+  rulesSection = ref<HTMLElement>(),
   saving = ref(false),
   conflict = ref(false),
   historical = ref(false),
   reviewed = ref(false);
+const fieldErrors = computed(() =>
+  attempted.value && form.value ? ruleFieldErrors(form.value) : {},
+);
+function fieldError(path: string) {
+  return (
+    Object.entries(fieldErrors.value).find(
+      ([key]) => key === path || key.startsWith(path + "/"),
+    )?.[1] || ""
+  );
+}
+function showConflict() {
+  actionError.value = Error("Outra edição alterou as regras deste fundo.");
+}
+async function reloadRules() {
+  if (!selected.value || saving.value) return;
+  // Fetch before replacing the local values so a failed reload preserves edits.
+  saving.value = true;
+  try {
+    const r = await api.regras(selected.value.id);
+    form.value = { versao_base: r.versao, configuracao: r.configuracao };
+    conflict.value = false;
+    reviewed.value = false;
+    attempted.value = false;
+    formError.value = "";
+    actionError.value = null;
+  } catch (e) {
+    actionError.value = e;
+  } finally {
+    saving.value = false;
+  }
+}
 async function open(f: DTO<"FundoDTO">, version?: string) {
+  if (saving.value) return;
   selected.value = f;
   form.value = undefined;
   editError.value = null;
+  actionError.value = null;
+  attempted.value = false;
+  formError.value = "";
   conflict.value = false;
   reviewed.value = false;
   historical.value = !!version;
@@ -79,14 +113,27 @@ function param(v: DTO<"ValidadorDTO">, key: string, value: unknown) {
   (v.parametros as Record<string, unknown>)[key] = value;
 }
 async function save() {
-  if (!form.value || !selected.value) return;
+  if (
+    !form.value ||
+    !selected.value ||
+    saving.value ||
+    conflict.value ||
+    historical.value ||
+    !reviewed.value
+  )
+    return;
   editError.value = null;
-  if (!validate(form.value)) {
-    editError.value = Error(
-      (validate.errors || [])
-        .map((e) => `${e.instancePath}: ${e.message}`)
-        .join("; "),
+  attempted.value = true;
+  formError.value = "";
+  if (!validateRules(form.value)) {
+    if (!Object.keys(fieldErrors.value).length)
+      formError.value =
+        "Revise a configuração dos nove validadores antes de salvar.";
+    await nextTick();
+    const target = rulesSection.value?.querySelector<HTMLElement>(
+      ".q-field--error input, .q-field--error [tabindex='0'], [data-form-error]",
     );
+    target?.focus();
     return;
   }
   saving.value = true;
@@ -99,9 +146,16 @@ async function save() {
     form.value = { versao_base: r.versao, configuracao: r.configuracao };
     selected.value = r.fundo;
     reviewed.value = false;
+    attempted.value = false;
+    $q.notify({
+      type: "positive",
+      message: "Configuração salva com sucesso.",
+      position: "top",
+      timeout: 4000,
+    });
     await load();
   } catch (e) {
-    editError.value = e;
+    actionError.value = e;
     conflict.value =
       e instanceof ApiError &&
       e.payload?.erro.codigo === "VERSAO_REGRAS_CONFLITANTE";
@@ -133,7 +187,27 @@ onMounted(async () => {
       </p>
     </div>
   </div>
-  <ErrorNotice :error="error" />
+  <ErrorNotice :error="error">
+    <q-btn flat label="Tentar carregar novamente" @click="load()" />
+  </ErrorNotice>
+  <ActionErrorDialog
+    :error="actionError"
+    :title="
+      conflict
+        ? 'As regras foram alteradas'
+        : 'Não foi possível salvar a configuração'
+    "
+    :guidance="
+      conflict
+        ? 'Sua edição foi mantida. Carregar a versão atual substituirá os valores locais. Depois, revise as regras antes de salvar.'
+        : 'Sua edição foi mantida. Feche este aviso para revisar os valores e tentar novamente.'
+    "
+    :dismiss-label="conflict ? 'Manter minha edição' : 'Voltar à edição'"
+    :action-label="conflict ? 'Carregar versão atual' : undefined"
+    :loading="saving"
+    @close="actionError = null"
+    @action="reloadRules"
+  />
   <div class="surface">
     <div class="filters">
       <q-input
@@ -188,7 +262,7 @@ onMounted(async () => {
         <q-item-section side><q-icon name="chevron_right" /></q-item-section>
       </q-item>
     </q-list>
-    <div v-if="!rows.length && !loading" class="empty">
+    <div v-if="!rows.length && !loading && !error" class="empty">
       Nenhum fundo encontrado.
     </div>
     <q-linear-progress v-if="loading" indeterminate />
@@ -200,7 +274,7 @@ onMounted(async () => {
       @back="back"
     />
   </div>
-  <section v-if="selected" class="surface section-space">
+  <section v-if="selected" ref="rulesSection" class="surface section-space">
     <div class="surface-head">
       <div>
         <h2>{{ selected.nome }}</h2>
@@ -216,16 +290,39 @@ onMounted(async () => {
         flat
         icon="close"
         aria-label="Fechar regras"
+        :disable="saving"
         @click="selected = undefined"
       />
     </div>
-    <ErrorNotice :error="editError" />
+    <ErrorNotice :error="editError">
+      <q-btn
+        flat
+        label="Tentar carregar regras novamente"
+        @click="
+          open(selected, historical ? String(route.query.versao) : undefined)
+        "
+      />
+    </ErrorNotice>
+    <q-banner
+      v-if="formError"
+      class="error-banner"
+      role="alert"
+      tabindex="-1"
+      data-form-error
+    >
+      {{ formError }}
+    </q-banner>
     <div v-if="conflict" class="q-pa-lg">
       <p>
         Outra edição alterou as regras. Recarregue a versão atual e revise antes
         de salvar novamente.
       </p>
-      <q-btn outline label="Recarregar configuração" @click="open(selected)" />
+      <q-btn
+        outline
+        label="Recarregar configuração"
+        :disable="saving"
+        @click="showConflict"
+      />
     </div>
     <template v-if="form">
       <div class="q-pa-lg info-banner">
@@ -233,14 +330,14 @@ onMounted(async () => {
         explícita; regras não são copiadas de outros fundos.
       </div>
       <div
-        v-for="v in form.configuracao.validadores"
+        v-for="(v, index) in form.configuracao.validadores"
         :key="v.codigo"
         class="rule-row"
       >
         <q-toggle
           v-model="v.ativo"
           :label="label(v.codigo)"
-          :disable="historical"
+          :disable="historical || saving"
         />
         <div class="rule-fields">
           <template v-for="(value, key) in v.parametros" :key="key">
@@ -255,7 +352,11 @@ onMounted(async () => {
               :model-value="value"
               :options="[]"
               :label="label(String(key)) + ' (Enter para adicionar)'"
-              :disable="historical"
+              :disable="historical || saving"
+              :error="!!fieldError(`/validadores/${index}/parametros/${key}`)"
+              :error-message="
+                fieldError(`/validadores/${index}/parametros/${key}`)
+              "
               @update:model-value="param(v, String(key), $event)"
             />
             <q-input
@@ -264,7 +365,11 @@ onMounted(async () => {
               dense
               :model-value="value"
               :label="label(String(key))"
-              :readonly="key === 'agrupamento' || historical"
+              :readonly="key === 'agrupamento' || historical || saving"
+              :error="!!fieldError(`/validadores/${index}/parametros/${key}`)"
+              :error-message="
+                fieldError(`/validadores/${index}/parametros/${key}`)
+              "
               :type="typeof value === 'number' ? 'number' : 'text'"
               @update:model-value="
                 param(
@@ -284,14 +389,18 @@ onMounted(async () => {
             outlined
             v-model="form.configuracao.precificacao.taxa_mensal_percentual"
             label="Taxa mensal (%)"
-            :readonly="historical"
+            :readonly="historical || saving"
+            :error="!!fieldError('/precificacao/taxa_mensal_percentual')"
+            :error-message="fieldError('/precificacao/taxa_mensal_percentual')"
           />
           <q-input
             outlined
             type="number"
             v-model.number="form.configuracao.precificacao.base_dias"
             label="Base de dias (1–366)"
-            :readonly="historical"
+            :readonly="historical || saving"
+            :error="!!fieldError('/precificacao/base_dias')"
+            :error-message="fieldError('/precificacao/base_dias')"
           />
         </div>
         <div class="text-caption text-grey-7 q-my-md">
@@ -300,6 +409,7 @@ onMounted(async () => {
         <template v-if="!historical">
           <q-checkbox
             v-model="reviewed"
+            :disable="saving"
             label="Revisei os nove validadores e a precificação deste fundo."
           />
           <div class="q-mt-md">

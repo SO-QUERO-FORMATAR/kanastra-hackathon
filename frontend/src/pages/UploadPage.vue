@@ -1,15 +1,24 @@
 <script setup lang="ts">
-import { ref, onMounted, shallowRef } from "vue";
+import { ref, onMounted, shallowRef, computed, nextTick } from "vue";
+import { useQuasar, type QInput } from "quasar";
 import { useRouter } from "vue-router";
 import { api, upload, storagePrefix, demo, type DTO } from "../api/client";
 import { sha256, batches } from "../utils";
 import ErrorNotice from "../components/ErrorNotice.vue";
+import ActionErrorDialog from "../components/ActionErrorDialog.vue";
+const $q = useQuasar();
 const router = useRouter(),
   files = ref<File[]>([]),
   name = ref(""),
   caps = ref<DTO<"CapacidadesResponse">>(),
   cadastro = ref<DTO<"BaseCadastralStatusResponse">>(),
   error = shallowRef<unknown>(null),
+  actionError = shallowRef<unknown>(null),
+  mismatch = ref(false),
+  submitted = ref(false),
+  nameTouched = ref(false),
+  nameInput = ref<QInput>(),
+  fileArea = ref<HTMLElement>(),
   busy = ref(false),
   progress = ref(0),
   phase = ref(""),
@@ -22,7 +31,38 @@ type Session = {
   batches?: { ids: string[]; key: string }[];
 };
 let session: Session | undefined;
-onMounted(async () => {
+const nameError = computed(() => {
+  if (!submitted.value && !nameTouched.value) return "";
+  if (!name.value.trim()) return "Informe o nome do lote.";
+  return name.value.trim().length > 120
+    ? "Use até 120 caracteres no nome do lote."
+    : "";
+});
+const selectionError = computed(() => {
+  if (!files.value.length && submitted.value)
+    return "Selecione pelo menos um arquivo.";
+  if (caps.value && files.value.length > caps.value.max_arquivos_lote)
+    return `Selecione no máximo ${caps.value.max_arquivos_lote} arquivos. Remova os arquivos excedentes.`;
+  return "";
+});
+function fileError(file: File) {
+  const c = caps.value;
+  if (!c) return "";
+  if (
+    !c.formatos.includes(
+      file.name.split(".").at(-1)?.toUpperCase() as DTO<"FormatoArquivo">,
+    )
+  )
+    return `Formato não permitido. Selecione ${c.formatos.join(" ou ")}.`;
+  if (!file.size)
+    return "Este arquivo está vazio. Selecione um arquivo com dados.";
+  const limit = Math.min(c.max_bytes_arquivo, c.max_bytes_batch);
+  return file.size > limit
+    ? `O arquivo excede o limite de ${limit / 1048576} MiB. Reduza o tamanho antes de enviar.`
+    : "";
+}
+async function loadSetup() {
+  error.value = null;
   try {
     [caps.value, cadastro.value] = await Promise.all([
       api.capacidades(),
@@ -31,13 +71,14 @@ onMounted(async () => {
   } catch (e) {
     error.value = e;
   }
-});
+}
+onMounted(loadSetup);
 function select(list: FileList | null) {
   if (!busy.value && list)
     files.value = locked.value
       ? Array.from(list)
       : [...files.value, ...Array.from(list)];
-  error.value = null;
+  if (input.value) input.value.value = "";
 }
 function persist() {
   localStorage.setItem(storagePrefix + "upload", JSON.stringify(session));
@@ -56,29 +97,54 @@ function reset() {
   session = undefined;
   files.value = [];
   locked.value = false;
+  submitted.value = false;
+  nameTouched.value = false;
+  progress.value = 0;
+  phase.value = "";
+  if (input.value) input.value.value = "";
   localStorage.removeItem(storagePrefix + "upload");
-  error.value = null;
+  actionError.value = null;
+}
+function confirmReset() {
+  $q.dialog({
+    title: "Iniciar uma nova seleção?",
+    message:
+      "A recuperação deste envio será removida deste navegador. Os arquivos já recebidos pelo servidor não serão excluídos.",
+    cancel: { label: "Manter envio", flat: true },
+    ok: { label: "Iniciar nova seleção", color: "primary" },
+    focus: "cancel",
+  }).onOk(reset);
+}
+async function closeError() {
+  actionError.value = null;
+  if (mismatch.value) {
+    await nextTick();
+    fileArea.value?.focus();
+  }
 }
 async function submit() {
-  if (!caps.value) return;
+  if (!caps.value || busy.value) return;
+  submitted.value = true;
+  if (nameError.value) {
+    await nextTick();
+    nameInput.value?.focus();
+    return;
+  }
+  if (selectionError.value || files.value.some(fileError)) {
+    await nextTick();
+    fileArea.value?.focus();
+    return;
+  }
   busy.value = true;
-  error.value = null;
+  actionError.value = null;
+  mismatch.value = false;
+  progress.value = 0;
   try {
     const c = caps.value;
-    if (!name.value.trim() || name.value.length > 120)
-      throw Error("Informe um nome de até 120 caracteres.");
-    if (!files.value.length || files.value.length > c.max_arquivos_lote)
-      throw Error(`Selecione de 1 a ${c.max_arquivos_lote} arquivos.`);
     phase.value = "Verificando integridade dos arquivos";
     const manifest: DTO<"ArquivoManifestoRequest">[] = [];
     for (const [i, file] of files.value.entries()) {
       const ext = file.name.split(".").at(-1)?.toUpperCase();
-      if (
-        !c.formatos.includes(ext as DTO<"FormatoArquivo">) ||
-        !file.size ||
-        file.size > Math.min(c.max_bytes_arquivo, c.max_bytes_batch)
-      )
-        throw Error(`Arquivo inválido ou acima do limite: ${file.name}`);
       manifest.push({
         client_id: session?.body.arquivos[i]?.client_id || crypto.randomUUID(),
         nome: file.name,
@@ -92,10 +158,12 @@ async function submit() {
     if (
       session &&
       JSON.stringify(manifest) !== JSON.stringify(session.body.arquivos)
-    )
+    ) {
+      mismatch.value = true;
       throw Error(
         "Para retomar, selecione exatamente os mesmos arquivos na ordem original. Ou inicie uma nova seleção.",
       );
+    }
     if (!session) {
       session = {
         key: crypto.randomUUID(),
@@ -161,7 +229,7 @@ async function submit() {
     localStorage.removeItem(storagePrefix + "upload");
     await router.push(`/lotes/${created.lote.id}`);
   } catch (e) {
-    error.value = e;
+    actionError.value = e;
   } finally {
     busy.value = false;
   }
@@ -182,7 +250,26 @@ async function submit() {
     Demonstração: o envio é simulado. Os resultados são exemplos fixos e não
     correspondem ao conteúdo selecionado.
   </q-banner>
-  <ErrorNotice :error="error" />
+  <ErrorNotice :error="error">
+    <q-btn flat label="Tentar carregar novamente" @click="loadSetup" />
+  </ErrorNotice>
+  <ActionErrorDialog
+    :error="actionError"
+    :title="
+      mismatch
+        ? 'Os arquivos são diferentes do envio original'
+        : 'Não foi possível concluir o envio'
+    "
+    :guidance="
+      mismatch
+        ? 'Volte à seleção e escolha os arquivos originais. Para começar de novo, use Nova seleção.'
+        : locked
+          ? 'O envio foi preservado para recuperação. Volte à página e use Retomar envio quando estiver pronto.'
+          : 'Sua seleção foi mantida. Volte à página para revisar e tentar novamente.'
+    "
+    :dismiss-label="mismatch ? 'Voltar à seleção' : 'Voltar ao envio'"
+    @close="closeError"
+  />
   <q-banner v-if="cadastro && !cadastro.disponivel" class="info-banner q-mb-lg">
     A base cadastral ainda não está disponível. A importação pode ser enviada,
     mas a análise depende da carga administrativa no backend.
@@ -190,7 +277,7 @@ async function submit() {
   <q-banner v-if="locked" class="info-banner q-mb-lg">
     Importação preservada para recuperação. Após recarregar a página, selecione
     os mesmos arquivos, na mesma ordem.
-    <q-btn flat label="Nova seleção" :disable="busy" @click="reset" />
+    <q-btn flat label="Nova seleção" :disable="busy" @click="confirmReset" />
   </q-banner>
   <div class="upload-grid">
     <section class="surface">
@@ -200,15 +287,25 @@ async function submit() {
       </div>
       <div class="q-pa-lg">
         <q-input
+          ref="nameInput"
           outlined
           v-model="name"
-          :readonly="locked"
+          :readonly="locked || busy"
+          :error="!!nameError"
+          :error-message="nameError"
+          hint="Obrigatório · até 120 caracteres"
+          counter
+          @blur="nameTouched = true"
           maxlength="120"
           label="Nome do lote"
           placeholder="Ex.: Recebíveis · Outubro 2026"
         />
       </div>
       <div
+        ref="fileArea"
+        tabindex="-1"
+        role="group"
+        aria-label="Seleção de arquivos"
         class="upload-zone"
         @dragover.prevent
         @drop.prevent="select($event.dataTransfer?.files ?? null)"
@@ -236,7 +333,15 @@ async function submit() {
         />
         <p class="text-caption text-grey-7 q-mt-md">
           CSV ou XLSX · até
-          {{ caps ? caps.max_bytes_arquivo / 1048576 : "—" }} MiB por arquivo
+          {{
+            caps
+              ? Math.min(caps.max_bytes_arquivo, caps.max_bytes_batch) / 1048576
+              : "—"
+          }}
+          MiB por arquivo
+        </p>
+        <p v-if="selectionError" role="alert" class="text-negative">
+          {{ selectionError }}
         </p>
       </div>
       <q-list separator>
@@ -247,10 +352,19 @@ async function submit() {
             <q-item-label caption>
               {{ (file.size / 1024).toFixed(1) }} KiB · posição {{ i + 1 }}
             </q-item-label>
+            <q-item-label
+              v-if="fileError(file)"
+              caption
+              class="text-negative"
+              role="alert"
+            >
+              {{ fileError(file) }}
+            </q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-btn
               v-if="!locked"
+              :disable="busy"
               flat
               round
               icon="close"
@@ -274,7 +388,7 @@ async function submit() {
           :label="locked ? 'Retomar envio' : 'Enviar recebíveis'"
           icon-right="arrow_forward"
           :loading="busy"
-          :disable="!caps || !files.length"
+          :disable="!caps"
           @click="submit"
         />
         <span class="q-ml-md text-caption text-grey-7">

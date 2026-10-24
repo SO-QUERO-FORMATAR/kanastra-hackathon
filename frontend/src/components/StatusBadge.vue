@@ -1,19 +1,10 @@
 <script setup lang="ts">
-import { label } from "../utils";
+import { statusLabel, statusTone } from "../analysisStatus";
 defineProps<{ status: string }>();
 </script>
 <template>
-  <span
-    class="status-badge"
-    :class="
-      /^(CONCLUIDO|APROVADO|RECEBIDO)$/.test(status)
-        ? 'positive'
-        : /FALHOU|BARRADO|ERRO/.test(status)
-          ? 'negative'
-          : 'pending'
-    "
-  >
+  <span class="status-badge" :class="statusTone(status)">
     <span class="status-dot" />
-    {{ label(status) }}
+    {{ statusLabel(status) }}
   </span>
 </template>

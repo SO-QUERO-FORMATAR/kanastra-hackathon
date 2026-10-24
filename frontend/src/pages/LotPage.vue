@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, shallowRef, onMounted, onUnmounted } from "vue";
+import { ref, shallowRef, computed, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import { api, ApiError, storagePrefix, type DTO } from "../api/client";
-import { money, label } from "../utils";
+import { money } from "../utils";
+import { lotMessage, statusLabel } from "../analysisStatus";
 import StatusBadge from "../components/StatusBadge.vue";
 import ErrorNotice from "../components/ErrorNotice.vue";
+import ActionErrorDialog from "../components/ActionErrorDialog.vue";
 import ResultsTable from "../components/ResultsTable.vue";
 const id = String(useRoute().params.id),
   lot = ref<DTO<"LoteDTO">>(),
@@ -13,7 +15,12 @@ const id = String(useRoute().params.id),
   summaries = ref<DTO<"ResumoFundoDTO">[]>([]),
   selected = ref<string>(),
   error = shallowRef<unknown>(null),
+  actionError = shallowRef<unknown>(null),
+  resultsRevision = ref(0),
   busy = ref(false);
+const selectedFile = computed(() =>
+  files.value.find((f) => f.id === selected.value),
+);
 let timer: ReturnType<typeof setTimeout> | undefined;
 let controller: AbortController | undefined;
 let disposed = false,
@@ -46,17 +53,24 @@ async function refresh() {
   const activeController = controller;
   try {
     const previous = lot.value?.status;
-    lot.value = await api.lote(id, activeController.signal);
+    const currentLot = await api.lote(id, activeController.signal);
+    const [currentFiles, currentPending, currentSummaries] = await Promise.all([
+      collect((c) => api.arquivos(id, c)),
+      previous !== currentLot.status || currentLot.status === "BLOQUEADO"
+        ? collect((c) => api.pendencias(id, c))
+        : Promise.resolve(pending.value),
+      collect((c) => api.resumos(id, c)),
+    ]);
+    if (disposed || activeController.signal.aborted) return;
+    lot.value = currentLot;
+    files.value = currentFiles;
+    pending.value = currentPending;
+    summaries.value = currentSummaries;
+    if (!files.value.some((f) => f.id === selected.value))
+      selected.value = files.value[0]?.id;
+    resultsRevision.value++;
     error.value = null;
     failures = 0;
-    files.value = await collect((c) => api.arquivos(id, c));
-    if (!selected.value) selected.value = files.value[0]?.id;
-    if (previous !== lot.value.status || lot.value.status === "BLOQUEADO") {
-      [pending.value, summaries.value] = await Promise.all([
-        collect((c) => api.pendencias(id, c)),
-        collect((c) => api.resumos(id, c)),
-      ]);
-    }
     if (["NA_FILA", "INDEXANDO", "ANALISANDO"].includes(lot.value.status))
       schedule(interval);
   } catch (e) {
@@ -76,8 +90,9 @@ async function refresh() {
   }
 }
 async function process() {
+  if (busy.value) return;
   busy.value = true;
-  error.value = null;
+  actionError.value = null;
   try {
     if (!actionKey) {
       actionKey = crypto.randomUUID();
@@ -89,7 +104,7 @@ async function process() {
     pending.value = [];
     await refresh();
   } catch (e) {
-    error.value = e;
+    actionError.value = e;
     if (
       e instanceof ApiError &&
       e.status === 409 &&
@@ -136,10 +151,23 @@ onUnmounted(() => {
   <ErrorNotice :error="error">
     <q-btn flat label="Atualizar estado" @click="refresh" />
   </ErrorNotice>
+  <ActionErrorDialog
+    :error="actionError"
+    title="Não foi possível confirmar o início da análise"
+    guidance="Volte ao acompanhamento e atualize o estado do lote antes de tentar iniciar ou retomar a análise novamente."
+    dismiss-label="Voltar ao acompanhamento"
+    @close="actionError = null"
+  />
   <template v-if="lot">
     <div class="surface q-pa-lg">
       <div class="row items-center q-gutter-md">
-        <StatusBadge :status="lot.status" />
+        <StatusBadge
+          :status="
+            lot.status === 'RECEBENDO' && lot.acoes.pode_iniciar
+              ? 'ENVIO_CONCLUIDO'
+              : lot.status
+          "
+        />
         <q-space />
         <q-btn flat icon="refresh" label="Atualizar" @click="refresh" />
         <q-btn
@@ -152,7 +180,7 @@ onUnmounted(() => {
           @click="process"
         />
         <q-btn
-          v-if="lot.acoes.pode_enviar_arquivos"
+          v-if="lot.acoes.pode_enviar_arquivos && !lot.acoes.pode_iniciar"
           outline
           to="/novo"
           label="Retomar envio"
@@ -164,8 +192,9 @@ onUnmounted(() => {
           label="Criar novo lote"
         />
       </div>
+      <p class="subtitle q-mt-md" role="status">{{ lotMessage(lot) }}</p>
       <div class="q-mt-lg text-caption">
-        {{ label(lot.progresso.fase) }} ·
+        {{ statusLabel(lot.progresso.fase) }} ·
         {{ lot.progresso.arquivos_recebidos }} /
         {{ lot.progresso.arquivos_total }} arquivos recebidos
       </div>
@@ -255,10 +284,10 @@ onUnmounted(() => {
         <div class="metric-label">Resultados</div>
         <div class="q-mt-md text-caption">
           {{ lot.resumo.aprovadas }} aprovados ·
-          {{ lot.resumo.barradas }} barrados
+          {{ lot.resumo.barradas }} recusados
           <br />
           {{ lot.resumo.erros_dados }}
-          erros de dados
+          linhas com dados inválidos
         </div>
       </div>
     </div>
@@ -298,7 +327,7 @@ onUnmounted(() => {
         v-model="selected"
         :options="
           files.map((f) => ({
-            label: `${f.nome} · ${label(f.status)}`,
+            label: `${f.nome} · ${statusLabel(f.status)}`,
             value: f.id,
           }))
         "
@@ -313,6 +342,12 @@ onUnmounted(() => {
         {{ files.find((f) => f.id === selected)?.erro?.mensagem }}
       </q-banner>
     </div>
-    <ResultsTable v-if="selected" :arquivo-id="selected" />
+    <ResultsTable
+      v-if="selected"
+      :arquivo-id="selected"
+      :file-status="selectedFile?.status"
+      :lot-status="lot.status"
+      :refresh-revision="resultsRevision"
+    />
   </template>
 </template>

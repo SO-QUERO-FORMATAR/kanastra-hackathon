@@ -83,3 +83,20 @@ A hierarquia tipográfica combina uma fonte de títulos com caracteres estendido
 1. **Redução da Fadiga Visual:** O uso de superfícies quentes (off-white) em vez do branco brilhante reduz o cansaço em análises prolongadas de relatórios e esteiras de risco.
 2. **Arquitetura "Data-Dense":** Telas financeiras B2B exigem visualização rápida de grandes volumes de informação. Os dados são dispostos de forma enxuta, mantendo o espaçamento suficiente para evitar poluição.
 3. **Clareza de Ação e Feedback:** O resultado da esteira de validação (Aprovado vs. Barrado) deve ser compreensível de forma imediata através de contrastes de cor e sinalizações claras do motivo da recusa.
+
+## 6. Mensagens, validação e recuperação
+
+- **Validação de preenchimento:** exibir a mensagem em português junto ao campo ou arquivo. Ao enviar, levar o foco ao primeiro campo inválido; preservar os demais valores. Informar separadamente nome obrigatório, formato, arquivo vazio, tamanho e quantidade excedidos.
+- **Falhas de ações:** usar `ActionErrorDialog` para criação/envio de lote, início/retomada da análise e salvamento de regras. Informar o que aconteceu e o próximo passo. Manter dados locais e chaves de recuperação. Os detalhes técnicos e a referência da API ficam recolhidos em “Detalhes para suporte”.
+- **Confirmações:** pedir confirmação antes de descartar a recuperação local de um envio ou substituir a edição de regras pela versão atual. Buscar a configuração antes de substituir os valores locais; uma falha na recarga preserva a edição.
+- **Carregamentos e atualização automática:** manter `ErrorNotice` na seção, com uma ação para tentar novamente. Polling não abre modais. Avisos de demonstração, base cadastral, pendências e erros do processamento permanecem consultáveis na página.
+- **Sucesso:** mostrar notificação breve ao salvar regras. O envio concluído navega para o acompanhamento. Detalhes de recebíveis continuam em modal aberto pelo usuário.
+- **Acessibilidade:** diálogos têm título e descrição associados, navegação por teclado e retorno de foco ao fechar. Em divergência dos arquivos de recuperação, o foco volta à seleção. Os diálogos se ajustam à largura do celular.
+
+## 7. Status e atualização de resultados
+
+- Distinguir envio concluído de análise concluída: após o envio, orientar o usuário a iniciar a análise quando essa ação estiver disponível.
+- Usar “Recusado” para decisões das regras e “Dados inválidos” para linhas que não puderam ser analisadas. Ausência de diagnóstico nunca deve sugerir aprovação.
+- A primeira consulta de resultados é carregada ao abrir o acompanhamento após o envio. Durante o processamento, a primeira página acompanha a atualização do lote; filtros são preservados.
+- Ao navegar para outras páginas, manter o cursor da consulta e oferecer uma ação para carregar os resultados recentes. Quando o arquivo ou lote encerrar o processamento, atualizar automaticamente a consulta a partir da primeira página, com aviso e mantendo os filtros.
+- A atualização automática acompanha a pausa do acompanhamento em aba oculta e termina com o processamento. Falhas continuam como avisos na seção, com opção de tentar novamente.

@@ -1,3 +1,11 @@
+import { ApiError } from "./api/client";
+
+export function errorMessage(error: unknown) {
+  if (error instanceof ApiError && error.status === 0)
+    return "Não foi possível confirmar a operação. Verifique sua conexão e tente novamente.";
+  return error instanceof Error ? error.message : String(error);
+}
+
 export function money(value: string | null | undefined) {
   if (value == null) return "—";
   const [whole, decimal = "00"] = value.split(".");

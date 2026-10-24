@@ -1,21 +1,32 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed, onUnmounted } from "vue";
 import { api, type DTO } from "../api/client";
 import { useCursor } from "../composables/useCursor";
 import { money, label } from "../utils";
+import { isTerminal, resultMessage, refusalLabels } from "../analysisStatus";
 import StatusBadge from "./StatusBadge.vue";
 import ErrorNotice from "./ErrorNotice.vue";
 import CursorNav from "./CursorNav.vue";
 import contract from "../../contracts/openapi.json";
-const props = defineProps<{ arquivoId: string }>(),
+const props = defineProps<{
+    arquivoId: string;
+    fileStatus?: DTO<"StatusArquivo">;
+    lotStatus: DTO<"StatusLote">;
+    refreshRevision: number;
+  }>(),
   filter = ref("TODOS"),
   motivo = ref<DTO<"CodigoRecusa">>(),
   limit = ref(20),
   selected = ref<DTO<"ResultadoDTO">>(),
-  snapshot = ref(0),
-  finished = ref(false);
+  finished = ref(false),
+  updateAvailable = ref(false),
+  returnedToFirst = ref(false);
+let requestVersion = 0,
+  disposed = false,
+  queuedRefresh = false;
 const { rows, loading, error, next, history, load, forward, back } = useCursor(
   async (cursor) => {
+    const run = ++requestVersion;
     const q: DTO<"ListarResultadosQuery"> = { cursor, limit: limit.value };
     if (filter.value === "ERRO_DADOS") q.tipo = "ERRO_DADOS";
     else if (filter.value !== "TODOS")
@@ -23,19 +34,87 @@ const { rows, loading, error, next, history, load, forward, back } = useCursor(
     if (filter.value !== "ERRO_DADOS" && filter.value !== "APROVADO")
       q.motivo = motivo.value;
     const r = await api.resultados(props.arquivoId, q);
-    snapshot.value = r.snapshot_ate_sequencia;
-    finished.value = r.arquivo_finalizado;
+    if (!disposed && run === requestVersion)
+      finished.value = r.arquivo_finalizado;
     return r;
   },
 );
+function reload() {
+  queuedRefresh = false;
+  updateAvailable.value = false;
+  return load(true);
+}
+function autoRefresh() {
+  if (loading.value) queuedRefresh = true;
+  else void reload();
+}
 watch(
-  () => props.arquivoId,
-  () => load(true),
+  () =>
+    [
+      props.arquivoId,
+      props.refreshRevision,
+      isTerminal(props.fileStatus) || isTerminal(props.lotStatus),
+    ] as const,
+  ([id, , terminal], previous) => {
+    if (!previous || id !== previous[0]) {
+      selected.value = undefined;
+      finished.value = false;
+      returnedToFirst.value = false;
+      void reload();
+    } else if (terminal && !previous[2]) {
+      returnedToFirst.value = history.value.length > 1;
+      autoRefresh();
+    } else if (history.value.length === 1) autoRefresh();
+    else updateAvailable.value = true;
+  },
   { immediate: true },
 );
+watch(loading, (active) => {
+  if (!active && queuedRefresh && !disposed) void reload();
+});
+onUnmounted(() => {
+  disposed = true;
+  requestVersion++;
+});
 watch(filter, () => {
   motivo.value = undefined;
-  load(true);
+  reload();
+});
+const hasFilters = computed(() => filter.value !== "TODOS" || !!motivo.value);
+const statusMessage = computed(() => {
+  if (props.fileStatus === "FALHOU")
+    return "O processamento deste arquivo foi interrompido. Consulte o erro acima; os resultados podem estar incompletos.";
+  if (props.fileStatus === "CONCLUIDO_COM_ERROS")
+    return "Arquivo processado com erros nos dados. Consulte as linhas com dados inválidos e os diagnósticos do arquivo.";
+  if (props.fileStatus === "CONCLUIDO")
+    return "Análise deste arquivo concluída. Os resultados estão disponíveis para consulta.";
+  if (props.lotStatus === "FALHOU")
+    return "O processamento do lote foi interrompido. Os resultados disponíveis podem estar incompletos.";
+  if (finished.value)
+    return "Processamento deste arquivo encerrado. Consulte as decisões e os diagnósticos disponíveis.";
+  if (props.lotStatus === "BLOQUEADO")
+    return "A análise aguarda a correção das pendências do lote. Os resultados disponíveis são parciais.";
+  if (props.lotStatus === "RECEBENDO")
+    return "Os resultados aparecerão após o envio dos arquivos e o início da análise.";
+  if (props.lotStatus === "NA_FILA")
+    return "Análise na fila. A tabela será atualizada automaticamente quando houver resultados.";
+  if (props.lotStatus === "INDEXANDO")
+    return "Preparando os dados. A tabela será atualizada automaticamente durante o processamento.";
+  return "Resultados parciais. A primeira página é atualizada automaticamente durante a análise.";
+});
+const emptyMessage = computed(() => {
+  if (loading.value) return "Carregando resultados…";
+  if (error.value)
+    return "Não foi possível carregar os resultados. Tente novamente no aviso acima.";
+  if (hasFilters.value)
+    return "Nenhum resultado corresponde aos filtros selecionados nesta consulta.";
+  if (
+    isTerminal(props.fileStatus) ||
+    isTerminal(props.lotStatus) ||
+    finished.value
+  )
+    return "Nenhum resultado disponível para este arquivo. Consulte o status e os diagnósticos acima.";
+  return statusMessage.value;
 });
 const columns = [
   {
@@ -56,7 +135,7 @@ const columns = [
   { name: "action", label: "", field: "id" },
 ];
 const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
-  label: label(value),
+  label: refusalLabels[value as DTO<"CodigoRecusa">],
   value,
 }));
 </script>
@@ -67,7 +146,13 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
         <h2>Resultados da análise</h2>
         <p class="subtitle">Decisões e diagnósticos por linha de origem.</p>
       </div>
-      <q-btn flat icon="refresh" label="Atualizar" @click="load(true)" />
+      <q-btn
+        flat
+        icon="refresh"
+        label="Atualizar resultados"
+        :loading="loading"
+        @click="reload"
+      />
     </div>
     <div class="filters">
       <q-select
@@ -77,8 +162,8 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
         :options="[
           { label: 'Todos os resultados', value: 'TODOS' },
           { label: 'Aprovados', value: 'APROVADO' },
-          { label: 'Barrados', value: 'BARRADO' },
-          { label: 'Erros de dados', value: 'ERRO_DADOS' },
+          { label: 'Recusados', value: 'BARRADO' },
+          { label: 'Dados inválidos', value: 'ERRO_DADOS' },
         ]"
         emit-value
         map-options
@@ -94,7 +179,7 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
         map-options
         label="Motivo de recusa"
         :disable="filter === 'ERRO_DADOS' || filter === 'APROVADO'"
-        @update:model-value="load(true)"
+        @update:model-value="reload"
       />
       <q-select
         outlined
@@ -102,12 +187,21 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
         v-model="limit"
         :options="[10, 20, 50, 100]"
         label="Itens por página"
-        @update:model-value="load(true)"
+        @update:model-value="reload"
       />
     </div>
     <ErrorNotice :error="error">
-      <q-btn flat label="Reiniciar consulta" @click="load(true)" />
+      <q-btn flat label="Reiniciar consulta" @click="reload" />
     </ErrorNotice>
+    <q-banner v-if="updateAvailable" class="info-banner" role="status">
+      O acompanhamento foi atualizado. Consulte a primeira página para carregar
+      os resultados mais recentes.
+      <q-btn flat label="Carregar resultados recentes" @click="reload" />
+    </q-banner>
+    <p v-if="returnedToFirst" class="q-px-lg text-caption" role="status">
+      Processamento encerrado. A tabela voltou à primeira página para exibir a
+      consulta atualizada, mantendo seus filtros.
+    </p>
     <q-table
       flat
       :rows="rows"
@@ -118,6 +212,9 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
       :pagination="{ rowsPerPage: 0 }"
       @request="load()"
     >
+      <template #no-data>
+        <div class="empty full-width" role="status">{{ emptyMessage }}</div>
+      </template>
       <template #body-cell-documento="p">
         <q-td :props="p">
           <div class="table-primary">
@@ -151,11 +248,7 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
       <template #body-cell-motivos="p">
         <q-td :props="p">
           <span>
-            {{
-              p.row.motivos[0]?.mensagem ??
-              p.row.erros_dados[0]?.mensagem ??
-              "Elegível para aquisição"
-            }}
+            {{ resultMessage(p.row) }}
           </span>
         </q-td>
       </template>
@@ -171,16 +264,12 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
         </q-td>
       </template>
     </q-table>
-    <div v-if="!loading && !error && rows.length === 0" class="empty">
-      Nenhum resultado disponível para estes filtros.
-    </div>
-    <div class="q-px-lg q-py-sm text-caption text-grey-7">
-      Snapshot até a sequência {{ snapshot }} ·
-      {{
-        finished
-          ? "Arquivo finalizado"
-          : "Novos resultados podem surgir. Atualize para consultar."
-      }}
+    <div
+      v-if="!error"
+      class="q-px-lg q-py-sm text-caption text-grey-7"
+      role="status"
+    >
+      {{ statusMessage }}
     </div>
     <CursorNav
       :next="next"
@@ -212,7 +301,7 @@ const reasons = contract.components.schemas.CodigoRecusa.enum.map((value) => ({
           Linha {{ selected.linha }} · sequência {{ selected.sequencia }}
         </p>
         <div v-for="m in selected.motivos" :key="m.codigo" class="q-mb-md">
-          <strong>{{ label(m.codigo) }}</strong>
+          <strong>{{ refusalLabels[m.codigo] }}</strong>
           <p>{{ m.mensagem }}</p>
           <small>
             Observado: {{ m.valor_observado ?? "—" }} · Limite:

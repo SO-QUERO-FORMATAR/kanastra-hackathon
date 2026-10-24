@@ -70,6 +70,7 @@ test("edição exige revisão explícita e preserva versão", async ({ page }) =
     .getByText("Revisei os nove validadores e a precificação deste fundo.")
     .click();
   await page.getByRole("button", { name: "Salvar configuração" }).click();
+  await expect(page.getByText("Configuração salva com sucesso.")).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Salvar configuração" }),
   ).toBeDisabled();

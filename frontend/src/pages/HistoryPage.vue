@@ -2,7 +2,8 @@
 import { onMounted, ref } from "vue";
 import { api, type DTO } from "../api/client";
 import { useCursor } from "../composables/useCursor";
-import { money, dateTime, label } from "../utils";
+import { money, dateTime } from "../utils";
+import { statusLabel } from "../analysisStatus";
 import StatusBadge from "../components/StatusBadge.vue";
 import ErrorNotice from "../components/ErrorNotice.vue";
 import CursorNav from "../components/CursorNav.vue";
@@ -13,7 +14,7 @@ const { rows, loading, error, next, history, load, forward, back } = useCursor(
 );
 const latest = ref<DTO<"LoteDTO">>();
 const statuses = contract.components.schemas.StatusLote.enum.map((value) => ({
-  label: label(value),
+  label: statusLabel(value),
   value,
 }));
 onMounted(async () => {
@@ -109,7 +110,7 @@ const columns = [
     </div>
     <div class="metric">
       <div class="metric-label">
-        Barrados
+        Recusados
         <q-icon name="block" size="17px" />
       </div>
       <div class="metric-value">

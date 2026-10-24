@@ -70,9 +70,8 @@ docker compose -f compose.yaml -f compose.frontend.yaml --profile app up --build
 # Conferir os serviços: API, banco e frontend devem ficar healthy
 docker compose -f compose.yaml -f compose.frontend.yaml --profile app ps --all
 
-# Primeira instalação: carregar cadastro e regras do ANTECIPE
+# Primeira instalação: carregar a situação dos CNPJs utilizados, pois ainda não foi implementado uma API de verificação da situação cadastral de cada CNPJ
 docker compose -f compose.yaml -f compose.frontend.yaml --profile app exec api python -m antecipe.cli import-registry /inputs/cnpj_situacao_mock.csv
-docker compose -f compose.yaml -f compose.frontend.yaml --profile app exec api python -m antecipe.cli import-rules /inputs/validadores_antecipe.json
 ```
 
 Abra `http://localhost:5173` no navegador para usar a interface. A documentação da API está em `http://localhost:8000/docs`. Clique em **Nova importação**, selecione CSV/XLSX, envie os arquivos e clique em **Iniciar análise**. O ZIP do dataset deve ser extraído antes da seleção.

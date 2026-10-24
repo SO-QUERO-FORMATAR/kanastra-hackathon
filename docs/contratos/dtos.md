@@ -135,13 +135,13 @@ string
 
 | Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `situacoes_aceitas` | `Array<string>` | sim | — |
+| `situacoes_aceitas` | `Array<"ATIVA" \| "SUSPENSA" \| "INAPTA" \| "BAIXADA">` | sim | — |
 
 ## ParametrosTipoDTO
 
 | Campo | Tipo | Obrigatório | Descrição |
 |---|---|---|---|
-| `tipos_aceitos` | `Array<string>` | sim | — |
+| `tipos_aceitos` | `Array<"Duplicata" \| "Duplicata de Serviço" \| "Cheque" \| "CCB" \| "Nota Comercial">` | sim | — |
 
 ## ParametrosValorMinimoDTO
 

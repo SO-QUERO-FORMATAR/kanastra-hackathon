@@ -158,8 +158,8 @@ Os nove validadores são uma union discriminada por `codigo`. Todos devem aparec
 | Código | Parâmetros HTTP | Valores iniciais do arquivo entregue |
 |---|---|---|
 | CNPJ_SACADO_VALIDO | `{}` | ativo |
-| SITUACAO_CADASTRAL_SACADO | `situacoes_aceitas: string[]` | ativo, `["ATIVA"]` |
-| TIPO_RECEBIVEL | `tipos_aceitos: string[]` | ativo, `["Duplicata", "Duplicata de Serviço"]` |
+| SITUACAO_CADASTRAL_SACADO | Lista com uma ou mais opções: `ATIVA`, `SUSPENSA`, `INAPTA`, `BAIXADA` | ativo, `["ATIVA"]` |
+| TIPO_RECEBIVEL | Lista com uma ou mais opções: `Duplicata`, `Duplicata de Serviço`, `Cheque`, `CCB`, `Nota Comercial` | ativo, `["Duplicata", "Duplicata de Serviço"]` |
 | VALOR_MINIMO | `valor_minimo: string decimal` | ativo, `"100.0"` |
 | NAO_VENCIDA | `{}` | ativo |
 | PRAZO_MINIMO | `prazo_minimo_dias: integer >= 0` | inativo, 30 |
@@ -283,8 +283,8 @@ O bloco abaixo é JSON válido e autocontido. Os `$ref` são referências intern
   "BaseCadastralStatusResponse": {"type":"object","additionalProperties":false,"properties":{"disponivel":{"type":"boolean"},"versao":{"anyOf":[{"type":"string","format":"uuid"},{"type":"null"}]},"sha256":{"anyOf":[{"type":"string","pattern":"^[a-f0-9]{64}$"},{"type":"null"}]},"quantidade_cnpjs":{"type":"integer","minimum":0},"importado_em":{"anyOf":[{"type":"string","format":"date-time"},{"type":"null"}]}},"required":["disponivel","versao","sha256","quantidade_cnpjs","importado_em"]},
   "FundoDTO": {"type":"object","additionalProperties":false,"properties":{"id":{"type":"string","format":"uuid"},"nome":{"type":"string"},"cnpj":{"type":"string","pattern":"^[0-9]{14}$"},"configurado":{"type":"boolean"},"versao_regras_atual":{"anyOf":[{"type":"string","format":"uuid"},{"type":"null"}]}},"required":["id","nome","cnpj","configurado","versao_regras_atual"]},
   "ParametrosVaziosDTO": {"type":"object","additionalProperties":false,"properties":{},"required":[]},
-  "ParametrosSituacaoDTO": {"type":"object","additionalProperties":false,"properties":{"situacoes_aceitas":{"type":"array","items":{"type":"string","minLength":1},"minItems":1,"uniqueItems":true}},"required":["situacoes_aceitas"]},
-  "ParametrosTipoDTO": {"type":"object","additionalProperties":false,"properties":{"tipos_aceitos":{"type":"array","items":{"type":"string","minLength":1},"minItems":1,"uniqueItems":true}},"required":["tipos_aceitos"]},
+  "ParametrosSituacaoDTO": {"type":"object","additionalProperties":false,"properties":{"situacoes_aceitas":{"type":"array","items":{"type":"string","enum":["ATIVA","SUSPENSA","INAPTA","BAIXADA"]},"minItems":1,"uniqueItems":true}},"required":["situacoes_aceitas"]},
+  "ParametrosTipoDTO": {"type":"object","additionalProperties":false,"properties":{"tipos_aceitos":{"type":"array","items":{"type":"string","enum":["Duplicata","Duplicata de Serviço","Cheque","CCB","Nota Comercial"]},"minItems":1,"uniqueItems":true}},"required":["tipos_aceitos"]},
   "ParametrosValorMinimoDTO": {"type":"object","additionalProperties":false,"properties":{"valor_minimo":{"$ref":"#/components/schemas/DecimalNaoNegativo"}},"required":["valor_minimo"]},
   "ParametrosPrazoMinimoDTO": {"type":"object","additionalProperties":false,"properties":{"prazo_minimo_dias":{"type":"integer","minimum":0}},"required":["prazo_minimo_dias"]},
   "ParametrosPrazoMaximoDTO": {"type":"object","additionalProperties":false,"properties":{"prazo_maximo_dias":{"type":"integer","minimum":0}},"required":["prazo_maximo_dias"]},

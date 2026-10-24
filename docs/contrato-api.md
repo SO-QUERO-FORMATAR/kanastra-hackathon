@@ -141,8 +141,8 @@ Os nove validadores são uma union discriminada por `codigo`. Todos devem aparec
 | Código | Parâmetros HTTP | Valores iniciais do arquivo entregue |
 |---|---|---|
 | CNPJ_SACADO_VALIDO | `{}` | ativo |
-| SITUACAO_CADASTRAL_SACADO | `situacoes_aceitas: string[]` | ativo, `["ATIVA"]` |
-| TIPO_RECEBIVEL | `tipos_aceitos: string[]` | ativo, `["Duplicata", "Duplicata de Serviço"]` |
+| SITUACAO_CADASTRAL_SACADO | Lista com uma ou mais opções: `ATIVA`, `SUSPENSA`, `INAPTA`, `BAIXADA` | ativo, `["ATIVA"]` |
+| TIPO_RECEBIVEL | Lista com uma ou mais opções: `Duplicata`, `Duplicata de Serviço`, `Cheque`, `CCB`, `Nota Comercial` | ativo, `["Duplicata", "Duplicata de Serviço"]` |
 | VALOR_MINIMO | `valor_minimo: string decimal` | ativo, `"100.0"` |
 | NAO_VENCIDA | `{}` | ativo |
 | PRAZO_MINIMO | `prazo_minimo_dias: integer >= 0` | inativo, 30 |

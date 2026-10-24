@@ -376,10 +376,10 @@ export interface components {
         };
         ParametrosVaziosDTO: Record<string, never>;
         ParametrosSituacaoDTO: {
-            situacoes_aceitas: string[];
+            situacoes_aceitas: ("ATIVA" | "SUSPENSA" | "INAPTA" | "BAIXADA")[];
         };
         ParametrosTipoDTO: {
-            tipos_aceitos: string[];
+            tipos_aceitos: ("Duplicata" | "Duplicata de Serviço" | "Cheque" | "CCB" | "Nota Comercial")[];
         };
         ParametrosValorMinimoDTO: {
             valor_minimo: components["schemas"]["DecimalNaoNegativo"];

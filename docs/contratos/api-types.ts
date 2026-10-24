@@ -79,11 +79,11 @@ export type FundoDTO = {
 export type ParametrosVaziosDTO = Record<string, never>;
 
 export type ParametrosSituacaoDTO = {
-  "situacoes_aceitas": Array<string>;
+  "situacoes_aceitas": Array<"ATIVA" | "SUSPENSA" | "INAPTA" | "BAIXADA">;
 };
 
 export type ParametrosTipoDTO = {
-  "tipos_aceitos": Array<string>;
+  "tipos_aceitos": Array<"Duplicata" | "Duplicata de Serviço" | "Cheque" | "CCB" | "Nota Comercial">;
 };
 
 export type ParametrosValorMinimoDTO = {

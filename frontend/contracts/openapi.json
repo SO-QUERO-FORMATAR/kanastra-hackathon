@@ -3328,7 +3328,12 @@
             "type": "array",
             "items": {
               "type": "string",
-              "minLength": 1
+              "enum": [
+                "ATIVA",
+                "SUSPENSA",
+                "INAPTA",
+                "BAIXADA"
+              ]
             },
             "minItems": 1,
             "uniqueItems": true
@@ -3346,7 +3351,13 @@
             "type": "array",
             "items": {
               "type": "string",
-              "minLength": 1
+              "enum": [
+                "Duplicata",
+                "Duplicata de Serviço",
+                "Cheque",
+                "CCB",
+                "Nota Comercial"
+              ]
             },
             "minItems": 1,
             "uniqueItems": true

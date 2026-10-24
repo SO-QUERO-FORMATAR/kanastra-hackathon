@@ -10,8 +10,23 @@ import ErrorNotice from "../components/ErrorNotice.vue";
 import ActionErrorDialog from "../components/ActionErrorDialog.vue";
 import CursorNav from "../components/CursorNav.vue";
 import examples from "../../contracts/examples.json";
+import contract from "../../contracts/openapi.json";
 import { ruleFieldErrors, validateRules } from "../ruleValidation";
 const $q = useQuasar();
+const parameterOptions: Record<string, { label: string; value: string }[]> = {
+  situacoes_aceitas:
+    contract.components.schemas.ParametrosSituacaoDTO.properties.situacoes_aceitas.items.enum.map(
+      (value) => ({ label: label(value), value }),
+    ),
+  tipos_aceitos:
+    contract.components.schemas.ParametrosTipoDTO.properties.tipos_aceitos.items.enum.map(
+      (value) => ({ label: value, value }),
+    ),
+};
+const parameterLabels: Record<string, string> = {
+  situacoes_aceitas: "Situações aceitas",
+  tipos_aceitos: "Tipos de recebível aceitos",
+};
 const importFile = ref<File | null>(null),
   importing = ref(false),
   importError = shallowRef<unknown>(null);
@@ -444,16 +459,16 @@ onMounted(async () => {
             <div class="rule-fields">
               <template v-for="(value, key) in v.parametros" :key="key">
                 <q-select
-                  v-if="Array.isArray(value)"
+                  v-if="parameterOptions[String(key)]"
                   outlined
                   dense
                   multiple
-                  use-input
                   use-chips
-                  new-value-mode="add-unique"
-                  :model-value="value"
-                  :options="[]"
-                  :label="label(String(key)) + ' (Enter para adicionar)'"
+                  emit-value
+                  map-options
+                  :model-value="Array.isArray(value) ? value : []"
+                  :options="parameterOptions[String(key)]"
+                  :label="parameterLabels[String(key)]"
                   :disable="!v.ativo || historical || saving"
                   :error="
                     !!fieldError(`/validadores/${index}/parametros/${key}`)

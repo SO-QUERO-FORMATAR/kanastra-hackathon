@@ -230,7 +230,7 @@ No acompanhamento, observe o status do lote:
 
 1. Na pendência, clique em **Configurar fundo**.
 2. Em **Fundos e regras**, revise os nove validadores, seus parâmetros e a precificação do fundo selecionado.
-3. Preencha os parâmetros dos validadores ativos. Os campos desativados não precisam ser preenchidos nem validados; a precificação continua obrigatória.
+3. Preencha os parâmetros dos validadores ativos. Para situação cadastral, selecione Ativa, Suspensa, Inapta e/ou Baixada. Para tipo de recebível, selecione Duplicata, Duplicata de Serviço, Cheque, CCB e/ou Nota Comercial. Esses campos aceitam apenas as opções da lista. Os campos desativados não precisam ser preenchidos nem validados; a precificação continua obrigatória.
 4. Marque **Revisei os nove validadores e a precificação deste fundo.**
 5. Clique em **Salvar configuração**.
 6. Repita para cada fundo pendente, usando critérios definidos para aquele fundo.

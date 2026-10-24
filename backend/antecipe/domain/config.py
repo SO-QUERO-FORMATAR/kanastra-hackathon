@@ -5,6 +5,12 @@ from types import MappingProxyType
 from typing import Any, Mapping
 
 
+PARAMETER_OPTIONS = {
+    "situacoes_aceitas": ("ATIVA", "SUSPENSA", "INAPTA", "BAIXADA"),
+    "tipos_aceitos": ("Duplicata", "Duplicata de Serviço", "Cheque", "CCB", "Nota Comercial"),
+}
+
+
 PARAMETERS: dict[str, dict[str, type]] = {
     "CNPJ_SACADO_VALIDO": {},
     "NAO_VENCIDA": {},
@@ -64,6 +70,12 @@ class Configuration:
                         not val or any(type(v) is not str or not v for v in val) or len(set(val)) != len(val)
                     ):
                         raise ValueError("Lista inválida")
+                    if (
+                        key in PARAMETER_OPTIONS
+                        and isinstance(val, list)
+                        and any(v not in PARAMETER_OPTIONS[key] for v in val)
+                    ):
+                        raise ValueError(f"{key}: use somente {', '.join(PARAMETER_OPTIONS[key])}")
                     if key in {"valor_minimo", "percentual_maximo"}:
                         number = exact_decimal(val)
                         if key == "percentual_maximo" and number > 100:

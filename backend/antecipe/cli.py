@@ -4,6 +4,7 @@ import argparse
 import json
 import logging
 from pathlib import Path
+from time import perf_counter
 
 from antecipe.settings import Settings
 from antecipe.adapters.database import make_engine
@@ -12,6 +13,7 @@ from antecipe.adapters.admin import PgAdmin
 from antecipe.adapters.worker import Worker
 from antecipe.application.admin import Admin
 from antecipe.application.worker import serve
+from antecipe.observability import configure_logging, event
 
 
 def batch_size(value):
@@ -31,7 +33,9 @@ def main(argv=None):
     worker.add_argument("--once", action="store_true")
     worker.add_argument("--batch-size", type=batch_size, default=2000)
     args = parser.parse_args(argv)
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
+    configure_logging("antecipe-worker" if args.command == "worker" else "antecipe-cli")
+    started = perf_counter()
+    event("cli.command.started", operation=args.command)
     engine = make_engine(Settings())
     try:
         if args.command == "migrate":
@@ -44,6 +48,17 @@ def main(argv=None):
             print(json.dumps({"fundo_id": fid, "versao": version}))
         elif args.command == "worker":
             serve(Worker(engine, batch_size=args.batch_size), once=args.once)
+    except Exception as exc:
+        event(
+            "cli.command.failed",
+            level=logging.ERROR,
+            operation=args.command,
+            error=exc,
+            duration_ms=(perf_counter() - started) * 1000,
+        )
+        raise
+    else:
+        event("cli.command.finished", operation=args.command, duration_ms=(perf_counter() - started) * 1000)
     finally:
         engine.dispose()
 

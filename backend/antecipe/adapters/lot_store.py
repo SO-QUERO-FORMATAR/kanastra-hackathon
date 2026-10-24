@@ -10,6 +10,7 @@ from antecipe.adapters.contract import validate
 from antecipe.adapters.idempotency import execute
 from antecipe.adapters.views import lot_dto, file_dto, require
 from antecipe.application.errors import AppError
+from antecipe.observability import observed
 
 MAX_BYTES = 67108864
 
@@ -18,6 +19,14 @@ class LotStore:
     def __init__(self, engine, storage: Path):
         self.engine, self.storage = engine, storage
 
+    @observed(
+        "lot.create",
+        summarize=lambda result: {
+            "lot_id": result[0]["lote"]["id"],
+            "file_count": len(result[0]["arquivos"]),
+            "replayed": result[1],
+        },
+    )
     def create(self, body, key):
         validate("CriarLoteRequest", body)
         items = body["arquivos"]
@@ -64,6 +73,15 @@ class LotStore:
 
             return execute(c, "POST /lotes", key, body, 201, action)
 
+    @observed(
+        "lot.upload",
+        identifiers={"lid": "lot_id"},
+        summarize=lambda result: {
+            "file_count": len(result[0]["arquivos"]),
+            "replayed": result[1],
+            "byte_count": sum(item["bytes_recebidos"] for item in result[0]["arquivos"]),
+        },
+    )
     def upload(self, lid, ids, contents, key):
         if (
             len(ids) > 3
@@ -140,6 +158,11 @@ class LotStore:
                 c, f"POST /lotes/{lid}/batches", key, {"arquivo_ids": ids, "hashes": hashes}, 201, action
             )
 
+    @observed(
+        "lot.enqueue",
+        identifiers={"lid": "lot_id"},
+        summarize=lambda result: {"execution_id": result[0]["execucao_id"], "replayed": result[1]},
+    )
     def enqueue(self, lid, key):
         with self.engine.begin() as c:
 

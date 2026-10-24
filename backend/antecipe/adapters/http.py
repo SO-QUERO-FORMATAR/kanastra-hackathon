@@ -3,6 +3,8 @@ import logging
 from datetime import datetime, timezone
 from tempfile import NamedTemporaryFile
 from uuid import uuid4
+from time import perf_counter
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,6 +25,7 @@ from antecipe.adapters.admin import publish
 from antecipe.adapters.schema import funds, rules
 from antecipe.adapters.idempotency import execute
 from antecipe.application.errors import AppError
+from antecipe.observability import configure_logging, event, log_context
 
 CAPACITIES = dict(
     versao_contrato="1.0.0",
@@ -41,9 +44,21 @@ CAPACITIES = dict(
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
+    configure_logging("antecipe-api")
     settings = settings or Settings()
     engine = make_engine(settings)
-    app = FastAPI(title="Antecipe", version="1.0.0")
+
+    @asynccontextmanager
+    async def lifespan(app):
+        # Uvicorn may apply its own logging configuration after receiving an app instance.
+        configure_logging("antecipe-api")
+        event("service.started")
+        try:
+            yield
+        finally:
+            event("service.stopped")
+
+    app = FastAPI(title="Antecipe", version="1.0.0", lifespan=lifespan)
     app.state.settings = settings
     app.state.engine = engine
     store = LotStore(engine, settings.storage)
@@ -56,7 +71,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         expose_headers=["X-Request-Id", "Idempotency-Replayed", "Retry-After"],
     )
 
-    def error_response(request, error):
+    def error_response(request, error, cause=None):
+        event(
+            "http.failed",
+            level=logging.ERROR if error.status >= 500 else logging.WARNING,
+            operation=getattr(request.state, "operation", None),
+            error_code=error.code,
+            status_code=error.status,
+            retry=error.retry,
+            error=cause if cause is not None else error,
+        )
         headers = {"Retry-After": "2"} if error.retry else {}
         return JSONResponse(
             {"request_id": request.state.request_id, "erro": error.dto()},
@@ -67,17 +91,36 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.middleware("http")
     async def correlation(request, call_next):
         request.state.request_id = str(uuid4())
-        try:
-            response = await call_next(request)
-        except AppError as exc:
-            response = error_response(request, exc)
-        except SQLAlchemyError:
-            response = error_response(
-                request, AppError("INFRAESTRUTURA_INDISPONIVEL", "Banco indisponível", 503, True)
+        start = perf_counter()
+        with log_context(request_id=request.state.request_id):
+            try:
+                response = await call_next(request)
+            except AppError as exc:
+                response = error_response(request, exc)
+            except SQLAlchemyError as exc:
+                response = error_response(
+                    request,
+                    AppError("INFRAESTRUTURA_INDISPONIVEL", "Banco indisponível", 503, True),
+                    cause=exc,
+                )
+            except Exception as exc:
+                response = error_response(
+                    request, AppError("ERRO_INTERNO", "Erro interno", 500, True), cause=exc
+                )
+            operation = getattr(request.state, "operation", None)
+            level = logging.DEBUG if operation in {"verificarVida", "verificarProntidao"} else logging.INFO
+            event(
+                "http.finished",
+                level=level
+                if response.status_code < 400
+                else logging.ERROR
+                if response.status_code >= 500
+                else logging.WARNING,
+                operation=operation,
+                status_code=response.status_code,
+                duration_ms=(perf_counter() - start) * 1000,
+                replayed=response.headers.get("Idempotency-Replayed") == "true",
             )
-        except Exception:
-            logging.getLogger("antecipe.api").exception("request_id=%s", request.state.request_id)
-            response = error_response(request, AppError("ERRO_INTERNO", "Erro interno", 500, True))
         response.headers["X-Request-Id"] = request.state.request_id
         return response
 
@@ -140,11 +183,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                         "configuracao": rule["configuration"],
                     }
 
-                return execute(c, f"PUT /fundos/{fid}/regras", key, body, 200, action)
+                result = execute(c, f"PUT /fundos/{fid}/regras", key, body, 200, action)
+            event("rules.publish.finished", fund_id=fid, rule_version=result[0]["versao"], replayed=result[1])
+            return result
         return queries.get(op, paths, q), False
 
     def make_endpoint(operation):
-        async def endpoint(request: Request):
+        async def handle(request: Request):
             params = operation.get("parameters", [])
             q = {}
             key = None
@@ -235,6 +280,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 status_code=status,
                 headers={"Idempotency-Replayed": "true" if replay else "false"} if key else {},
             )
+
+        async def endpoint(request: Request):
+            request.state.operation = operation["operationId"]
+            with log_context(
+                operation=operation["operationId"],
+                lot_id=request.path_params.get("lote_id"),
+                file_id=request.path_params.get("arquivo_id"),
+                fund_id=request.path_params.get("fundo_id"),
+            ):
+                return await handle(request)
 
         return endpoint
 

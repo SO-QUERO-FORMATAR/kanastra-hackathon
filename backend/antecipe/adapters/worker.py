@@ -1,4 +1,6 @@
 import logging
+from collections import Counter
+from time import perf_counter
 from decimal import Decimal
 from pathlib import Path
 from uuid import uuid4
@@ -24,8 +26,7 @@ from antecipe.adapters.readers import read_rows, parse_row, as_title, FileError
 from antecipe.application.errors import AppError
 from antecipe.domain.config import Configuration
 from antecipe.domain.entities import Origin, normalize_document, document_root
-
-log = logging.getLogger("antecipe.worker")
+from antecipe.observability import event, observed
 
 
 class Worker:
@@ -55,6 +56,12 @@ class Worker:
                 acquired = owner.scalar(text("select pg_try_advisory_lock(:key)"), {"key": key})
                 owner.commit()
                 if not acquired:
+                    event(
+                        "worker.lock_busy",
+                        level=logging.DEBUG,
+                        lot_id=candidate["lot_id"],
+                        execution_id=candidate["id"],
+                    )
                     continue
                 try:
                     with owner.begin():
@@ -72,10 +79,24 @@ class Worker:
                             .where(executions.c.id == job["id"])
                             .values(status="RUNNING", owner=str(uuid4()), heartbeat=func.now())
                         )
+                    event(
+                        "worker.claimed",
+                        lot_id=job["lot_id"],
+                        execution_id=job["id"],
+                        recovered=job["status"] == "RUNNING",
+                        checkpoint=job["checkpoint"],
+                    )
                     try:
                         self.process_lot(job["lot_id"], job["id"])
-                    except Exception:
-                        log.exception("Falha técnica lote=%s execução=%s", job["lot_id"], job["id"])
+                    except Exception as exc:
+                        event(
+                            "worker.failed",
+                            level=logging.ERROR,
+                            error=exc,
+                            lot_id=job["lot_id"],
+                            execution_id=job["id"],
+                            retry=True,
+                        )
                         with self.engine.begin() as c:
                             error = AppError("ERRO_INTERNO", "Falha técnica; retome o lote", 500, True).dto()
                             c.execute(
@@ -93,6 +114,11 @@ class Worker:
                     owner.commit()
         return False
 
+    @observed(
+        "worker.lot",
+        identifiers={"lid": "lot_id", "eid": "execution_id"},
+        summarize=lambda _: {"outcome": "observed"},
+    )
     def process_lot(self, lid, eid):
         with self.engine.connect() as c:
             lot = c.execute(select(lots).where(lots.c.id == lid)).mappings().one()
@@ -122,6 +148,7 @@ class Worker:
             )
         for file in fs:
             while True:
+                chunk_started = perf_counter()
                 with self.engine.begin() as c:
                     # The result/checkpoint commit is the only progress boundary.
                     checkpoint = c.scalar(
@@ -141,6 +168,7 @@ class Worker:
                     )
                     if not rows:
                         break
+                    event("worker.checkpoint", level=logging.DEBUG, file_id=file["id"], checkpoint=checkpoint)
                     titles, diagnostics = [], []
                     for row in rows:
                         parsed = row["payload"]
@@ -211,18 +239,23 @@ class Worker:
                         if docs
                         else {}
                     )
-                    PgProcessor(self.engine).process(
+                    decisions = PgProcessor(self.engine).process(
                         titles, context, situations, connection=c, execution_id=eid, diagnostics=diagnostics
                     )
                     c.execute(update(files).where(files.c.id == file["id"]).values(status="ANALISANDO"))
                     self.event("before_commit")
                 self.event("after_commit")
-                log.info(
-                    "lote=%s arquivo=%s fase=ANALISE linha=%s cadastro=%s",
-                    lid,
-                    file["id"],
-                    rows[-1]["line"],
-                    load_id,
+                event(
+                    "worker.chunk_committed",
+                    file_id=file["id"],
+                    registry_version=load_id,
+                    checkpoint=rows[-1]["sequence"],
+                    row_count=len(rows),
+                    approved_count=sum(d["status"] == "APROVADO" for d in decisions),
+                    rejected_count=sum(d["status"] == "BARRADO" for d in decisions),
+                    error_count=len(diagnostics),
+                    reason_counts=dict(Counter(r["codigo"] for d in decisions for r in d["motivos"])),
+                    duration_ms=(perf_counter() - chunk_started) * 1000,
                 )
             with self.engine.begin() as c:
                 errors = c.scalar(
@@ -235,6 +268,12 @@ class Worker:
                     .where(files.c.id == file["id"])
                     .values(status="CONCLUIDO_COM_ERROS" if errors else "CONCLUIDO", completed_at=func.now())
                 )
+            event(
+                "worker.file_finished",
+                file_id=file["id"],
+                error_count=errors,
+                outcome="CONCLUIDO_COM_ERROS" if errors else "CONCLUIDO",
+            )
         with self.engine.begin() as c:
             errors = c.scalar(
                 select(func.count())
@@ -253,7 +292,18 @@ class Worker:
             c.execute(
                 update(executions).where(executions.c.id == eid).values(status="DONE", heartbeat=func.now())
             )
+        event(
+            "worker.completed",
+            file_count=len(fs),
+            error_count=errors,
+            outcome="CONCLUIDO_COM_ERROS" if errors else "CONCLUIDO",
+        )
 
+    @observed(
+        "worker.index",
+        identifiers={"lid": "lot_id", "eid": "execution_id"},
+        summarize=lambda ready: {"outcome": "ready" if ready else "FALHOU"},
+    )
     def index(self, lid, eid):
         with self.engine.begin() as c:
             fs = (
@@ -273,6 +323,7 @@ class Worker:
         read_count = 0
         fund_cache = {}
         for file in fs:
+            event("worker.file_started", file_id=file["id"])
             batch = []
             sequence = 0
             try:
@@ -295,6 +346,13 @@ class Worker:
                                 )
                             )
                             c.execute(update(executions).where(executions.c.id == eid).values(status="DONE"))
+                        event(
+                            "worker.limit_exceeded",
+                            level=logging.WARNING,
+                            file_id=file["id"],
+                            row_count=read_count,
+                            error_code="LIMITE_LOTE_EXCEDIDO",
+                        )
                         return False
                     parsed = parse_row(raw)
                     doc = parsed["fund_document"]
@@ -327,6 +385,7 @@ class Worker:
                         .where(files.c.id == file["id"])
                         .values(status="PRONTO", total_lines=sequence, error=None)
                     )
+                event("worker.file_indexed", file_id=file["id"], row_count=sequence)
             except FileError as exc:
                 with self.engine.begin() as c:
                     c.execute(delete(staging).where(staging.c.file_id == file["id"]))
@@ -339,6 +398,13 @@ class Worker:
                             error=AppError("ESTRUTURA_ARQUIVO_INVALIDA", str(exc)).dto(),
                         )
                     )
+                event(
+                    "worker.file_failed",
+                    level=logging.WARNING,
+                    file_id=file["id"],
+                    error_code="ESTRUTURA_ARQUIVO_INVALIDA",
+                    error=exc,
+                )
         with self.engine.begin() as c:
             valid = c.scalar(
                 select(func.count())
@@ -346,6 +412,7 @@ class Worker:
                 .where(files.c.lot_id == lid, files.c.status == "PRONTO")
             )
             if not valid:
+                event("worker.no_valid_files", level=logging.WARNING, error_code="ESTRUTURA_ARQUIVO_INVALIDA")
                 c.execute(
                     update(lots)
                     .where(lots.c.id == lid)
@@ -377,12 +444,26 @@ class Worker:
         with self.engine.begin() as c:
             c.execute(insert(staging), batch)
             c.execute(update(lots).where(lots.c.id == lid).values(lines_read=count, updated_at=func.now()))
+        event(
+            "worker.stage_committed",
+            level=logging.DEBUG,
+            lot_id=lid,
+            file_id=batch[0]["file_id"],
+            row_count=len(batch),
+            checkpoint=count,
+        )
 
+    @observed(
+        "worker.freeze",
+        identifiers={"lid": "lot_id", "eid": "execution_id"},
+        summarize=lambda ready: {"outcome": "ready" if ready else "blocked"},
+    )
     def freeze(self, lid, eid):
         with self.engine.begin() as c:
             c.execute(text("select pg_advisory_xact_lock(:key)"), {"key": REGISTRY_LOCK})
             lot = c.execute(select(lots).where(lots.c.id == lid).with_for_update()).mappings().one()
             if lot["load_id"]:
+                event("worker.snapshot_reused", registry_version=lot["load_id"], recovered=True)
                 c.execute(update(lots).where(lots.c.id == lid).values(status="ANALISANDO"))
                 return True
             c.execute(delete(pending).where(pending.c.lot_id == lid))
@@ -446,6 +527,12 @@ class Worker:
                             field,
                         )
             if problems:
+                event(
+                    "worker.blocking",
+                    level=logging.WARNING,
+                    pending_count=len(problems),
+                    reason_counts=dict(Counter(p["code"] for p in problems)),
+                )
                 c.execute(insert(pending), problems)
                 c.execute(
                     update(lots)
@@ -468,5 +555,12 @@ class Worker:
                 update(lots)
                 .where(lots.c.id == lid)
                 .values(status="ANALISANDO", load_id=load, updated_at=func.now())
+            )
+        for fund in configured:
+            event(
+                "worker.rules_frozen",
+                fund_id=fund["id"],
+                rule_version=fund["active_rule"],
+                registry_version=load,
             )
         return True

@@ -157,6 +157,13 @@ usam o prefixo `/api/v1`; DTOs completos estão no contrato e no Swagger.
 
 ## Operação e aceitação
 
+API, worker e CLI emitem logs JSON estruturados em stderr, com schema versionado,
+correlação por IDs internos, decisões e checkpoints, sem conteúdo das notas ou
+mensagens de exceção. Consulte o [contrato de logs e guia de investigação](../docs/observability/README.md)
+para catálogo de eventos, níveis, rotação, retenção e limites de privacidade.
+`LOG_LEVEL`, `APP_ENV` e `APP_REVISION` configuram a observabilidade sem alterar o
+contrato HTTP ou as regras de processamento.
+
 `/health/live` verifica o processo; `/health/ready` verifica PostgreSQL e escrita
 no storage. Base/regras ausentes são informadas por cadastro/pendências, sem fazer
 a API parecer indisponível. Erros têm `X-Request-Id`, envelope do contrato e

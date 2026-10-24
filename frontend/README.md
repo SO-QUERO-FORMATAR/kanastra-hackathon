@@ -44,6 +44,8 @@ As opções de situação cadastral são **Ativa, Suspensa, Inapta e Baixada**; 
 
 Dinheiro é mantido em strings; nenhuma decisão financeira é calculada no frontend. Não há exportação, cancelamento, edição de decisão ou importação cadastral pelo navegador porque essas operações não existem no contrato.
 
+Notas recusadas exibem a lista completa de requisitos não atendidos na tabela e no detalhe, com as mensagens fornecidas pelo backend e os valores da nota e da configuração aplicada.
+
 ## Validação
 
 ```sh

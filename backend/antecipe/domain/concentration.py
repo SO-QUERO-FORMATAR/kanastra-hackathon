@@ -1,5 +1,5 @@
 from collections import defaultdict
-from decimal import Decimal, localcontext
+from decimal import Decimal, ROUND_CEILING, localcontext
 from typing import Iterable, Mapping
 
 from antecipe.domain.config import Configuration
@@ -42,10 +42,35 @@ def concentration_reasons(
             projected = exposures.get(keys[side], Decimal(0)) + title.nominal
             limit = pl * Decimal(rule.parameters["percentual_maximo"]) / 100
             if projected > limit:
+                maximum = str(rule.parameters["percentual_maximo"]).replace(".", ",")
+                if pl > 0:
+                    # Round upward only for display, so a real excess never appears equal to the limit.
+                    percent = projected / pl * 100
+                    with localcontext() as display_context:
+                        display_context.prec = max(38, percent.adjusted() + 10)
+                        percent = percent.quantize(Decimal("0.00000001"), rounding=ROUND_CEILING)
+                    displayed = format(percent, "f").rstrip("0").rstrip(".").replace(".", ",")
+                    if side == "SACADO":
+                        message = (
+                            "Concentração acima do limite: com esta nota, o sacado "
+                            f"(raiz do CNPJ {keys[side][2]}) chegaria a {displayed}% "
+                            f"do patrimônio do fundo; o limite é {maximum}%."
+                        )
+                    else:
+                        message = (
+                            "Concentração do cedente acima do limite: o cedente chegaria a "
+                            f"{displayed}% do patrimônio do fundo; o limite é {maximum}%."
+                        )
+                else:
+                    message = (
+                        f"Concentração {'do sacado' if side == 'SACADO' else 'do cedente'} acima do limite: "
+                        "o patrimônio do fundo é zero ou negativo, portanto não é possível calcular "
+                        f"o percentual; o limite configurado é {maximum}%."
+                    )
                 reasons.append(
                     Reason(
                         rule.code,
-                        f"Exposição projetada {projected} excede limite {limit}.",
+                        message,
                         str(projected),
                         str(limit),
                     )

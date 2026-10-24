@@ -229,6 +229,13 @@ usam o prefixo `/api/v1`; DTOs completos estão no contrato e no Swagger.
 
 ## Arquivos, precisão e limites
 
+As recusas incluem todos os requisitos não atendidos das regras ativas, com mensagens
+para o cliente e os dados da nota, limites e percentuais aplicáveis. Valores monetários
+nas mensagens usam reais e datas usam `dd/mm/aaaa`; os campos estruturados do contrato
+mantêm seu formato original. `NAO_VENCIDA` reprova vencimento igual ou anterior à aquisição.
+Regras desativadas não geram motivos. Resultados já persistidos preservam suas mensagens;
+os novos textos são gravados nas próximas análises.
+
 - CSV UTF-8 com/sem BOM, delimitador `;`, decimal brasileiro, datas `dd/mm/aaaa`.
   Linhas vazias não renumeram as posteriores; campos entre aspas podem conter
   quebras de linha e a origem aponta para a linha física inicial do registro.

@@ -86,7 +86,7 @@ Não avançar com falhas, testes críticos ignorados ou regressões sem resoluç
 
 **Implementação:** CNPJ, situação cadastral, tipo de recebível, valor mínimo, não vencida, prazo mínimo e máximo; cada regra retorna código e dados para explicação parametrizada. Receber situação cadastral por uma porta, sem consultar o banco dentro do domínio.
 
-**Testes:** sucesso e falha para cada regra, incluindo limites exatos; valor mínimo menos um centavo; prazo mínimo/máximo menos um, igual e mais um dia; prazo zero permitido por `NAO_VENCIDA`, mas sujeito a `PRAZO_MINIMO`; cadastro ausente, aceito e não aceito; desativação de cada regra impede seu barramento. Cobrir VAL01–VAL07 e CFG01.
+**Testes:** sucesso e falha para cada regra, incluindo limites exatos; valor mínimo menos um centavo; prazo mínimo/máximo menos um, igual e mais um dia; prazo zero ou negativo reprovado por `NAO_VENCIDA`; prazo positivo sujeito a `PRAZO_MINIMO`; cadastro ausente, aceito e não aceito; desativação de cada regra impede seu barramento. Cobrir VAL01–VAL07 e CFG01.
 
 **Conclusão:** todos os códigos são os oficiais e mensagens refletem os parâmetros efetivamente aplicados.
 

@@ -256,7 +256,16 @@ function missingRules(result: DTO<"ResultadoDTO">) {
       </template>
       <template #body-cell-motivos="p">
         <q-td :props="p">
-          <span :class="{ 'text-negative': missingRules(p.row) }">
+          <ul
+            v-if="p.row.status === 'BARRADO' && p.row.motivos.length"
+            class="refusal-reasons"
+            aria-label="Requisitos não atendidos"
+          >
+            <li v-for="reason in p.row.motivos" :key="reason.codigo">
+              {{ reason.mensagem }}
+            </li>
+          </ul>
+          <span v-else :class="{ 'text-negative': missingRules(p.row) }">
             {{ resultMessage(p.row) }}
           </span>
         </q-td>
@@ -315,6 +324,9 @@ function missingRules(result: DTO<"ResultadoDTO">) {
         <p class="q-mt-md">
           Linha {{ selected.linha }} · sequência {{ selected.sequencia }}
         </p>
+        <h3 v-if="selected.motivos.length">
+          Requisitos não atendidos ({{ selected.motivos.length }})
+        </h3>
         <div v-for="m in selected.motivos" :key="m.codigo" class="q-mb-md">
           <strong>{{ refusalLabels[m.codigo] }}</strong>
           <p>{{ m.mensagem }}</p>
@@ -351,3 +363,16 @@ function missingRules(result: DTO<"ResultadoDTO">) {
     </q-card>
   </q-dialog>
 </template>
+
+<style scoped>
+.refusal-reasons {
+  margin: 0;
+  padding-left: 1.25rem;
+  min-width: 260px;
+  max-width: 440px;
+  white-space: normal;
+}
+.refusal-reasons li + li {
+  margin-top: 0.5rem;
+}
+</style>

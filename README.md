@@ -10,6 +10,34 @@ O projeto é dividido em:
 
 O MVP local não exige login. A instalação abaixo usa a API real; o modo visual com dados simulados é opcional e está descrito ao final.
 
+## Início rápido — frontend + backend local
+
+Com Git instalado, Docker em execução e o repositório clonado, abra o terminal **na raiz do projeto** (a pasta que contém `compose.yaml` e `compose.frontend.yaml`). Use uma branch com as pastas `frontend/` e `backend/`; para testar este PR antes do merge, use `work`.
+
+```sh
+# Subir frontend, API, worker, PostgreSQL e executar as migrações
+docker compose -f compose.yaml -f compose.frontend.yaml --profile app up --build -d
+
+# Conferir os serviços: API, banco e frontend devem ficar healthy
+docker compose -f compose.yaml -f compose.frontend.yaml --profile app ps --all
+
+# Primeira instalação: carregar cadastro e regras do ANTECIPE
+docker compose -f compose.yaml -f compose.frontend.yaml --profile app exec api python -m antecipe.cli import-registry /inputs/cnpj_situacao_mock.csv
+docker compose -f compose.yaml -f compose.frontend.yaml --profile app exec api python -m antecipe.cli import-rules /inputs/validadores_antecipe.json
+```
+
+Abra `http://localhost:5173` no navegador para usar a interface. A documentação da API está em `http://localhost:8000/docs`. Clique em **Nova importação**, selecione CSV/XLSX, envie os arquivos e clique em **Iniciar análise**. O ZIP do dataset deve ser extraído antes da seleção.
+
+Não é necessário instalar Node.js ou Python no computador para esse fluxo. O Compose deixa o modo simulado desativado e conecta a interface à API real. A carga inicial configura somente ANTECIPE; configure os demais fundos pela interface quando houver pendências.
+
+Para encerrar sem apagar o banco e o histórico:
+
+```sh
+docker compose -f compose.yaml -f compose.frontend.yaml --profile app down
+```
+
+O tutorial detalhado abaixo cobre os pré-requisitos, a primeira importação e a solução de problemas.
+
 ## 1. Instalar os pré-requisitos
 
 Para executar todos os componentes em containers, instale:

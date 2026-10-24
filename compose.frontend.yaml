@@ -1,0 +1,61 @@
+# Merge with the backend's supplied compose.yaml.
+# BACKEND_ROOT is the directory containing backend/Dockerfile and files/.
+services:
+  db:
+    volumes:
+      - type: bind
+        source: ${BACKEND_ROOT:-.}/backend/init-test.sql
+        target: /docker-entrypoint-initdb.d/test.sql
+        read_only: true
+        bind:
+          create_host_path: false
+  migrate:
+    build:
+      context: ${BACKEND_ROOT:-.}
+      dockerfile: backend/Dockerfile
+  api:
+    build:
+      context: ${BACKEND_ROOT:-.}
+      dockerfile: backend/Dockerfile
+    volumes:
+      - type: bind
+        source: ${BACKEND_ROOT:-.}/files
+        target: /inputs
+        read_only: true
+        bind:
+          create_host_path: false
+  worker:
+    build:
+      context: ${BACKEND_ROOT:-.}
+      dockerfile: backend/Dockerfile
+  frontend:
+    profiles: [app]
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:5173:5173"
+    environment:
+      VITE_DEMO_MODE: "false"
+      VITE_API_BASE_URL: /api/v1
+      API_PROXY_TARGET: http://api:8000
+    volumes:
+      - ./frontend/src:/app/src:ro
+      - ./frontend/contracts:/app/contracts:ro
+      - ./frontend/index.html:/app/index.html:ro
+      - ./frontend/vite.config.ts:/app/vite.config.ts:ro
+      - ./frontend/tsconfig.json:/app/tsconfig.json:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          CMD,
+          node,
+          -e,
+          "fetch('http://127.0.0.1:5173/api/v1/health/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20

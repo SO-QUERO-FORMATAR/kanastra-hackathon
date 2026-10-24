@@ -45,7 +45,7 @@ Fundos configurados são analisados mesmo quando outros ainda não têm regras. 
 
 ### O que ficou de fora
 
-Autenticação e perfis de acesso, integração com uma fonte cadastral externa em tempo real, importação cadastral pelo navegador, exportação de resultados, cancelamento de lotes e edição de decisões. O cadastro deste MVP é carregado por CLI a partir do CSV fornecido; a entrega está preparada para demonstração local com Docker.
+Aviso: O cadastro deste MVP é carregado por CLI a partir do CSV fornecido; a entrega está preparada para demonstração local com Docker.
 
 A aceitação integral do dataset oficial permanece pendente: faltam configurações de 17 fundos, há inconsistências no gabarito e não foi informado o estado inicial de exposições/aprovações. Os testes automatizados cobrem os fluxos implementados, incluindo persistência e processamento com PostgreSQL; essa cobertura não substitui a aceitação dos insumos oficiais. Veja [operação e aceitação](backend/README.md#operação-e-aceitação).
 
@@ -75,7 +75,7 @@ docker compose -f compose.yaml -f compose.frontend.yaml --profile app exec api p
 docker compose -f compose.yaml -f compose.frontend.yaml --profile app exec api python -m antecipe.cli import-rules /inputs/validadores_antecipe.json
 ```
 
-Abra `http://localhost:5173` no navegador para usar a interface. A documentação da API está em `http://localhost:8000/docs`. Clique em **Nova importação**, selecione CSV/XLSX, envie os arquivos e clique em **Iniciar análise**. O ZIP do dataset deve ser extraído antes da seleção.
+Abra `http://localhost:5173` no navegador para usar a interface. Com a API em execução, acesse a [documentação interativa no Swagger](http://localhost:8000/docs). Clique em **Nova importação**, selecione CSV/XLSX, envie os arquivos e clique em **Iniciar análise**. O ZIP do dataset deve ser extraído antes da seleção.
 
 Não é necessário instalar Node.js ou Python no computador para esse fluxo. O Compose deixa o modo simulado desativado e conecta a interface à API real. A carga inicial configura somente ANTECIPE; configure os demais fundos pela interface quando houver pendências.
 
@@ -212,7 +212,7 @@ No navegador do seu computador, abra o endereço indicado:
 | Recurso                        | Endereço local                                 |
 | ------------------------------ | ---------------------------------------------- |
 | Interface do Antecipe          | `http://localhost:5173`                        |
-| Documentação interativa da API | `http://localhost:8000/docs`                   |
+| Documentação interativa da API | [Swagger](http://localhost:8000/docs)          |
 | Saúde da API                   | `http://localhost:8000/api/v1/health/ready`    |
 | Situação da base cadastral     | `http://localhost:8000/api/v1/cadastro/status` |
 

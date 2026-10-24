@@ -9,7 +9,7 @@ class Admin:
     def import_registry(self, path: Path) -> str:
         return self.repository.import_registry(path)
 
-    def import_rules(self, path: Path) -> tuple[str, str]:
+    def import_rules(self, path: Path) -> list[tuple[str, str]]:
         return self.repository.import_rules(path)
 
     def discover_fund(self, cnpj: str, name: str) -> str:

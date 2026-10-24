@@ -7,7 +7,7 @@ from sqlalchemy import select, insert, update, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from antecipe.adapters.schema import funds, rules, registry, loads, lots
-from antecipe.adapters.config_import import load_rules
+from antecipe.adapters.config_import import load_configurations
 from antecipe.application.errors import AppError
 from antecipe.domain.config import Configuration
 from antecipe.domain.entities import normalize_document, document_root
@@ -68,16 +68,22 @@ class PgAdmin:
             )
             return dict(row) if row else None
 
-    def import_rules(self, path: Path):
-        fund, configuration = load_rules(path)
+    def import_rules(self, path: Path) -> list[tuple[str, str]]:
+        configurations = load_configurations(path)
+        imported = {}
         with self.engine.begin() as c:
-            fid = discover(c, fund["cnpj"], fund["nome"])
-            base = c.scalar(select(funds.c.active_rule).where(funds.c.id == fid).with_for_update())
-            if base:
-                current = c.scalar(select(rules.c.configuration).where(rules.c.id == base))
-                if current == configuration.to_dict():
-                    return fid, base
-            return fid, publish(c, fid, configuration.to_dict(), base)
+            # Deterministic order prevents competing multi-fund imports from locking in reverse order.
+            for fund, configuration in sorted(configurations, key=lambda item: item[0]["cnpj"]):
+                fid = discover(c, fund["cnpj"], fund["nome"])
+                base = c.scalar(select(funds.c.active_rule).where(funds.c.id == fid).with_for_update())
+                current = c.scalar(select(rules.c.configuration).where(rules.c.id == base)) if base else None
+                version = (
+                    base
+                    if current == configuration.to_dict()
+                    else publish(c, fid, configuration.to_dict(), base)
+                )
+                imported[fund["cnpj"]] = (fid, version)
+        return [imported[fund["cnpj"]] for fund, _ in configurations]
 
     def import_registry(self, path: Path):
         digest = hashlib.sha256(path.read_bytes()).hexdigest()

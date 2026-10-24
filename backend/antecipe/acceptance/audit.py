@@ -1,33 +1,42 @@
 """Explain reference contradictions by physical line without changing engine decisions."""
 
+import argparse
 import csv
-import io
+import hashlib
 import json
 from pathlib import Path
-from zipfile import ZipFile
+from tempfile import TemporaryDirectory
 
+from antecipe.acceptance.inputs import read_input
+from antecipe.adapters.config_import import load_configurations
+from antecipe.adapters.readers import read_rows
 from antecipe.domain.entities import normalize_document
 
 
-def run():
+def run(stock=None, expected_path=None, registry_path=None, rules_path=None, destination=None, member=None):
     root = Path(__file__).resolve().parents[3]
-    expected = json.loads((root / "files/resultado_esperado_100k.json").read_text(encoding="utf8"))
+    official = all(value is None for value in (stock, expected_path, registry_path, rules_path, member))
+    stock = stock or root / "files/estoque_antecipe_100k.zip"
+    expected_path = expected_path or root / "files/resultado_esperado_100k.json"
+    registry_path = registry_path or root / "files/cnpj_situacao_mock.csv"
+    rules_path = rules_path or root / "files/validadores_antecipe.json"
+    destination = destination or root / "docs/execucao/divergencias-referencia.jsonl"
+    expected = json.loads(expected_path.read_text(encoding="utf-8-sig"))
     by_line = {row["linha"]: row for row in expected}
-    with (root / "files/cnpj_situacao_mock.csv").open(encoding="utf-8-sig") as stream:
+    with registry_path.open(encoding="utf-8-sig") as stream:
         docs = {normalize_document(row["DOC"]) for row in csv.DictReader(stream, delimiter=";")}
     seen: dict[tuple[str, str, str], int] = {}
     duplicates = 0
     absent_antecipe = 0
-    audit = json.loads((root / "docs/auditoria-insumos.json").read_text(encoding="utf8"))
-    destination = root / "docs/execucao/divergencias-referencia.jsonl"
-    with (
-        destination.open("w", encoding="utf8") as output,
-        ZipFile(root / "files/estoque_antecipe_100k.zip") as archive,
-    ):
-        reader = csv.DictReader(
-            io.TextIOWrapper(archive.open("estoque_antecipe.csv"), encoding="utf-8-sig"), delimiter=";"
-        )
-        for line, row in enumerate(reader, 2):
+    configured = {fund["cnpj"] for fund, _ in load_configurations(rules_path)}
+    rules_hash = hashlib.sha256(rules_path.read_bytes()).hexdigest()
+    registry_hash = hashlib.sha256(registry_path.read_bytes()).hexdigest()
+    name, data = read_input(stock, member)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory() as directory, destination.open("w", encoding="utf8") as output:
+        source = Path(directory) / "input"
+        source.write_bytes(data)
+        for line, row in read_rows(source, Path(name).suffix[1:].upper()):
             reference = by_line.get(line)
             if not reference or reference["status"] != "APROVADO":
                 continue
@@ -38,16 +47,14 @@ def run():
                 row["NU_DOCUMENTO"],
             )
             common = {
-                "arquivo": "estoque_antecipe.csv",
+                "arquivo": name,
                 "linha": line,
                 "nu_documento": row["NU_DOCUMENTO"],
                 "fundo": fund,
                 "esperado": "APROVADO",
-                "motor": "SEM_DECISAO_LOTE_BLOQUEADO",
-                "configuracao_sha256": audit["sha256"]["validadores_antecipe.json"]
-                if fund == "92234400000180"
-                else None,
-                "cadastro_sha256": audit["sha256"]["cnpj_situacao_mock.csv"],
+                "motor": "SEM_DECISAO_LOTE_BLOQUEADO" if official else "NAO_EXECUTADO",
+                "configuracao_sha256": rules_hash if fund in configured else None,
+                "cadastro_sha256": registry_hash,
                 "estado_inicial": "NAO_FORNECIDO",
             }
             if key in seen:
@@ -70,7 +77,8 @@ def run():
                     )
                     + "\n"
                 )
-    assert duplicates == 4941 and absent_antecipe == 712
+    if official:
+        assert duplicates == 4941 and absent_antecipe == 712
     print(
         json.dumps(
             {
@@ -83,4 +91,9 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser(description=__doc__)
+    for flag in ("input", "expected", "registry", "rules", "report"):
+        parser.add_argument("--" + flag, type=Path)
+    parser.add_argument("--member")
+    args = parser.parse_args()
+    run(args.input, args.expected, args.registry, args.rules, args.report, args.member)

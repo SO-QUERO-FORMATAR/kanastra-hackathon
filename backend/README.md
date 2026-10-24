@@ -20,8 +20,37 @@ O serviço `migrate` termina com sucesso antes de API/worker iniciarem. PostgreS
 e arquivos usam volumes persistentes separados. `docker compose down` preserva
 esses volumes. Não usar `down -v` para uma instância cujo histórico precisa ser mantido.
 
-As cargas acima configuram somente ANTECIPE. Os demais fundos descobertos ficam
-sem regras até configuração explícita pela API; nenhuma regra é herdada.
+O JSON de exemplo acima configura somente ANTECIPE. Para configurar outros fundos,
+importe suas configurações em um array ou publique as regras pela API; nenhuma
+regra é herdada de outro CNPJ.
+
+## Importar uma ou várias configurações
+
+`import-rules CAMINHO` aceita um arquivo JSON de qualquer nome, contendo o objeto
+atual ou um array de um ou mais objetos completos. Cada item mantém os campos
+`fundo` (`nome` e `cnpj`), `validadores` (os nove validadores) e `precificacao`.
+Para montar o array, reúna os objetos existentes como `[configuracaoA, configuracaoB]`;
+esses nomes representam os objetos completos, não chaves adicionais no JSON.
+
+```powershell
+uv run --directory backend python -m antecipe.cli import-rules ../files/meus-parametros.json
+```
+
+Uma configuração corresponde a um fundo. O backend normaliza a pontuação do CNPJ
+e associa as notas pelo `DOC_FUNDO`, independentemente do nome do arquivo ou da
+ordem das configurações. CNPJs repetidos no mesmo array são rejeitados.
+
+Todos os itens são validados antes da gravação e publicados na mesma transação.
+Array vazio ou item inválido rejeita a importação inteira; o erro indica o índice
+(a partir de zero) e o campo. Falha de persistência também desfaz toda a importação.
+Reimportar regras idênticas preserva suas versões; regras alteradas criam uma nova
+versão apenas para o fundo correspondente. Não há alteração dos lotes já analisados.
+
+A CLI mantém o retorno `{"fundo_id": "…", "versao": "…"}` para uma configuração
+(objeto ou array unitário). Para várias, retorna `{"configuracoes": [{"fundo_id":
+"…", "versao": "…"}, ...]}`, na ordem da entrada. No serviço Python,
+`Admin.import_rules`/`PgAdmin.import_rules` agora sempre retorna uma lista de pares
+`(fundo_id, versao)`. A edição HTTP `PUT /fundos/{id}/regras` permanece individual.
 
 ## Desenvolvimento local
 
@@ -88,6 +117,43 @@ JUnit, aceitação oficial, contradições por linha e benchmarks. Estes medem A
 HTTP real em TCP, worker dedicado, RSS da árvore de processos e p95 por filtro.
 `--reuse-input` reutiliza arquivos sintéticos já gerados na pasta `.local`, mas
 recria o banco e repete todo o processamento e todas as verificações de totais.
+
+## Testar arquivos de notas com nomes variáveis
+
+O upload aceita qualquer nome de CSV/XLSX com a extensão correspondente ao formato.
+O nome original fica no manifesto; os bytes são armazenados por UUID. Arquivos com
+o mesmo nome não se sobrescrevem. As onze colunas e demais validações não mudam.
+Renomear um arquivo também não elimina a regra de duplicidade das notas.
+
+Para testar outro input pelo fluxo HTTP/storage/worker, sem os totais fixos do
+arquivo oficial, execute na raiz:
+
+```powershell
+uv run --directory backend python -m antecipe.acceptance.inputs_run --input "../files/notas outubro.csv" --rules ../files/meus-parametros.json --registry ../files/cnpj_situacao_mock.csv --report ../.local/resultado-outubro.json
+```
+
+O comando aceita CSV, XLSX ou ZIP contendo exatamente um CSV/XLSX. Em ZIP com
+vários candidatos, use `--member "pasta/nome.csv"`; o nome do ZIP e o nome interno
+são livres, e não há extração para caminhos fornecidos pelo arquivo. `--sheet`
+seleciona uma aba XLSX. O endpoint de upload continua recebendo CSV/XLSX diretamente.
+
+`--expected CAMINHO.json` compara com um gabarito específico desse input; sem ele,
+o relatório contém os resultados observados, sem assumir concordância com o
+gabarito oficial. Divergências, lote bloqueado ou falha retornam código de saída 1.
+Cada execução recria **somente `antecipe_test`**, com exposições/aprovações zeradas,
+e usa armazenamento temporário; não execute junto com pytest ou benchmarks.
+
+`python -m antecipe.acceptance.official` mantém as verificações específicas dos
+insumos oficiais. As auditorias aceitam caminhos alternativos com `--input`,
+`--rules`, `--registry`, `--expected`, `--report` e, para ZIP, `--member`:
+
+- `python -m antecipe.acceptance.audit`: CSV/XLSX/ZIP, divergências por linha.
+- `python ../scripts/auditar_insumos.py` (a partir de `backend/`): CSV/ZIP,
+  inventário e contagens. Ambas aceitam configurações em array.
+
+Os novos testes cobrem nomes com espaços/acentos, extensões em maiúsculas,
+conteúdos diferentes com o mesmo layout, colisão de nomes, importação atômica,
+versionamento e associação das regras de cada fundo pelo CNPJ.
 
 ## Processamento, transações e recuperação
 

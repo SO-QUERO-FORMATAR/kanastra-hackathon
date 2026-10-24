@@ -33,7 +33,7 @@ def test_comparator_missing_extra_id_reasons_and_duplicates():
 def test_full_http_worker_all_refusals_and_totals(client, db):
     admin = PgAdmin(db)
     admin.import_registry(Path("../files/cnpj_situacao_mock.csv"))
-    fid, version = admin.import_rules(Path("../files/validadores_antecipe.json"))
+    [(fid, version)] = admin.import_rules(Path("../files/validadores_antecipe.json"))
     config = config_dict()
     for r in config["validadores"]:
         r["ativo"] = True

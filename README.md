@@ -30,6 +30,12 @@ Abra `http://localhost:5173` no navegador para usar a interface. A documentaçã
 
 Não é necessário instalar Node.js ou Python no computador para esse fluxo. O Compose deixa o modo simulado desativado e conecta a interface à API real. A carga inicial configura somente ANTECIPE; configure os demais fundos pela interface quando houver pendências.
 
+Os arquivos de notas podem ter qualquer nome, mantendo o layout e a extensão CSV/XLSX.
+O comando `import-rules` também aceita JSON com um array de uma ou mais configurações,
+uma por CNPJ de fundo, além do objeto único atual. Substitua `/inputs/validadores_antecipe.json`
+pelo caminho do seu JSON. Veja os formatos e o comando para testar inputs arbitrários
+no [guia do backend](backend/README.md#importar-uma-ou-várias-configurações).
+
 Para encerrar sem apagar o banco e o histórico:
 
 ```sh

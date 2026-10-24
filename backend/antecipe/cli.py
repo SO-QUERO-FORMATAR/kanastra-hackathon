@@ -40,10 +40,16 @@ def main(argv=None):
         elif args.command == "import-registry":
             print(json.dumps({"versao_cadastral": Admin(PgAdmin(engine)).import_registry(args.path)}))
         elif args.command == "import-rules":
-            fid, version = Admin(PgAdmin(engine)).import_rules(args.path)
-            print(json.dumps({"fundo_id": fid, "versao": version}))
+            imported = Admin(PgAdmin(engine)).import_rules(args.path)
+            output = [{"fundo_id": fid, "versao": version} for fid, version in imported]
+            if len(output) == 1:
+                print(json.dumps(output[0]))
+            else:
+                print(json.dumps({"configuracoes": output}))
         elif args.command == "worker":
             serve(Worker(engine, batch_size=args.batch_size), once=args.once)
+    except (ValueError, OSError) as exc:
+        parser.exit(2, f"Erro: {exc}\n")
     finally:
         engine.dispose()
 

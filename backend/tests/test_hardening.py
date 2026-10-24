@@ -193,7 +193,7 @@ def test_fund_summary_preserves_precision_above_default_decimal_context(db, tmp_
         row[8] = "10000000000000000000000000001,00"
     _, lid, _ = prepare(db, tmp_path, rows)
     admin = PgAdmin(db)
-    fid, version = admin.import_rules(Path("../files/validadores_antecipe.json"))
+    [(fid, version)] = admin.import_rules(Path("../files/validadores_antecipe.json"))
     config = config_dict()
     for rule in config["validadores"]:
         if rule["codigo"] == "CONCENTRACAO_MAXIMA_CEDENTE":

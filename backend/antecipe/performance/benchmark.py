@@ -16,7 +16,7 @@ import httpx
 import psutil
 from openpyxl import Workbook
 
-from antecipe.acceptance.official import reset_test_database
+from antecipe.acceptance.inputs_run import reset_test_database
 from antecipe.adapters.admin import PgAdmin
 from antecipe.adapters.readers import COLUMNS
 
@@ -83,7 +83,7 @@ def run(count, format, reuse_input=False):
     settings, engine = reset_test_database()
     admin = PgAdmin(engine)
     admin.import_registry(root / "files/cnpj_situacao_mock.csv")
-    fid, version = admin.import_rules(root / "files/validadores_antecipe.json")
+    [(fid, version)] = admin.import_rules(root / "files/validadores_antecipe.json")
     # These parameters belong exclusively to this synthetic benchmark fixture.
     config = admin.get_rules(fid)["configuration"]
     for rule in config["validadores"]:

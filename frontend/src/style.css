@@ -351,6 +351,22 @@ h3 {
   color: #9b1c1c;
   margin: 16px 0;
 }
+.feedback-dialog {
+  width: 520px;
+  max-width: 95vw;
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+.feedback-dialog summary {
+  cursor: pointer;
+}
+.feedback-dialog h2 {
+  line-height: 1.35;
+  margin: 16px 0;
+}
+.feedback-dialog .q-card__actions {
+  flex-wrap: wrap;
+}
 .info-banner {
   background: #edf1e3;
   color: #4d674d;

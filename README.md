@@ -74,7 +74,7 @@ docker compose -f compose.yaml -f compose.frontend.yaml --profile app ps --all
 docker compose -f compose.yaml -f compose.frontend.yaml --profile app exec api python -m antecipe.cli import-registry /inputs/cnpj_situacao_mock.csv
 ```
 
-Abra `http://localhost:5173` no navegador para usar a interface. A documentação da API está em `http://localhost:8000/docs`. Clique em **Nova importação**, selecione CSV/XLSX, envie os arquivos e clique em **Iniciar análise**. O ZIP do dataset deve ser extraído antes da seleção.
+Abra `http://localhost:5173` no navegador para usar a interface. Com a API em execução, acesse a [documentação interativa no Swagger](http://localhost:8000/docs). Clique em **Nova importação**, selecione CSV/XLSX, envie os arquivos e clique em **Iniciar análise**. O ZIP do dataset deve ser extraído antes da seleção.
 
 Não é necessário instalar Node.js ou Python no computador para esse fluxo. O Compose deixa o modo simulado desativado e conecta a interface à API real. A carga inicial configura somente ANTECIPE; configure os demais fundos pela interface quando houver pendências.
 
@@ -213,7 +213,7 @@ No navegador do seu computador, abra o endereço indicado:
 | Recurso                        | Endereço local                                 |
 | ------------------------------ | ---------------------------------------------- |
 | Interface do Antecipe          | `http://localhost:5173`                        |
-| Documentação interativa da API | `http://localhost:8000/docs`                   |
+| Documentação interativa da API | [Swagger](http://localhost:8000/docs)          |
 | Saúde da API                   | `http://localhost:8000/api/v1/health/ready`    |
 | Situação da base cadastral     | `http://localhost:8000/api/v1/cadastro/status` |
 

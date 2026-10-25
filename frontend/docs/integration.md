@@ -13,7 +13,7 @@ A stack é Vue 3 + Quasar (SPA com Vite), conforme o PDF v2.1. O contrato HTTP v
 | Fundos         | GET fundos, GET/PUT fundos/{id}/regras                                   |
 | Resultados     | GET arquivos/{id}, arquivos/{id}/resultados                              |
 
-Todas as rotas usam `/api/v1`. O cliente implementa as 18 operações, incluindo a importação atômica de regras por JSON em `/fundos/regras/importacao`. Health e consulta individual de arquivo estão disponíveis para diagnóstico; o fluxo da interface usa as operações apropriadas a cada tela.
+Todas as rotas usam `/api/v1`. O cliente implementa as 19 operações, incluindo a importação atômica de regras por JSON em `/fundos/regras/importacao` e do CSV cadastral em `/cadastro/importacao`. Health e consulta individual de arquivo estão disponíveis para diagnóstico; o fluxo da interface usa as operações apropriadas a cada tela.
 
 ## Recuperação
 

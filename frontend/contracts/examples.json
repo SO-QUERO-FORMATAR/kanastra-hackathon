@@ -59,6 +59,9 @@
     "quantidade_cnpjs": 3041,
     "importado_em": "2026-10-24T18:00:00Z"
   },
+  "ImportarCadastroRequest": {
+    "csv": "DOC;SITUACAO_CADASTRAL\n22144961000102;ATIVA\n"
+  },
   "FundoDTO": {
     "id": "00000000-0000-4000-8000-000000000001",
     "nome": "ANTECIPE FIDC",
@@ -405,6 +408,96 @@
         "base_dias": 30
       }
     }
+  },
+  "ImportarRegrasRequest": {
+    "fundo": {
+      "nome": "ANTECIPE FIDC",
+      "cnpj": "92234400000180"
+    },
+    "validadores": [
+      {
+        "codigo": "CNPJ_SACADO_VALIDO",
+        "ativo": true,
+        "parametros": {}
+      },
+      {
+        "codigo": "SITUACAO_CADASTRAL_SACADO",
+        "ativo": true,
+        "parametros": {
+          "situacoes_aceitas": [
+            "ATIVA"
+          ]
+        }
+      },
+      {
+        "codigo": "TIPO_RECEBIVEL",
+        "ativo": true,
+        "parametros": {
+          "tipos_aceitos": [
+            "Duplicata",
+            "Duplicata de Serviço"
+          ]
+        }
+      },
+      {
+        "codigo": "VALOR_MINIMO",
+        "ativo": true,
+        "parametros": {
+          "valor_minimo": "100.0"
+        }
+      },
+      {
+        "codigo": "NAO_VENCIDA",
+        "ativo": true,
+        "parametros": {}
+      },
+      {
+        "codigo": "PRAZO_MAXIMO",
+        "ativo": true,
+        "parametros": {
+          "prazo_maximo_dias": 180
+        }
+      },
+      {
+        "codigo": "CONCENTRACAO_MAXIMA_SACADO",
+        "ativo": true,
+        "parametros": {
+          "percentual_maximo": "10.0",
+          "agrupamento": "RAIZ_CNPJ"
+        }
+      },
+      {
+        "codigo": "PRAZO_MINIMO",
+        "ativo": false,
+        "parametros": {
+          "prazo_minimo_dias": 30
+        }
+      },
+      {
+        "codigo": "CONCENTRACAO_MAXIMA_CEDENTE",
+        "ativo": false,
+        "parametros": {
+          "percentual_maximo": "8.0",
+          "agrupamento": "RAIZ_CNPJ"
+        }
+      }
+    ],
+    "precificacao": {
+      "metodo": "DESCONTO_SIMPLES",
+      "taxa_mensal_percentual": "2.0",
+      "base_dias": 30
+    }
+  },
+  "ImportarRegrasResponse": {
+    "fundos": [
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "nome": "ANTECIPE FIDC",
+        "cnpj": "92234400000180",
+        "configurado": true,
+        "versao_regras_atual": "00000000-0000-4000-8000-000000000002"
+      }
+    ]
   },
   "ArquivoManifestoRequest": {
     "client_id": "00000000-0000-4000-8000-000000000101",

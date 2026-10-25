@@ -8,6 +8,7 @@ import { useCursor } from "../composables/useCursor";
 import { label } from "../utils";
 import ErrorNotice from "../components/ErrorNotice.vue";
 import ActionErrorDialog from "../components/ActionErrorDialog.vue";
+import RegistryImport from "../components/RegistryImport.vue";
 import CursorNav from "../components/CursorNav.vue";
 import examples from "../../contracts/examples.json";
 import contract from "../../contracts/openapi.json";
@@ -296,6 +297,14 @@ onMounted(async () => {
       />
     </div>
     <ErrorNotice :error="importError" />
+  </div>
+  <div class="surface q-pa-lg q-mb-lg">
+    <h2>Base cadastral dos sacados</h2>
+    <p>
+      Além das regras em JSON, a análise precisa do CSV com a situação cadastral
+      dos CNPJs. Carregue-o aqui e depois retome os lotes pendentes.
+    </p>
+    <RegistryImport />
   </div>
   <ActionErrorDialog
     :error="actionError"

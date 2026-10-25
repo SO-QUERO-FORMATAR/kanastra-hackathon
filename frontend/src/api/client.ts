@@ -78,6 +78,13 @@ export const api = {
   capacidades: () => request<DTO<"CapacidadesResponse">>("/capacidades"),
   cadastro: () =>
     request<DTO<"BaseCadastralStatusResponse">>("/cadastro/status"),
+  importarCadastro: (body: DTO<"ImportarCadastroRequest">, key: string) =>
+    mutate<DTO<"BaseCadastralStatusResponse">>(
+      "/cadastro/importacao",
+      "POST",
+      key,
+      body,
+    ),
   fundos: (q: DTO<"ListarFundosQuery"> = {}) =>
     request<DTO<"FundosPageResponse">>("/fundos" + query(q)),
   regras: (id: string, versao?: string) =>

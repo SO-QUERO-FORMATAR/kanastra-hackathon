@@ -42,6 +42,7 @@ Todas as rotas da tabela são relativas a `/api/v1`. IDs nos paths são UUID. `P
 | GET `/health/ready` | — | — | 200 | `SaudeResponse` |
 | GET `/capacidades` | — | — | 200 | `CapacidadesResponse` |
 | GET `/cadastro/status` | — | — | 200 | `BaseCadastralStatusResponse` |
+| POST `/cadastro/importacao` | `ImportarCadastroRequest` | `Idempotency-Key` | 200 | `BaseCadastralStatusResponse` |
 | GET `/fundos` | `ListarFundosQuery` | — | 200 | `FundosPageResponse` |
 | GET `/fundos/{fundo_id}/regras` | `ConsultarRegrasQuery` (`versao` opcional) | — | 200 | `RegrasFundoResponse` |
 | PUT `/fundos/{fundo_id}/regras` | — | `AtualizarRegrasRequest` | 200 | `RegrasFundoResponse` |

@@ -8,6 +8,8 @@ import StatusBadge from "../components/StatusBadge.vue";
 import ErrorNotice from "../components/ErrorNotice.vue";
 import ActionErrorDialog from "../components/ActionErrorDialog.vue";
 import ResultsTable from "../components/ResultsTable.vue";
+import RegistryImport from "../components/RegistryImport.vue";
+const registryReady = ref(false);
 const id = String(useRoute().params.id),
   lot = ref<DTO<"LoteDTO">>(),
   files = ref<DTO<"ArquivoDTO">[]>([]),
@@ -238,16 +240,29 @@ onUnmounted(() => {
             <q-icon name="info_outline" color="warning" />
           </q-item-section>
           <q-item-section>
-            {{ p.mensagem }}
+            <q-item-label>
+              {{
+                p.acao === "IMPORTAR_BASE_CADASTRAL" && registryReady
+                  ? "Base cadastral carregada. Clique em Retomar análise."
+                  : p.mensagem
+              }}
+            </q-item-label>
             <q-item-label caption>
               {{ p.fundo?.nome }} {{ p.fundo?.cnpj }}
               {{ p.linha ? `· Linha ${p.linha}` : "" }}
-              <template v-if="p.acao === 'IMPORTAR_BASE_CADASTRAL'">
-                · Solicite a carga cadastral ao responsável pelo backend.
+              <template
+                v-if="p.acao === 'IMPORTAR_BASE_CADASTRAL' && !registryReady"
+              >
+                · O cadastro é um CSV separado do JSON de regras. Importe-o aqui
+                e retome a análise.
               </template>
             </q-item-label>
           </q-item-section>
           <q-item-section side>
+            <RegistryImport
+              v-if="p.acao === 'IMPORTAR_BASE_CADASTRAL'"
+              @imported="registryReady = true"
+            />
             <q-btn
               v-if="p.acao === 'CONFIGURAR_FUNDO' && p.fundo"
               outline

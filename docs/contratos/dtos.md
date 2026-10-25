@@ -115,6 +115,14 @@ string
 | `quantidade_cnpjs` | `number` | sim | — |
 | `importado_em` | `string \| null` | sim | — |
 
+## ImportarCadastroRequest
+
+Conteúdo UTF-8 do CSV DOC;SITUACAO_CADASTRAL, até 1 MiB. Publicação atômica; conteúdo idêntico preserva a versão. Não substitui uma base vinculada a lotes ainda recuperáveis.
+
+| Campo | Tipo | Obrigatório | Descrição |
+|---|---|---|---|
+| `csv` | `string` | sim | — |
+
 ## FundoDTO
 
 | Campo | Tipo | Obrigatório | Descrição |

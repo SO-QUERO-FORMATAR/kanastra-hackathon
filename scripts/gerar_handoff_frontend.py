@@ -13,6 +13,7 @@ def gerar_handoff():
     seeds = {example["schema"]: example["valor"] for example in scenarios["exemplos"]}
     named = {example["nome"]: example["valor"] for example in scenarios["exemplos"]}
     seeds.update({
+        "ImportarCadastroRequest": {"csv": "DOC;SITUACAO_CADASTRAL\n22144961000102;ATIVA\n"},
         "FundoDTO": named["regras_publicadas"]["fundo"],
         "ArquivoDTO": named["lote_criado"]["arquivos"][0],
         "ConfiguracaoRegrasDTO": named["configurar_fundo"]["configuracao"],
@@ -134,10 +135,10 @@ Este prompt é a fonte completa do contrato v1.0.0. Não peça para ler arquivos
 - Backend planejado: Python/FastAPI/PostgreSQL, processamento assíncrono em duas passagens. Ainda não implementado.
 - Há 100.554 notas de 18 fundos no dataset; só o ANTECIPE FIDC possui regras fornecidas.
 - Decisão do usuário: cada fundo exige configuração própria. Não copiar regras automaticamente para os outros 17. A interface deve informar e resolver as pendências.
-- A base cadastral é importada em tabela PostgreSQL por operação administrativa, não por upload de notas no navegador.
+- A base cadastral é um CSV separado do JSON de regras e dos arquivos de notas. Pode ser importada pela interface via POST /cadastro/importacao ou pela CLI, com publicação atômica no PostgreSQL.
 - O gabarito contém inconsistências: 712 aprovações do ANTECIPE sem cadastro do sacado e 4.941 aprovações repetidas de chaves no conjunto. Não tratar esse gabarito como execução certificada nem usá-lo como fonte de decisões da interface.
 - O frontend pode ser planejado e testado sem esses arquivos. Todas as DTOs necessárias estão neste documento.
-- Não implementar login, exportação, cancelamento, edição de decisão, upload do gabarito ou importação cadastral no navegador: não há contrato para essas funções no MVP.
+- Não implementar login, exportação, cancelamento, edição de decisão ou upload do gabarito: não há contrato para essas funções no MVP.
 
 """
     # One object per line keeps the complete JSON compact without dropping fields.

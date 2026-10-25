@@ -30,6 +30,16 @@ regra é herdada de outro CNPJ.
 
 ## Importar uma ou várias configurações
 
+O JSON de regras não contém a situação cadastral dos CNPJs. Para resolver
+`BASE_CADASTRAL_AUSENTE` sem CLI, use **Importar base cadastral** na tela
+**Fundos e regras**, no aviso da importação de notas ou na pendência do lote.
+Selecione `files/cnpj_situacao_mock.csv` (demonstração) ou seu CSV UTF-8 com
+cabeçalho `DOC;SITUACAO_CADASTRAL`, até 1 MiB; depois clique em **Retomar análise**.
+A UI envia `POST /api/v1/cadastro/importacao` com `{"csv": "conteúdo do arquivo"}`
+e `Idempotency-Key` UUID. A publicação é atômica, rejeita arquivos vazios ou
+inválidos e preserva a versão quando os bytes são idênticos. A proteção contra
+troca de base usada por lotes recuperáveis também se aplica à interface.
+
 `import-rules CAMINHO` aceita um arquivo JSON de qualquer nome, contendo o objeto
 atual ou um array de um ou mais objetos completos. Cada item mantém os campos
 `fundo` (`nome` e `cnpj`), `validadores` (os nove validadores) e `precificacao`.

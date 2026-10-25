@@ -45,7 +45,7 @@ Fundos configurados são analisados mesmo quando outros ainda não têm regras. 
 
 ### O que ficou de fora
 
-Autenticação e perfis de acesso, integração com uma fonte cadastral externa em tempo real, importação cadastral pelo navegador, exportação de resultados, cancelamento de lotes e edição de decisões. O cadastro deste MVP é carregado por CLI a partir do CSV fornecido; a entrega está preparada para demonstração local com Docker.
+Aviso: O cadastro deste MVP é carregado pela interface ou por CLI a partir do CSV fornecido; a entrega está preparada para demonstração local com Docker.
 
 A aceitação integral do dataset oficial permanece pendente: faltam configurações de 17 fundos, há inconsistências no gabarito e não foi informado o estado inicial de exposições/aprovações. Os testes automatizados cobrem os fluxos implementados, incluindo persistência e processamento com PostgreSQL; essa cobertura não substitui a aceitação dos insumos oficiais. Veja [operação e aceitação](backend/README.md#operação-e-aceitação).
 
@@ -188,7 +188,9 @@ A sequência de inicialização é banco → migrações → API/worker → fron
 
 ## 4. Carregar a base cadastral e as regras iniciais
 
-Com a API saudável, execute estes comandos **uma vez na instalação inicial**:
+Com a API saudável, abra **Fundos e regras** e use **Importar base cadastral** para enviar `files/cnpj_situacao_mock.csv`. Em **Importar regras**, selecione `files/validadores_antecipe.json`. O JSON configura o fundo; o CSV informa a situação dos CNPJs. São necessários os dois arquivos.
+
+Também é possível carregar os arquivos por CLI, **uma vez na instalação inicial**:
 
 ```sh
 docker compose -f compose.yaml -f compose.frontend.yaml --profile app exec api python -m antecipe.cli import-registry /inputs/cnpj_situacao_mock.csv
@@ -290,7 +292,7 @@ As regras do ANTECIPE não devem ser copiadas automaticamente para os outros fun
 
 ### Outras pendências
 
-- **Base cadastral ausente:** realize a carga administrativa do passo 4 e retome o lote.
+- **Base cadastral ausente:** clique em **Importar base cadastral** na pendência, envie o CSV cadastral e clique em **Retomar análise**. Importar somente o JSON de regras não resolve essa pendência.
 - **Dados que impedem calcular o PL:** corrija o arquivo original e faça uma nova importação. Os arquivos de um lote já criado são imutáveis.
 
 ### Ler os resultados
@@ -340,7 +342,7 @@ Para acompanhar continuamente, acrescente `-f` após `logs`. `Ctrl+C` encerra ap
 | API não fica saudável                | Consulte `logs --tail 100 db migrate api`; `migrate` deve concluir com código zero.                                                       |
 | Interface abre, mas não obtém dados  | Verifique o estado de `api` e `frontend`, e os logs dos dois serviços.                                                                    |
 | Lote fica na fila                    | Confirme que `worker` está em execução e consulte seus logs.                                                                              |
-| Base cadastral ausente               | Execute `import-registry` conforme o passo 4 e consulte `/api/v1/cadastro/status`.                                                        |
+| Base cadastral ausente               | Use **Importar base cadastral** na interface ou `import-registry` conforme o passo 4; depois retome o lote.                                                        |
 | Fundo sem configuração               | Configure cada fundo pendente e retome explicitamente a análise.                                                                          |
 | Nota repetida aparece como barrada   | Uma nota aprovada em um lote anterior pode ser recusada como duplicada em um novo lote; consulte o motivo apresentado.                    |
 

@@ -1,5 +1,6 @@
 import csv
 import hashlib
+import io
 import logging
 from pathlib import Path
 from uuid import uuid4
@@ -70,6 +71,65 @@ def import_configurations(c, configurations, notifications=None):
     return [imported[fund["cnpj"]] for fund, _ in configurations]
 
 
+def parse_registry(content: bytes) -> dict[str, str]:
+    documents: dict[str, str] = {}
+    if b"\x00" in content:
+        raise ValueError("O CSV cadastral contém caracteres nulos inválidos.")
+    try:
+        reader = csv.DictReader(
+            io.StringIO(content.decode("utf-8-sig"), newline=""), delimiter=";", strict=True
+        )
+        if reader.fieldnames != ["DOC", "SITUACAO_CADASTRAL"]:
+            raise ValueError("Use o cabeçalho DOC;SITUACAO_CADASTRAL no CSV cadastral.")
+        for row in reader:
+            if None in row or any(value is None for value in row.values()):
+                raise ValueError(f"Linha {reader.line_num}: informe as duas colunas cadastrais.")
+            doc, situation = normalize_document(row["DOC"]), row["SITUACAO_CADASTRAL"].strip()
+            if document_root(doc) is None or not situation:
+                raise ValueError(f"Linha {reader.line_num}: informe um CNPJ de 14 dígitos e sua situação.")
+            if doc in documents and documents[doc] != situation:
+                raise ValueError(f"Linha {reader.line_num}: situações conflitantes para o mesmo CNPJ.")
+            documents[doc] = situation
+    except (UnicodeError, csv.Error) as exc:
+        raise ValueError("O cadastro deve ser um CSV válido em UTF-8, separado por ponto e vírgula.") from exc
+    if not documents:
+        raise ValueError("O CSV cadastral deve conter ao menos um CNPJ.")
+    return documents
+
+
+def import_registry(c, content: bytes):
+    digest = hashlib.sha256(content).hexdigest()
+    documents = parse_registry(content)
+    c.execute(text("select pg_advisory_xact_lock(:key)"), {"key": REGISTRY_LOCK})
+    existing = c.scalar(select(loads.c.id).where(loads.c.sha256 == digest, loads.c.active))
+    if existing:
+        event("registry.reused", registry_version=existing, row_count=len(documents), replayed=True)
+        return existing
+    busy = c.scalar(
+        select(lots.c.id)
+        .where(lots.c.load_id.is_not(None), lots.c.status.not_in(["CONCLUIDO", "CONCLUIDO_COM_ERROS"]))
+        .limit(1)
+    )
+    if busy:
+        event("registry.busy", level=logging.WARNING, lot_id=busy, error_code="ESTADO_INVALIDO")
+        raise AppError("ESTADO_INVALIDO", "Há lotes vinculados à base atual; recupere-os antes da carga", 409)
+    c.execute(update(loads).values(active=False))
+    existing = c.scalar(select(loads.c.id).where(loads.c.sha256 == digest))
+    if existing:
+        event("registry.reactivation_selected", registry_version=existing, row_count=len(documents))
+        c.execute(update(loads).where(loads.c.id == existing).values(active=True))
+        return existing
+    version = str(uuid4())
+    c.execute(insert(loads).values(id=version, sha256=digest, count=len(documents), active=True))
+    items = list(documents.items())
+    for offset in range(0, len(items), 2000):
+        c.execute(
+            insert(registry),
+            [{"load_id": version, "document": d, "situation": s} for d, s in items[offset : offset + 2000]],
+        )
+    return version
+
+
 class PgAdmin:
     def __init__(self, engine):
         self.engine = engine
@@ -116,55 +176,8 @@ class PgAdmin:
 
     @observed("registry.import", summarize=lambda version: {"registry_version": version})
     def import_registry(self, path: Path):
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
-        documents: dict[str, str] = {}
-        with path.open(encoding="utf-8-sig", newline="") as stream:
-            reader = csv.DictReader(stream, delimiter=";")
-            if reader.fieldnames != ["DOC", "SITUACAO_CADASTRAL"]:
-                raise ValueError("Cabeçalho cadastral inválido")
-            for row in reader:
-                doc, situation = normalize_document(row["DOC"]), row["SITUACAO_CADASTRAL"].strip()
-                if document_root(doc) is None or not situation:
-                    raise ValueError("Cadastro inválido")
-                if doc in documents and documents[doc] != situation:
-                    raise ValueError("Situações conflitantes para o mesmo CNPJ")
-                documents[doc] = situation
         with self.engine.begin() as c:
-            c.execute(text("select pg_advisory_xact_lock(:key)"), {"key": REGISTRY_LOCK})
-            existing = c.scalar(select(loads.c.id).where(loads.c.sha256 == digest, loads.c.active))
-            if existing:
-                event("registry.reused", registry_version=existing, row_count=len(documents), replayed=True)
-                return existing
-            busy = c.scalar(
-                select(lots.c.id)
-                .where(
-                    lots.c.load_id.is_not(None), lots.c.status.not_in(["CONCLUIDO", "CONCLUIDO_COM_ERROS"])
-                )
-                .limit(1)
-            )
-            if busy:
-                event("registry.busy", level=logging.WARNING, lot_id=busy, error_code="ESTADO_INVALIDO")
-                raise AppError(
-                    "ESTADO_INVALIDO", "Há lotes vinculados à base atual; recupere-os antes da carga", 409
-                )
-            c.execute(update(loads).values(active=False))
-            existing = c.scalar(select(loads.c.id).where(loads.c.sha256 == digest))
-            if existing:
-                event("registry.reactivation_selected", registry_version=existing, row_count=len(documents))
-                c.execute(update(loads).where(loads.c.id == existing).values(active=True))
-                return existing
-            version = str(uuid4())
-            c.execute(insert(loads).values(id=version, sha256=digest, count=len(documents), active=True))
-            items = list(documents.items())
-            for offset in range(0, len(items), 2000):
-                c.execute(
-                    insert(registry),
-                    [
-                        {"load_id": version, "document": d, "situation": s}
-                        for d, s in items[offset : offset + 2000]
-                    ],
-                )
-            return version
+            return import_registry(c, path.read_bytes())
 
     def situations(self, load_id, documents):
         if not documents:

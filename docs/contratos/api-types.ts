@@ -68,6 +68,11 @@ export type BaseCadastralStatusResponse = {
   "importado_em": string | null;
 };
 
+/** Conteúdo UTF-8 do CSV DOC;SITUACAO_CADASTRAL, até 1 MiB. Publicação atômica; conteúdo idêntico preserva a versão. Não substitui uma base vinculada a lotes ainda recuperáveis. */
+export type ImportarCadastroRequest = {
+  "csv": string;
+};
+
 export type FundoDTO = {
   "id": string;
   "nome": string;

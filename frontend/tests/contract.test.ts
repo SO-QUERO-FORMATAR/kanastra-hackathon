@@ -8,12 +8,12 @@ const ajv = new Ajv({ strict: false, allErrors: true });
 addFormats(ajv);
 ajv.addSchema(contract, "contract");
 describe("contrato fornecido", () => {
-  it("declara as 18 operações com IDs únicos", () => {
+  it("declara as 19 operações com IDs únicos", () => {
     const ops = Object.values(contract.paths)
       .flatMap((x) => Object.values(x))
       .map((x) => x.operationId);
-    expect(ops).toHaveLength(18);
-    expect(new Set(ops).size).toBe(18);
+    expect(ops).toHaveLength(19);
+    expect(new Set(ops).size).toBe(19);
   });
   for (const [schema, value] of Object.entries(examples))
     it(`exemplo ${schema}`, () => {

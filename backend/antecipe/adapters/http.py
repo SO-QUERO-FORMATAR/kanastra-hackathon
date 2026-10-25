@@ -1,4 +1,5 @@
 import json
+import hashlib
 import logging
 from datetime import datetime, timezone
 from tempfile import NamedTemporaryFile
@@ -21,7 +22,7 @@ from antecipe.adapters.contract import SPEC, validate
 from antecipe.adapters.lot_store import LotStore, MAX_BYTES
 from antecipe.adapters.queries import Queries
 from antecipe.adapters.views import registry_dto, fund_dto, require, instant
-from antecipe.adapters.admin import publish, import_configurations
+from antecipe.adapters.admin import publish, import_configurations, import_registry
 from antecipe.adapters.config_import import parse_configurations
 from antecipe.adapters.schema import funds, rules
 from antecipe.adapters.idempotency import execute
@@ -160,6 +161,30 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if op == "obterStatusCadastro":
             with engine.connect() as c:
                 return registry_dto(c), False
+        if op == "importarCadastro":
+            try:
+                content = body["csv"].encode("utf-8")
+            except UnicodeError as exc:
+                raise AppError("ESTRUTURA_ARQUIVO_INVALIDA", "O CSV cadastral deve estar em UTF-8.") from exc
+            if len(content) > 1048576:
+                raise AppError("LIMITE_UPLOAD_EXCEDIDO", "O CSV cadastral deve ter no máximo 1 MiB.", 413)
+            with engine.begin() as c:
+
+                def import_registry_action():
+                    try:
+                        import_registry(c, content)
+                    except ValueError as exc:
+                        raise AppError("ESTRUTURA_ARQUIVO_INVALIDA", str(exc)) from exc
+                    return registry_dto(c)
+
+                return execute(
+                    c,
+                    "POST /cadastro/importacao",
+                    key,
+                    hashlib.sha256(content).hexdigest(),
+                    200,
+                    import_registry_action,
+                )
         if op == "criarLote":
             return store.create(body, key)
         if op == "enviarBatch":
@@ -257,12 +282,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                     raise AppError("TIPO_ARQUIVO_NAO_SUPORTADO", "Content-Type incompatível", 415)
                 if media == "application/json":
                     content: bytes | bytearray
-                    if operation["operationId"] == "importarRegrasFundos":
+                    if operation["operationId"] in {"importarRegrasFundos", "importarCadastro"}:
+                        maximum = 8388608 if operation["operationId"] == "importarCadastro" else 1048576
                         content = bytearray()
                         async for chunk in request.stream():
                             content.extend(chunk)
-                            if len(content) > 1048576:
-                                raise AppError("LIMITE_UPLOAD_EXCEDIDO", "JSON excede 1 MiB", 413)
+                            if len(content) > maximum:
+                                raise AppError(
+                                    "LIMITE_UPLOAD_EXCEDIDO", "JSON excede o limite permitido", 413
+                                )
                     else:
                         content = await request.body()
                     try:

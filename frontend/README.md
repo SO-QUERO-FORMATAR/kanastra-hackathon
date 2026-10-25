@@ -42,7 +42,9 @@ A demonstração é identificada no cabeçalho. Usa exclusivamente exemplos sint
 
 As opções de situação cadastral são **Ativa, Suspensa, Inapta e Baixada**; as de tipo de recebível são **Duplicata, Duplicata de Serviço, Cheque, CCB e Nota Comercial**. Os seletores permitem múltiplas opções do catálogo definido no contrato, sem cadastrar valores por texto livre. A API também valida as opções ativas recebidas por JSON.
 
-Dinheiro é mantido em strings; nenhuma decisão financeira é calculada no frontend. Não há exportação, cancelamento, edição de decisão ou importação cadastral pelo navegador porque essas operações não existem no contrato.
+Dinheiro é mantido em strings; nenhuma decisão financeira é calculada no frontend. Não há exportação, cancelamento ou edição de decisão porque essas operações não existem no contrato.
+
+**Base cadastral:** o JSON de regras e o CSV cadastral são arquivos distintos. Use **Importar base cadastral** em Fundos e regras, no aviso do upload ou na pendência do lote. O CSV usa UTF-8 e cabeçalho `DOC;SITUACAO_CADASTRAL`, com limite de 1 MiB. Após a carga, clique em **Retomar análise** no lote. No modo de demonstração, a carga é simulada; no modo real, é publicada no PostgreSQL pela API.
 
 Notas recusadas exibem a lista completa de requisitos não atendidos na tabela e no detalhe, com as mensagens fornecidas pelo backend e os valores da nota e da configuração aplicada.
 

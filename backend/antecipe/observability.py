@@ -25,7 +25,7 @@ LOG = logging.getLogger("antecipe")
 SERVICE = {"name": "antecipe", "version": "1.0.0", "environment": "local"}
 LEVELS = {name: getattr(logging, name) for name in ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL")}
 OPERATIONS = set(
-    """verificarVida verificarProntidao obterCapacidades obterStatusCadastro listarFundos
+    """verificarVida verificarProntidao obterCapacidades obterStatusCadastro importarCadastro importarRegrasFundos listarFundos
 consultarRegrasFundo atualizarRegrasFundo listarLotes criarLote consultarLote enviarBatch
 solicitarProcessamento listarArquivosLote listarPendenciasLote listarResumosFundos consultarArquivo
 listarResultados migrate import-registry import-rules worker""".split()

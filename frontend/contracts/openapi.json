@@ -316,6 +316,215 @@
         }
       }
     },
+    "/cadastro/importacao": {
+      "post": {
+        "operationId": "importarCadastro",
+        "summary": "Importar base cadastral CSV",
+        "description": "",
+        "tags": [
+          "cadastro"
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID por operação lógica; repetir em retry do mesmo conteúdo. Escopo método + caminho + chave; retenção durante toda a vida do lote (regras: mínima de 24h)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "description": "Identificador de correlação da requisição atual."
+              },
+              "Idempotency-Replayed": {
+                "schema": {
+                  "type": "boolean"
+                },
+                "description": "true quando devolve o corpo/status originalmente persistidos."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseCadastralStatusResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflito de estado, idempotência ou versão.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Limite de upload excedido.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Tipo de mídia não suportado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Falha de validação do contrato.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro inesperado.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Infraestrutura indisponível; observar Retry-After quando presente.",
+            "headers": {
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "description": "Segundos; somente quando retry automático for apropriado."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErroResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportarCadastroRequest"
+              }
+            }
+          }
+        }
+      }
+    },
     "/fundos": {
       "get": {
         "operationId": "listarFundos",
@@ -3275,6 +3484,21 @@
           "quantidade_cnpjs",
           "importado_em"
         ]
+      },
+      "ImportarCadastroRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "csv": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1048576
+          }
+        },
+        "required": [
+          "csv"
+        ],
+        "description": "Conteúdo UTF-8 do CSV DOC;SITUACAO_CADASTRAL, até 1 MiB. Publicação atômica; conteúdo idêntico preserva a versão. Não substitui uma base vinculada a lotes ainda recuperáveis."
       },
       "FundoDTO": {
         "type": "object",

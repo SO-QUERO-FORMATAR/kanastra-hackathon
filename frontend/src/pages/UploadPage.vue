@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 import { api, upload, storagePrefix, demo, type DTO } from "../api/client";
 import { sha256, batches } from "../utils";
 import ErrorNotice from "../components/ErrorNotice.vue";
+import RegistryImport from "../components/RegistryImport.vue";
 import ActionErrorDialog from "../components/ActionErrorDialog.vue";
 const $q = useQuasar();
 const router = useRouter(),
@@ -272,7 +273,8 @@ async function submit() {
   />
   <q-banner v-if="cadastro && !cadastro.disponivel" class="info-banner q-mb-lg">
     A base cadastral ainda não está disponível. A importação pode ser enviada,
-    mas a análise depende da carga administrativa no backend.
+    mas a análise precisa do CSV cadastral, separado do JSON de regras.
+    <RegistryImport @imported="loadSetup" />
   </q-banner>
   <q-banner v-if="locked" class="info-banner q-mb-lg">
     Importação preservada para recuperação. Após recarregar a página, selecione

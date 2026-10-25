@@ -72,6 +72,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/cadastro/importacao": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Importar base cadastral CSV */
+        post: operations["importarCadastro"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/fundos": {
         parameters: {
             query?: never;
@@ -365,6 +382,10 @@ export interface components {
             sha256: string | null;
             quantidade_cnpjs: number;
             importado_em: string | null;
+        };
+        /** @description Conteúdo UTF-8 do CSV DOC;SITUACAO_CADASTRAL, até 1 MiB. Publicação atômica; conteúdo idêntico preserva a versão. Não substitui uma base vinculada a lotes ainda recuperáveis. */
+        ImportarCadastroRequest: {
+            csv: string;
         };
         FundoDTO: {
             /** Format: uuid */
@@ -1052,6 +1073,109 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["BaseCadastralStatusResponse"];
+                };
+            };
+            /** @description Erro inesperado. */
+            500: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Infraestrutura indisponível; observar Retry-After quando presente. */
+            503: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+        };
+    };
+    importarCadastro: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description UUID por operação lógica; repetir em retry do mesmo conteúdo. Escopo método + caminho + chave; retenção durante toda a vida do lote (regras: mínima de 24h). */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ImportarCadastroRequest"];
+            };
+        };
+        responses: {
+            /** @description Sucesso. */
+            200: {
+                headers: {
+                    /** @description Identificador de correlação da requisição atual. */
+                    "X-Request-Id"?: string;
+                    /** @description true quando devolve o corpo/status originalmente persistidos. */
+                    "Idempotency-Replayed"?: boolean;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BaseCadastralStatusResponse"];
+                };
+            };
+            /** @description Conflito de estado, idempotência ou versão. */
+            409: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Limite de upload excedido. */
+            413: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Tipo de mídia não suportado. */
+            415: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
+                };
+            };
+            /** @description Falha de validação do contrato. */
+            422: {
+                headers: {
+                    "X-Request-Id"?: string;
+                    /** @description Segundos; somente quando retry automático for apropriado. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErroResponse"];
                 };
             };
             /** @description Erro inesperado. */
